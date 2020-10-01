@@ -11,8 +11,14 @@ import {
     MessageReciver,
     User,
     TimeStamp,
+    FormContainer,
+    Form,
+    Input,
+    Button,
 } from './styles';
-import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons'
+import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
+import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
+import MicIcon from '@material-ui/icons/Mic';
 
 function Chat() {
     const getTime = _ => {
@@ -50,6 +56,14 @@ function Chat() {
                     <TimeStamp>{getTime()}</TimeStamp>
                 </MessageReciver>
             </Content>
+            <FormContainer>
+                <InsertEmotionIcon />
+                <Form>
+                    <Input />
+                    <Button type="submit">Send a message</Button>
+                </Form>
+                <MicIcon />
+            </FormContainer>
         </Container>
     );
 }

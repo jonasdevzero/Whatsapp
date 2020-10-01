@@ -60,3 +60,33 @@ export const MessageReciver = styled(Message)`
         display: none;
     }
 `
+
+export const FormContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    border-top: 1px solid lightgray;
+
+    .MuiSvgIcon-root {
+        padding: 10px;
+        color: gray;
+    }
+`
+
+export const Form = styled.form`
+    display: flex;
+    flex: 1;
+`
+
+export const Input = styled.input`
+    flex: 1;
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+    outline: none;
+`
+
+export const Button = styled.button`
+    display: none;
+`
