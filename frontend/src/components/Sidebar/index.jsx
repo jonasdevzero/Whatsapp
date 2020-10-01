@@ -1,17 +1,15 @@
 import React from 'react';
 
+import Header from '../Header'
 import SidebarChat from '../SidebarChat'
 
-import { 
-    Container, 
-    Header, 
-    HeaderRight,
+import {
+    Container,
     Search,
-    SearchContainer, 
+    SearchContainer,
     SearchInput,
     Chats,
 } from './styles';
-import { Avatar, IconButton } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -21,18 +19,12 @@ function Sidebar() {
     return (
         <Container>
             <Header>
-                <Avatar src="https://avatars1.githubusercontent.com/u/71522380?s=460&u=493d15eafc9c9e67c5bc1ef807ce60e0c06ba938&v=4" />
-                <HeaderRight>
-                    <IconButton>
+                <Header.Avatar src="https://avatars1.githubusercontent.com/u/71522380?s=460&u=493d15eafc9c9e67c5bc1ef807ce60e0c06ba938&v=4" />
+                <Header.Right>
                         <DonutLargeIcon />
-                    </IconButton>
-                    <IconButton>
                         <ChatIcon />
-                    </IconButton>
-                    <IconButton>
                         <MoreVertIcon />
-                    </IconButton>
-                </HeaderRight>
+                </Header.Right>
             </Header>
             <Search>
                 <SearchContainer>

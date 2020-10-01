@@ -6,28 +6,6 @@ export const Container = styled.div`
     flex: .35;
 `;
 
-export const Header = styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    border-right: 1px solid lightgray;
-`;
-
-export const HeaderRight = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-width: 10vw;
-
-    .MuiSvgIcon-root {
-        font-size: 24px !important;
-    }
-
-    .MuiIconButton-root {
-        margin-right: 2vw;
-    }
-`;
-
 export const Search = styled.div`
     display: flex;
     align-items: center;
