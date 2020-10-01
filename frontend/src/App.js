@@ -1,11 +1,15 @@
 import React from 'react';
 
+import { Sidebar, Chat } from './components';
+
 function App() {
   return (
     <div className="app">
-      <h1>Whatsapp MERN</h1>
+      <Sidebar />
+      <Chat />
     </div>
+
   );
-}
+};
 
 export default App;
