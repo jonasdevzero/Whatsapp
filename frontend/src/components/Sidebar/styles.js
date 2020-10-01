@@ -20,8 +20,11 @@ export const HeaderRight = styled.div`
     min-width: 10vw;
 
     .MuiSvgIcon-root {
-        margin-right: 2vw;
         font-size: 24px !important;
+    }
+
+    .MuiIconButton-root {
+        margin-right: 2vw;
     }
 `;
 
