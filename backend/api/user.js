@@ -19,7 +19,7 @@ async function registerUser(req, res) {
 
         return res.send({ user });
     } catch (err) {
-        res.status(500).send({ error: 'Registration failed' });
+        return res.status(500).send({ error: 'Registration failed' });
     };
 };
 
@@ -35,9 +35,9 @@ async function authUser(req, res) {
         if (!bcrypt.compareSync(password, user.password))
             return res.status(400).send({ error: 'Invalid password' })
 
-        res.send({ user });
+        return res.send({ user });
     } catch (err) {
-        res.status(500).send({ error: 'Error on server' });
+        return res.status(500).send({ error: 'Error on server' });
     };
 };
 

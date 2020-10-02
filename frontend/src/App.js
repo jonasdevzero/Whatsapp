@@ -17,7 +17,7 @@ function App() {
   useEffect(_ => {
     const pusher = new Pusher('405beddf008e5ab04f57', {
       cluster: 'eu'
-    });
+    }, []);
 
     const channel = pusher.subscribe('messages');
     channel.bind('inserted', data => {

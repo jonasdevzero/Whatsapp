@@ -6,7 +6,7 @@ async function sendMessage(req, res) {
 
         return res.status(200).send({ message });
     } catch (err) {
-        res.status(500).send({ error: 'Error on server' });
+        return res.status(500).send({ error: 'Error on server' });
     };
 };
 
@@ -14,9 +14,9 @@ async function getMessages(req, res) {
     try {
         const messages = await Messages.find()
 
-        res.status(200).send({ messages });
+        return res.status(200).send({ messages });
     } catch (err) {
-        res.status(500).send({ error: 'Error on server' });
+        return res.status(500).send({ error: 'Error on server' });
     }
 }
 
