@@ -10,7 +10,7 @@ router.post(USER_API.REGISTER, registerUser);
 router.post(USER_API.AUTH, authUser);
 
 // Messages api routes
-const { sendMessage, getMessages } = require('../api/message');
+const { sendMessage, getMessages } = require('../api/messages');
 router.get(MESSAGES_API.GET, getMessages);
 router.post(MESSAGES_API.SEND, sendMessage);
 
