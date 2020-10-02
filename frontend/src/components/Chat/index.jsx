@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from '../../contants/axios';
 
 import Header from '../Header';
 
@@ -20,7 +21,9 @@ import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
 import MicIcon from '@material-ui/icons/Mic';
 
-function Chat() {
+function Chat({ messages }) {
+    const [inputMessage, setInputMessage] = useState('');
+
     const getTime = _ => {
         const hour = new Date().getHours()
         let minutes = new Date().getMinutes()
@@ -29,6 +32,19 @@ function Chat() {
 
         return `${hour}:${minutes} ${timer}`
     }
+
+    const sendMessage = async e => {
+        e.preventDefault();
+
+        await axios.post('/api/messages/new', {
+            message: inputMessage,
+            name: "Demo app",
+            timestamp: getTime(),
+            received: false
+        });
+
+        setInputMessage('')
+    };
 
     return (
         <Container>
@@ -45,22 +61,28 @@ function Chat() {
                 </Header.Right>
             </Header>
             <Content>
-                <Message>
-                    <User>Jonas</User>
-                    Hi devs!
-                    <TimeStamp>{getTime()}</TimeStamp>
-                </Message>
-                <MessageReciver>
-                    <User>Z</User>
-                        Hi devs!
-                    <TimeStamp>{getTime()}</TimeStamp>
-                </MessageReciver>
+                {messages.map(message => {
+                    return (
+                        message.received ?
+                        <MessageReciver>
+                            <User>{message.name}</User>
+                            {message.message}
+                            <TimeStamp>{message.timestamp}</TimeStamp>
+                        </MessageReciver>
+                        :
+                        <Message>
+                            <User>{message.name}</User>
+                            {message.message}
+                            <TimeStamp>{message.timestamp}</TimeStamp>
+                        </Message>
+                    )
+                })}
             </Content>
             <FormContainer>
                 <InsertEmotionIcon />
                 <Form>
-                    <Input />
-                    <Button type="submit">Send a message</Button>
+                    <Input value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
+                    <Button onClick={sendMessage} type="submit">Send a message</Button>
                 </Form>
                 <MicIcon />
             </FormContainer>
