@@ -13,9 +13,9 @@ const MessageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    received: {
-        type: Boolean,
-        requied: true,
+    room: {
+        type: String,
+        required: true,
     },
 });
 

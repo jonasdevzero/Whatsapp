@@ -2,7 +2,12 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 async function registerUser(req, res) {
-    const { username } = req.body;
+    const { username, password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) 
+        return res.send({ error: 'Different passwords' })
+
+    delete req.body.confirmPassword
 
     function encryptPassword(password) {
         const salt = bcrypt.genSaltSync(10);
