@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from '../contants/axios';
+
+import { UserContext } from '../context/userContext';
 
 import { Form } from '../components';
 
 function Signin() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(false);
+
+    const history = useHistory();
+    const { setUser } = useContext(UserContext);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -25,6 +31,8 @@ function Signin() {
             };
 
             localStorage.setItem('authUser', JSON.stringify(user));
+            setUser(user);
+            history.push('/chat');
         });
     };
 
