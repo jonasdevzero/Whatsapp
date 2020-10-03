@@ -24,6 +24,10 @@ export const Right = styled.div`
 `;
 
 export const Info = styled.div`
+    display: flex;
+    align-items: start;
+    flex-direction: column;
     flex: 1;
     padding-left: 20px;
+    overflow: hidden;
 `;

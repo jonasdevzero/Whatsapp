@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 export const RoomName = styled.h3`
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     font-weight: 500;
 `;
 
