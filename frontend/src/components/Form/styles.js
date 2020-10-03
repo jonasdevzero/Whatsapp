@@ -50,7 +50,7 @@ export const Submit = styled.button`
     cursor: pointer;
     width: 100%;
     font-weight: bold;
-    background-color: chartreuse;
+    background-color: #25d366;
 `;
 
 export const Text = styled.p`
