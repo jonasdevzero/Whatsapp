@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react';
 import Pusher from 'pusher-js';
 import axios from '../contants/axios';
 
-import { Sidebar, Chat as ChatComponent } from '../components'
+import { UserContext } from '../context/userContext';
+
+import { Sidebar, Chat as ChatComponent } from '../components';
 
 function Chat() {
+    const { user } = useContext(UserContext); 
     const [messages, setMessages] = useState([]);
+    const [room, setRoom] = useState('global');
 
     useEffect(_ => {
-      axios.get('/api/messages/get')
+      axios.post('/api/messages/get', { room })
         .then(resp => {
           setMessages(resp.data.messages);
         });
-    }, []);
+    }, [room]);
   
     useEffect(_ => {
       const pusher = new Pusher('405beddf008e5ab04f57', {
@@ -32,8 +36,8 @@ function Chat() {
 
     return (
         <>
-            <Sidebar />
-            <ChatComponent messages={messages} />
+            <Sidebar user={user} setRoom={setRoom} />
+            <ChatComponent user={user} messages={messages} room={room} />
         </>
     )
 }

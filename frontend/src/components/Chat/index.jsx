@@ -21,7 +21,7 @@ import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
 import MicIcon from '@material-ui/icons/Mic';
 
-function Chat({ messages }) {
+function Chat({ messages, user, room }) {
     const [inputMessage, setInputMessage] = useState('');
 
     const sendMessage = async e => {
@@ -29,8 +29,8 @@ function Chat({ messages }) {
 
         await axios.post('/api/messages/send', {
             message: inputMessage,
-            username: "admin",
-            received: false,
+            username: user.username,
+            room,
         });
 
         setInputMessage('')
@@ -41,8 +41,8 @@ function Chat({ messages }) {
             <Header borderBottom>
                 <Header.Avatar />
                 <Header.Info>
-                    <RoomName>Room Name</RoomName>
-                    <LastMessage>Last seen at...</LastMessage>
+                    <RoomName>{room}</RoomName>
+                    <LastMessage>{messages[messages.length - 1]?.message}</LastMessage>
                 </Header.Info>
                 <Header.Right>
                     <SearchOutlined />
@@ -53,17 +53,17 @@ function Chat({ messages }) {
             <Content>
                 {messages.map(message => {
                     return (
-                        message.received ?
-                        <MessageReciver key={`${message.username}-${message.timestamp}`}>
-                            {message.message}
-                            <TimeStamp>{message.timestamp}</TimeStamp>
-                        </MessageReciver>
-                        :
-                        <Message key={`${message.username}-${message.timestamp}`}>
-                            <User>{message.username}</User>
-                            {message.message}
-                            <TimeStamp>{message.timestamp}</TimeStamp>
-                        </Message>
+                        message.username === user.username ?
+                            <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                {message.message}
+                                <TimeStamp>{message.timestamp}</TimeStamp>
+                            </MessageReciver>
+                            :
+                            <Message key={`${message.username}-${message.timestamp}`}>
+                                <User>{message.username}</User>
+                                {message.message}
+                                <TimeStamp>{message.timestamp}</TimeStamp>
+                            </Message>
                     )
                 })}
             </Content>
