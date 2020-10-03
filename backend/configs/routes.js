@@ -5,7 +5,7 @@ router.get('/', (req, res) => res.send('Server Running'));
 
 // User api routes
 const { getUser, registerUser, authUser } = require('../api/user');
-router.get(USER_API.GET, getUser);
+router.post(USER_API.GET, getUser);
 router.post(USER_API.REGISTER, registerUser);
 router.post(USER_API.AUTH, authUser);
 

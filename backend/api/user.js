@@ -30,10 +30,12 @@ async function authUser(req, res) {
         const user = await User.findOne({ username }).select('+password');
 
         if (!user)
-            return res.status(400).send({ error: 'User not found' });
+            return res.send({ error: 'User not found' });
 
         if (!bcrypt.compareSync(password, user.password))
-            return res.status(400).send({ error: 'Invalid password' })
+            return res.send({ error: 'Invalid password' })
+
+        user.password = undefined;
 
         return res.send({ user });
     } catch (err) {
@@ -50,7 +52,7 @@ async function getUser(req, res) {
             return res.status(200).send({ users });
         }
 
-        const user = await User.find({ username })
+        const user = await User.findOne({ username })
          
         if (!user) 
             return res.status(400).send({ error: 'User not found' });
