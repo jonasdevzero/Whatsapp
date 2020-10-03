@@ -9,12 +9,19 @@ const USER_API = {
 
 const MESSAGES_API = {
     SEND: '/api/messages/send',
-    GET: '/api/messages/get'
+    GET: '/api/messages/get',
+};
+
+const ROOMS_API = {
+    GET: '/api/rooms/get',
+    CREATE: '/api/rooms/create',
+    DELETE: '/api/rooms/delete'
 };
 
 module.exports = {
     DOOR,
     DB_CONNECT,
     USER_API,
-    MESSAGES_API
+    MESSAGES_API,
+    ROOMS_API
 };

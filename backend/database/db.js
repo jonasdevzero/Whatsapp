@@ -26,15 +26,12 @@ db.once('open', () => {
     const changeStream = messages.watch();
 
     changeStream.on('change', change => {
-        console.log(change);
-
         if (change.operationType === 'insert') {
             const messageDetails = change.fullDocument;
             pusher.trigger('messages', 'inserted', {
-                name: messageDetails.name,
+                username: messageDetails.username,
                 message: messageDetails.message,
                 timestamp: messageDetails.timestamp,
-                received: messageDetails.received
             });
         } else {
             console.log('Error triggered Pusher');
