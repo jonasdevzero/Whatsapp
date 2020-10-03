@@ -24,23 +24,13 @@ import MicIcon from '@material-ui/icons/Mic';
 function Chat({ messages }) {
     const [inputMessage, setInputMessage] = useState('');
 
-    const getTime = _ => {
-        const hour = new Date().getHours()
-        let minutes = new Date().getMinutes()
-        minutes = minutes > 0 && minutes < 10 ? `0${minutes}` : minutes
-        const timer = hour >= 12 && hour < 24 ? 'PM' : 'AM'
-
-        return `${hour}:${minutes} ${timer}`
-    }
-
     const sendMessage = async e => {
         e.preventDefault();
 
-        await axios.post('/api/messages/new', {
+        await axios.post('/api/messages/send', {
             message: inputMessage,
-            name: "Demo app",
-            timestamp: getTime(),
-            received: false
+            username: "admin",
+            received: false,
         });
 
         setInputMessage('')
@@ -64,14 +54,13 @@ function Chat({ messages }) {
                 {messages.map(message => {
                     return (
                         message.received ?
-                        <MessageReciver>
-                            <User>{message.name}</User>
+                        <MessageReciver key={`${message.username}-${message.timestamp}`}>
                             {message.message}
                             <TimeStamp>{message.timestamp}</TimeStamp>
                         </MessageReciver>
                         :
-                        <Message>
-                            <User>{message.name}</User>
+                        <Message key={`${message.username}-${message.timestamp}`}>
+                            <User>{message.username}</User>
                             {message.message}
                             <TimeStamp>{message.timestamp}</TimeStamp>
                         </Message>
