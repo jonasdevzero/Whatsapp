@@ -47,7 +47,7 @@ function Chat() {
 
   return (
     <>
-      <Sidebar user={user} setUser={setUser} setRoom={setRoom} rooms={rooms} />
+      <Sidebar user={user} setUser={setUser} setRoom={setRoom} rooms={rooms} setRooms={setRooms} />
       <ChatComponent user={user} messages={messages} room={room} rooms={rooms} />
     </>
   )

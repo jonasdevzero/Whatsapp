@@ -17,9 +17,9 @@ async function createRoom(req, res) {
         return res.status(400).send({ error:  'Choose a name' });
 
     try {
-        Rooms.create(req.body);
+        const newRoom = await Rooms.create(req.body);
 
-        return res.status(200).send({ name });
+        return res.status(200).send({ newRoom });
     } catch (err) {
         return res.status(500).send({ error: 'Error on server' });
     };

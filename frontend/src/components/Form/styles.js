@@ -34,17 +34,17 @@ export const FormGroup = styled.form`
 `;
 
 export const Input = styled.input`
-    padding: 20px 0px;
-    margin: 10px 0px;
+    padding: ${({ padding }) => padding ? padding : '20px 0px'};
+    margin: ${({ margin }) => margin ? margin : '10px 0px'};
     border: none;
     outline: none;
     width: 100%;
-    background-color: #ededed;
+    background-color: ${({ bg }) => bg ? bg : '#ededed'} ;
 `;
 
 export const Submit = styled.button`
     padding: 20px;
-    margin-top: 15px;
+    margin: ${({ margin }) => margin ? margin : '15px 0'};
     border: none;
     outline: none;
     cursor: pointer;

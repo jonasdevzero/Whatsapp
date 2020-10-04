@@ -44,3 +44,14 @@ export const Chats = styled.div`
         width: 0px;
     }
 `;
+
+export const NewChat = styled.button`
+    margin: 0 10px;
+    font-weight: bold;
+    font-size: 22px;
+    color: lightgray;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+`;
