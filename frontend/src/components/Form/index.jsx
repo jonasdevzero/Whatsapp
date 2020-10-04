@@ -25,11 +25,11 @@ Form.Inner = function FormInner({ children, ...props }) {
 Form.Title = function FormTitle({ children, ...props }) {
     return <Title {...props}>
         {children}
-        <Icon 
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+        <Icon
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
             alt="Whatsapp"
         />
-        </Title>
+    </Title>
 };
 
 Form.Container = function FormContainer({ children, ...props }) {

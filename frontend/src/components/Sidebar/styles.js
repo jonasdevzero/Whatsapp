@@ -42,6 +42,7 @@ export const SearchInput = styled.input`
     overflow: hidden;
 `;
 
+
 export const Chats = styled.div`
     flex: 1;
     background-color: #fff;

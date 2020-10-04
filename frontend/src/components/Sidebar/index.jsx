@@ -73,7 +73,7 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                 <Form onSubmit={createRoom}>
                     <Form.Input
                         padding="15px 5px"
-                        margin="1px 0"
+                        margin="3px 0"
                         bg="#fff"
                         placeholder="name room"
                         value={name}
@@ -81,14 +81,20 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                     />
                     <Form.Input
                         padding="15px 5px"
-                        margin="1px 0"
+                        margin="3px 0"
                         bg="#fff"
                         placeholder="image Url (optional)"
                         value={image}
                         onChange={e =>
                             setImage(e.target.value)}
                     />
-                    <Form.Submit margin={'3px 0 15px 0'} type="submit">Create Room</Form.Submit>
+                    <Form.Submit 
+                        margin='8px 0 15px 0'
+                        width='93%'
+                        type="submit"
+                    >
+                        Create Room
+                    </Form.Submit>
                 </Form>
                 :
                 null

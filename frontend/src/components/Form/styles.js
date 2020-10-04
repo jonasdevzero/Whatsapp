@@ -39,6 +39,7 @@ export const FormGroup = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #f6f6f6;
 `;
 
 export const Input = styled.input`
@@ -46,12 +47,8 @@ export const Input = styled.input`
     margin: ${({ margin }) => margin ? margin : '8px 2px'};
     border: none;
     outline: none;
-    width: 100%;
-    background-color: ${({ bg }) => bg ? bg : '#ededed'} ;
-
-    @media (max-width: 500px) {
-        width: 70%;
-    }
+    width: 90%;
+    background-color: ${({ bg }) => bg ? bg : '#ededed'};
 `;
 
 export const Submit = styled.button`
@@ -60,13 +57,9 @@ export const Submit = styled.button`
     border: none;
     outline: none;
     cursor: pointer;
-    width: 100%;
+    width: ${({ width }) => width ? width : '100%'};
     font-weight: bold;
     background-color: #25d366;
-
-    @media (max-width: 500px) {
-        width: 70%;
-    }
 `;
 
 export const Text = styled.p`
