@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 async function registerUser(req, res) {
     const { username, password, confirmPassword } = req.body;
 
-    if (password !== confirmPassword) 
+    if (password !== confirmPassword)
         return res.send({ error: 'Different passwords' })
 
     delete req.body.confirmPassword
@@ -58,8 +58,8 @@ async function getUser(req, res) {
         }
 
         const user = await User.findOne({ username })
-         
-        if (!user) 
+
+        if (!user)
             return res.status(400).send({ error: 'User not found' });
 
         return res.status(200).send({ user });
@@ -68,8 +68,30 @@ async function getUser(req, res) {
     };
 };
 
+async function updateUser(req, res) {
+    const { username } = req.body;
+    delete req.body.username
+
+    if (!username) 
+        return res.send({ error: 'Username undefined' })
+
+    try {
+        const user = await User.findOne({ username })
+        
+        if (!user)
+            return res.send({ error: 'Username not exists' })
+
+        const userUpdated = await User.findOneAndUpdate({ username }, req.body, { new: true })
+
+        return res.status(200).send({ userUpdated })
+    } catch (err) {
+        return res.status(500).send({ error: 'Error on server' })
+    };
+}
+
 module.exports = {
     registerUser,
     authUser,
-    getUser
+    getUser,
+    updateUser
 };
