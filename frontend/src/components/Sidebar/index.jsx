@@ -50,7 +50,7 @@ function Sidebar({ user, setUser, setRoom, rooms }) {
             </Search>
             <Chats>
                 {rooms.map(room => (
-                    <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room.name)} />
+                    <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
                 ))}
             </Chats>
         </Container>

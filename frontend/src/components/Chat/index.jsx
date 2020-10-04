@@ -21,7 +21,7 @@ import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
 import MicIcon from '@material-ui/icons/Mic';
 
-function Chat({ messages, user, room, rooms }) {
+function Chat({ messages, user, room }) {
     const [inputMessage, setInputMessage] = useState('');
 
     const sendMessage = async e => {
@@ -30,26 +30,18 @@ function Chat({ messages, user, room, rooms }) {
         await axios.post('/api/messages/send', {
             message: inputMessage,
             username: user.username,
-            room: room,
-        });
-    };
-
-    function getCurrentRoom(rooms, roomName) {
-        const currentRoom = rooms.filter(room => {
-            if (room.name === roomName) return room
-
-            return null
+            room_id: room._id,
         })
 
-        return currentRoom[0]
+        setInputMessage('');
     };
 
     return (
         <Container>
             <Header borderBottom>
-                <Header.Picture src={getCurrentRoom(rooms, room)?.image}/>
+                <Header.Picture src={room?.image}/>
                 <Header.Info>
-                    <RoomName>{room}</RoomName>
+                    <RoomName>{room?.name}</RoomName>
                     <LastMessage>{messages[messages.length - 1]?.message}</LastMessage>
                 </Header.Info>
                 <Header.Right>
@@ -61,7 +53,7 @@ function Chat({ messages, user, room, rooms }) {
             <Content>
                 {messages.map(message => {
                     return (
-                        message.room === room ?
+                        message.room_id ===  room._id ?
                             message.username === user.username ?
                                 <MessageReciver key={`${message.username}-${message.timestamp}`}>
                                     {message.message}

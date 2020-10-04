@@ -9,21 +9,24 @@ import { Sidebar, Chat as ChatComponent } from '../components';
 function Chat() {
   const { user, setUser } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
-  const [room, setRoom] = useState('global');
+  const [room, setRoom] = useState({});
   const [rooms, setRooms] = useState([]);
 
   useEffect(_ => {
     axios.get('/api/rooms/get')
       .then(resp => {
+        setRoom(resp.data[0])
         setRooms(resp.data)
       })
   }, []);
 
   useEffect(_ => {
-    axios.post('/api/messages/get', { room })
-      .then(resp => {
-        setMessages(resp.data.messages);
-      });
+    if (room._id) {
+      axios.post('/api/messages/get', { room_id: room._id })
+        .then(resp => {
+          setMessages(resp.data.messages);
+        });
+    }
   }, [room]);
 
   useEffect(_ => {

@@ -56,8 +56,8 @@ function Signup() {
                         <Form.Input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
                         <Form.Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
                         <Form.Input type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirm password" required />
-                        <Form.Input type="url" value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="Image URL" />
-                        <Form.Submit type="submit">Submit</Form.Submit>
+                        <Form.Input type="url" value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="Image URL (optional)" />
+                        <Form.Submit type="submit">Sign up</Form.Submit>
                     </Form>
                     <Form.Text>Already user? <Form.Link to="/signin">Sign In</Form.Link></Form.Text>
                 </Form.Inner>

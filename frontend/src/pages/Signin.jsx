@@ -45,7 +45,7 @@ function Signin() {
                     <Form onSubmit={handleSubmit} method="POST">
                         <Form.Input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
                         <Form.Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
-                        <Form.Submit type="submit">Submit</Form.Submit>
+                        <Form.Submit type="submit">Sign in</Form.Submit>
                     </Form>
                     <Form.Text>New? <Form.Link to="/signup">Sign Up</Form.Link></Form.Text>
                 </Form.Inner>
