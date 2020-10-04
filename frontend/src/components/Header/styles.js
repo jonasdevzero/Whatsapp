@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro';
+import { Avatar } from '@material-ui/core';
 
 export const Container = styled.div`
     display: flex;
@@ -31,3 +32,43 @@ export const Info = styled.div`
     padding-left: 20px;
     overflow: hidden;
 `;
+
+export const Dropdown = styled.div`
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 15px 10px;
+    top: 38px;
+    left: 10px;
+    width: 100px;
+
+    &:hover {
+        display: flex;
+        flex-direction: column;
+    }
+`
+
+export const Picture = styled(Avatar)`
+    cursor: pointer;
+`
+
+export const Profile = styled.div`
+    position: relative;
+
+    button {
+        cursor: pointer;
+    }
+
+    &:hover > ${Dropdown} {
+        display: flex;
+        flex-direction: column;
+    }
+`
+
+export const Signout = styled.a`
+    cursor: pointer;
+
+    &:hover {
+        font-weight: bold; 
+    }
+`

@@ -7,12 +7,12 @@ import {
 } from './styles';
 import { Avatar } from '@material-ui/core';
 
-function SidebarChat({ name, ...props }) {
+function SidebarChat({ room, ...props }) {
     return (
         <Container {...props}>
-            <Avatar />
+            <Avatar src={room?.image} />
             <SidebarChatInfo>
-                <RoomName>{name}</RoomName>
+                <RoomName>{room.name}</RoomName>
             </SidebarChatInfo>
         </Container>
     );

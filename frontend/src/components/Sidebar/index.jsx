@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom'; 
 
 import Header from '../Header'
 import SidebarChat from '../SidebarChat'
@@ -15,11 +16,26 @@ import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function Sidebar({ user, setRoom, rooms }) {
+function Sidebar({ user, setUser, setRoom, rooms }) {
+    const history = useHistory();
+
+    function Signout(e) {
+        e.preventDefault();
+
+        localStorage.removeItem('authUser');
+        setUser(undefined);
+        history.push('/');
+    };
+
     return (
         <Container>
             <Header>
-                <Header.Avatar src={user?.imageUrl} />
+                <Header.Profile>
+                    <Header.Picture src={user?.imageUrl} />
+                    <Header.Dropdown>
+                        <Header.Signout onClick={Signout}>Sign out</Header.Signout>
+                </Header.Dropdown>
+                </Header.Profile>
                 <Header.Right>
                     <DonutLargeIcon />
                     <ChatIcon />
@@ -34,7 +50,7 @@ function Sidebar({ user, setRoom, rooms }) {
             </Search>
             <Chats>
                 {rooms.map(room => (
-                    <SidebarChat key={room._id} name={room.name} onClick={e => setRoom(room.name)} />
+                    <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room.name)} />
                 ))}
             </Chats>
         </Container>

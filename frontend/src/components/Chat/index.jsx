@@ -21,7 +21,7 @@ import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
 import MicIcon from '@material-ui/icons/Mic';
 
-function Chat({ messages, user, room }) {
+function Chat({ messages, user, room, rooms }) {
     const [inputMessage, setInputMessage] = useState('');
 
     const sendMessage = async e => {
@@ -32,14 +32,22 @@ function Chat({ messages, user, room }) {
             username: user.username,
             room: room,
         });
+    };
 
-        setInputMessage('')
+    function getCurrentRoom(rooms, roomName) {
+        const currentRoom = rooms.filter(room => {
+            if (room.name === roomName) return room
+
+            return null
+        })
+
+        return currentRoom[0]
     };
 
     return (
         <Container>
             <Header borderBottom>
-                <Header.Avatar />
+                <Header.Picture src={getCurrentRoom(rooms, room)?.image}/>
                 <Header.Info>
                     <RoomName>{room}</RoomName>
                     <LastMessage>{messages[messages.length - 1]?.message}</LastMessage>

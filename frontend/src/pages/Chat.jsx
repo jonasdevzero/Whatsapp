@@ -7,7 +7,7 @@ import { UserContext } from '../context/userContext';
 import { Sidebar, Chat as ChatComponent } from '../components';
 
 function Chat() {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('global');
   const [rooms, setRooms] = useState([]);
@@ -44,8 +44,8 @@ function Chat() {
 
   return (
     <>
-      <Sidebar user={user} setRoom={setRoom} rooms={rooms} />
-      <ChatComponent user={user} messages={messages} room={room} />
+      <Sidebar user={user} setUser={setUser} setRoom={setRoom} rooms={rooms} />
+      <ChatComponent user={user} messages={messages} room={room} rooms={rooms} />
     </>
   )
 }
