@@ -66,8 +66,8 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                 <SearchContainer>
                     <SearchOutlined />
                     <SearchInput placeholder="Search or start new chat" type="text" />
+                    <NewChat onClick={_ => setShowForm(!showForm)}>{showForm ? 'x' : '+'}</NewChat>
                 </SearchContainer>
-                <NewChat onClick={_ => setShowForm(!showForm)}>{showForm ? 'x' : '+'}</NewChat>
             </Search>
             {showForm ?
                 <Form onSubmit={createRoom}>

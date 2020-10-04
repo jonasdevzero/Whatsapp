@@ -12,14 +12,20 @@ export const Container = styled.div`
 export const Inner = styled.div`
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 500px;
     max-width: 100%;
+
+    @media (max-width: 500px) {
+        width: 100%;
+    }
 `;
 
 export const Title = styled.h1`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
     font-weight: 600;
-    text-align: center;
     margin: 80px 0px 40px 0px;
 
 
@@ -31,15 +37,21 @@ export const Title = styled.h1`
 export const FormGroup = styled.form`
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const Input = styled.input`
     padding: ${({ padding }) => padding ? padding : '20px 0px'};
-    margin: ${({ margin }) => margin ? margin : '10px 0px'};
+    margin: ${({ margin }) => margin ? margin : '8px 2px'};
     border: none;
     outline: none;
     width: 100%;
     background-color: ${({ bg }) => bg ? bg : '#ededed'} ;
+
+    @media (max-width: 500px) {
+        width: 70%;
+    }
 `;
 
 export const Submit = styled.button`
@@ -51,13 +63,21 @@ export const Submit = styled.button`
     width: 100%;
     font-weight: bold;
     background-color: #25d366;
+
+    @media (max-width: 500px) {
+        width: 70%;
+    }
 `;
 
 export const Text = styled.p`
     color: #000;
     margin: 0;
-    margin-top: 30px;
-` 
+    margin: 30px 0 70px 0;
+
+    @media (max-width: 500px) {
+        margin-left: 16%;
+    }
+`
 
 export const Link = styled(ReactRouterLink)`
     text-decoration: none;
@@ -77,3 +97,20 @@ export const Error = styled.div`
     border-radius: 2px;
     color: #fff;
 `
+
+export const Group = styled.div`
+    display: flex;
+    width: 100%;
+
+    @media (max-width: 550px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+`
+
+export const Icon = styled.img`
+    width: 50px;
+    height: 50px;
+    margin-left: 15px;
+` 

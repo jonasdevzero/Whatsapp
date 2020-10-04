@@ -5,11 +5,13 @@ import {
     Inner,
     Title,
     FormGroup,
+    Group,
     Input,
     Submit,
     Text,
     Link,
-    Error
+    Error,
+    Icon
 } from './styles';
 
 function Form({ children, ...props }) {
@@ -21,12 +23,22 @@ Form.Inner = function FormInner({ children, ...props }) {
 };
 
 Form.Title = function FormTitle({ children, ...props }) {
-    return <Title {...props}>{children}</Title>
+    return <Title {...props}>
+        {children}
+        <Icon 
+            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+            alt="Whatsapp"
+        />
+        </Title>
 };
 
 Form.Container = function FormContainer({ children, ...props }) {
     return <Container {...props}>{children}</Container>
 };
+
+Form.Group = function FormGroup({ children, ...props }) {
+    return <Group {...props}>{children}</Group>
+}
 
 Form.Input = function FormInput({ ...props }) {
     return <Input {...props} />

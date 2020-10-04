@@ -26,6 +26,12 @@ export const SearchContainer = styled.div`
         color: gray;
         padding: 10px;
     }
+
+    @media (max-width: 500px) {
+        .MuiSvgIcon-root {
+            display: none !important;
+        }
+    }
 `;
 
 export const SearchInput = styled.input`
@@ -33,6 +39,7 @@ export const SearchInput = styled.input`
     outline: none;
     margin-left: 10px;
     flex-grow: 1;
+    overflow: hidden;
 `;
 
 export const Chats = styled.div`
@@ -46,7 +53,7 @@ export const Chats = styled.div`
 `;
 
 export const NewChat = styled.button`
-    margin: 0 10px;
+    padding: 0 10px;
     font-weight: bold;
     font-size: 22px;
     color: lightgray;
