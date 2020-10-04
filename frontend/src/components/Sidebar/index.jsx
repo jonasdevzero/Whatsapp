@@ -15,15 +15,15 @@ import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function Sidebar() {
+function Sidebar({ user, setRoom, rooms }) {
     return (
         <Container>
             <Header>
-                <Header.Avatar src="https://avatars1.githubusercontent.com/u/71522380?s=460&u=493d15eafc9c9e67c5bc1ef807ce60e0c06ba938&v=4" />
+                <Header.Avatar src={user?.imageUrl} />
                 <Header.Right>
-                        <DonutLargeIcon />
-                        <ChatIcon />
-                        <MoreVertIcon />
+                    <DonutLargeIcon />
+                    <ChatIcon />
+                    <MoreVertIcon />
                 </Header.Right>
             </Header>
             <Search>
@@ -33,9 +33,9 @@ function Sidebar() {
                 </SearchContainer>
             </Search>
             <Chats>
-                <SidebarChat />
-                <SidebarChat />
-                <SidebarChat />
+                {rooms.map(room => (
+                    <SidebarChat key={room._id} name={room.name} onClick={e => setRoom(room.name)} />
+                ))}
             </Chats>
         </Container>
     );

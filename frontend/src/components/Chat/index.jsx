@@ -30,7 +30,7 @@ function Chat({ messages, user, room }) {
         await axios.post('/api/messages/send', {
             message: inputMessage,
             username: user.username,
-            room,
+            room: room,
         });
 
         setInputMessage('')
@@ -53,17 +53,20 @@ function Chat({ messages, user, room }) {
             <Content>
                 {messages.map(message => {
                     return (
-                        message.username === user.username ?
-                            <MessageReciver key={`${message.username}-${message.timestamp}`}>
-                                {message.message}
-                                <TimeStamp>{message.timestamp}</TimeStamp>
-                            </MessageReciver>
+                        message.room === room ?
+                            message.username === user.username ?
+                                <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                    {message.message}
+                                    <TimeStamp>{message.timestamp}</TimeStamp>
+                                </MessageReciver>
+                                :
+                                <Message key={`${message.username}-${message.timestamp}`}>
+                                    <User>{message.username}</User>
+                                    {message.message}
+                                    <TimeStamp>{message.timestamp}</TimeStamp>
+                                </Message>
                             :
-                            <Message key={`${message.username}-${message.timestamp}`}>
-                                <User>{message.username}</User>
-                                {message.message}
-                                <TimeStamp>{message.timestamp}</TimeStamp>
-                            </Message>
+                            null
                     )
                 })}
             </Content>

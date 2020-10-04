@@ -1,20 +1,18 @@
 import React from 'react';
 
-import { 
+import {
     Container,
     SidebarChatInfo,
     RoomName,
-    LastMessage,
 } from './styles';
 import { Avatar } from '@material-ui/core';
 
-function SidebarChat() {
+function SidebarChat({ name, ...props }) {
     return (
-        <Container>
+        <Container {...props}>
             <Avatar />
             <SidebarChatInfo>
-                <RoomName>Room name</RoomName>
-                <LastMessage>Yoooo</LastMessage>
+                <RoomName>{name}</RoomName>
             </SidebarChatInfo>
         </Container>
     );

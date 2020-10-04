@@ -19,7 +19,3 @@ export const RoomName = styled.h2`
     font-size: 16px;
     margin-bottom: 8px;
 `;
-
-export const LastMessage = styled.p`
-
-`;
