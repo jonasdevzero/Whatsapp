@@ -7,6 +7,7 @@ export const Container = styled.div`
     padding: 20px;
     border-right: ${({ borderBottom }) => borderBottom ? 'none' : '1px solid lightgray'};
     border-bottom: ${({ borderBottom }) => borderBottom && '1px solid lightgray'};
+    position: relative;
 `;
 
 export const Right = styled.div`
@@ -36,7 +37,7 @@ export const Info = styled.div`
 export const Dropdown = styled.div`
     display: none;
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: #fff;
     padding: 15px 10px;
     top: 38px;
     left: 10px;

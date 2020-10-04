@@ -14,6 +14,7 @@ import {
     Chats,
     NewChat
 } from './styles';
+import { IconButton } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
@@ -57,9 +58,15 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                     </Header.Dropdown>
                 </Header.Profile>
                 <Header.Right>
-                    <DonutLargeIcon />
-                    <ChatIcon />
-                    <MoreVertIcon />
+                    <IconButton>
+                        <DonutLargeIcon />
+                    </IconButton>
+                    <IconButton>
+                        <ChatIcon />
+                    </IconButton>
+                    <IconButton>
+                        <MoreVertIcon />
+                    </IconButton>
                 </Header.Right>
             </Header>
             <Search>
@@ -88,7 +95,7 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                         onChange={e =>
                             setImage(e.target.value)}
                     />
-                    <Form.Submit 
+                    <Form.Submit
                         margin='8px 0 15px 0'
                         width='93%'
                         type="submit"
