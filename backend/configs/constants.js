@@ -5,6 +5,7 @@ const USER_API = {
     GET: '/api/user/get',
     REGISTER: '/api/user/register',
     AUTH: '/api/user/auth',
+    UPDATE: '/api/user/update',
 };
 
 const MESSAGES_API = {
@@ -15,7 +16,8 @@ const MESSAGES_API = {
 const ROOMS_API = {
     GET: '/api/rooms/get',
     CREATE: '/api/rooms/create',
-    DELETE: '/api/rooms/delete'
+    DELETE: '/api/rooms/delete',
+    UPDATE: '/api/rooms/update',
 };
 
 module.exports = {

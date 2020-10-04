@@ -37,8 +37,21 @@ async function deleteRoom(req, res) {
     };
 };
 
+async function updateRoom(req, res) {
+    const { _id } = req.body; 
+    delete req.body._id
+
+    try {
+        const roomUpdated = await Rooms.findOneAndUpdate({ _id: _id }, req.body, { new: true })
+        return res.status(200).send({ roomUpdated })
+    } catch (err) {
+        return res.status(500).send({ error: 'Error on server' })
+    };
+};
+
 module.exports = {
     getRooms,
     createRoom,
-    deleteRoom
+    deleteRoom,
+    updateRoom
 };
