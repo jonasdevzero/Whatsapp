@@ -13,7 +13,7 @@ const MessageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    room: {
+    room_id: {
         type: String,
         required: true,
     },
