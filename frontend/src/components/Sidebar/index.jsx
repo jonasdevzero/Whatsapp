@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from '../../contants/axios';
+import Fuse from 'fuse.js'
 
 import { Header, SidebarChat, Dropdown, Dropside } from '../';
 
@@ -36,8 +37,23 @@ function Sidebar({
     const [imageUrl, setImageUrl] = useState(user.imageUrl);
     const [roomName, setRoomName] = useState('');
     const [roomImage, setRoomImage] = useState('');
+    const [search, setSearch] = useState('');
+    const [searchResults, setSearchResults] = useState([])
 
     const history = useHistory();
+
+    useEffect(_ => {
+        const fuse = new Fuse(rooms, { keys: ['name'] })
+
+        const results = fuse.search(search).map(({ item }) => item)
+
+        if (rooms.length > 0 && search.length > 0 && results.length > 0) {
+            setSearchResults(results);
+        } else {
+            setSearchResults([])
+        }
+
+    }, [search]);
 
     function signOut(e) {
         e.preventDefault();
@@ -119,7 +135,7 @@ function Sidebar({
                     <Dropside.Submit>Create</Dropside.Submit>
                 </Dropside.Form>
             </Dropside>
-                
+
             <Container onClick={_ => resetState()}>
                 <Header padding="0">
                     <IconButton onClick={_ => setProfile(true)}>
@@ -148,13 +164,20 @@ function Sidebar({
                 <Search>
                     <SearchContainer>
                         <SearchOutlined />
-                        <SearchInput placeholder="Search or start new chat" type="text" />
+                        <SearchInput value={search} onChange={e => setSearch(e.target.value)} placeholder="Search or start new chat" type="text" />
                     </SearchContainer>
                 </Search>
                 <Chats>
-                    {rooms.map(room => (
-                        <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
-                    ))}
+                    {
+                        searchResults.length > 0 ?
+                            searchResults.map(room => (
+                                <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
+                            ))
+                            :
+                            rooms.map(room => (
+                                <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
+                            ))
+                    }
                 </Chats>
             </Container>
         </>

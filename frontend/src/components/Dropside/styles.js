@@ -122,3 +122,11 @@ export const SearchInput = styled.input`
     background: none;
     flex: 1;
 `
+
+export const MessagesContainer = styled.div`
+    overflow: scroll;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+` 

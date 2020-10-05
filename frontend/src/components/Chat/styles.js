@@ -34,7 +34,7 @@ export const Message = styled.p`
     width: fit-content;
     border-radius: 10px;
     background-color: #fff;
-    margin-bottom: 30px;
+    margin: 10px 0px 25px 5px; 
 
 
 `;
@@ -54,6 +54,7 @@ export const TimeStamp = styled.span`
 
 export const MessageReciver = styled(Message)`
     background-color: #dcf8c6;
+    margin: 10px 5px 25px 0px; 
     margin-left: auto;
     padding: 10px;
 

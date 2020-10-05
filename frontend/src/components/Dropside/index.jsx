@@ -14,6 +14,7 @@ import {
     Picture,
     Search,
     SearchInput,
+    MessagesContainer,
 } from './styles';
 
 function Dropside({ children, ...props }) {
@@ -68,5 +69,8 @@ Dropside.SearchInput = function DropsideSearchInput({ children, ...props }) {
     return <SearchInput {...props}>{children}</SearchInput>
 }
 
+Dropside.MessagesContainer = function DropsideMessagesContainer({ children, ...props }) {
+    return <MessagesContainer {...props}>{children}</MessagesContainer>
+}
 
 export default Dropside;

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from '../../contants/axios';
+import Fuse from 'fuse.js';
 
 import { Header, Dropdown, Dropside } from '../'
 
@@ -36,7 +37,22 @@ function Chat({
 }) {
     const [inputMessage, setInputMessage] = useState('');
     const [warning, setWarning] = useState(false);
+    const [search, setSearch] = useState('');
     const [searchContainer, setSearchContainer] = useState(false);
+    const [searchResults, setSearchResults] = useState([])
+
+    useEffect(_ => {
+        const fuse = new Fuse(messages, { keys: ['message'], })
+
+        const results = fuse.search(search).map(({ item }) => item)
+
+        if (messages.length > 0 && search.length > 0 && results.length > 0) {
+            setSearchResults(results);
+        } else {
+            setSearchResults([])
+        }
+
+    }, [search]);
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -79,7 +95,7 @@ function Chat({
                         <LastMessage>
                             {messages[messages.length - 1]?.room_id === room._id ?
                                 messages[messages.length - 1]?.message
-                                : 
+                                :
                                 null
                             }
                         </LastMessage>
@@ -142,9 +158,26 @@ function Chat({
                     <Dropside.Form bb>
                         <Dropside.Search>
                             <SearchOutlined />
-                            <Dropside.SearchInput placeholder="Search..." />
+                            <Dropside.SearchInput value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." />
                         </Dropside.Search>
                     </Dropside.Form>
+                    <Dropside.MessagesContainer>
+                        {searchResults?.map(message => {
+                            return (
+                                message.username === user.username ?
+                                    <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                        {message.message}
+                                        <TimeStamp>{message.timestamp}</TimeStamp>
+                                    </MessageReciver>
+                                    :
+                                    <Message key={`${message.username}-${message.timestamp}`}>
+                                        <User>{message.username}</User>
+                                        {message.message}
+                                        <TimeStamp>{message.timestamp}</TimeStamp>
+                                    </Message>
+                            )
+                        })}
+                    </Dropside.MessagesContainer>
                 </Dropside>
                 :
                 null
