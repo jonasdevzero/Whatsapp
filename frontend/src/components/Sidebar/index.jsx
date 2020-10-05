@@ -47,7 +47,7 @@ function Sidebar({
         history.push('/');
     };
 
-    async function handleSubmit(e) {
+    async function updateUser(e) {
         e.preventDefault();
 
         await axios.post('/api/user/update', { username: user.username, name, imageUrl })
@@ -55,6 +55,7 @@ function Sidebar({
                 localStorage.setItem('authUser', JSON.stringify(resp.data.userUpdated))
                 setUser(resp.data.userUpdated)
             })
+        setProfile(false);
     };
 
     async function createRoom(e) {
@@ -75,7 +76,7 @@ function Sidebar({
 
     return (
         <>
-            <Dropside profile={profile}>
+            <Dropside profile={profile ? ' ' : ''}>
 
                 <Dropside.TitleContainer>
                     <Dropside.Title>
@@ -88,7 +89,7 @@ function Sidebar({
                     <Dropside.Picture src={user?.imageUrl} />
                 </Dropside.PictureContainer>
 
-                <Dropside.Form onSubmit={handleSubmit}>
+                <Dropside.Form onSubmit={updateUser}>
                     <Dropside.Label>Your name</Dropside.Label>
                     <Dropside.Input value={name} onChange={e => setName(e.target.value)} />
 

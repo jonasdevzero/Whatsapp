@@ -26,6 +26,9 @@ db.once('open', () => {
     const messages = db.collection('messages');
     const changeStream = messages.watch();
 
+    const rooms = db.collection('rooms');
+    const roomsStream = rooms.watch();
+
     changeStream.on('change', change => {
         if (change.operationType === 'insert') {
             const messageDetails = change.fullDocument;
@@ -39,6 +42,24 @@ db.once('open', () => {
             console.log('Error triggered Pusher');
         }
     });
+
+    roomsStream.on('change', change => {
+        console.log(change)
+        if (change.operationType === 'insert') {
+            const messageDetails = change.fullDocument;
+            pusher.trigger('rooms', 'inserted', {
+                _id: messageDetails._id,
+                name: messageDetails.name,
+                image: messageDetails.image
+            });
+        } else if (change.operationType = 'delete') {
+            pusher.trigger('rooms', 'deleted', {
+                _id: change.documentKey._id
+            })
+        } else {
+            console.log('Error triggered Pusher');
+        }
+    })
 });
 
 module.exports = mongoose

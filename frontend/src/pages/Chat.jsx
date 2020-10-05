@@ -47,6 +47,34 @@ function Chat() {
     }
   }, [messages]);
 
+  useEffect(_ => {
+    const pusher = new Pusher('405beddf008e5ab04f57', {
+      cluster: 'eu'
+    });
+
+    const roomChannel = pusher.subscribe('rooms');
+    roomChannel.bind('inserted', data => {
+      setRooms([...rooms, data]);
+    });
+    roomChannel.bind('deleted', data => {
+      const currentRooms = rooms.filter(room => {
+        if (room._id !== data._id) {
+          return room
+        } 
+
+        return null
+      })
+      setRooms(currentRooms)
+      if (data._id === room._id) 
+        return setRoom(rooms[0])
+    })
+
+    return () => {
+      roomChannel.unbind_all();
+      roomChannel.unsubscribe();
+    }
+  }, [rooms, room._id]);
+
   function resetState() {
     if (showDropdown || showDropdown2) {
       setShowDropdown(false)
