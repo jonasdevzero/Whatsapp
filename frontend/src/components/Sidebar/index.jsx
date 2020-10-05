@@ -74,8 +74,8 @@ function Sidebar({
     }
 
     return (
-        profile ?
-            <Dropside>
+        <>
+            <Dropside profile={profile}>
 
                 <Dropside.TitleContainer>
                     <Dropside.Title>
@@ -99,64 +99,64 @@ function Sidebar({
                 </Dropside.Form>
 
             </Dropside>
-            :
-            newRoom ?
-                <Dropside>
-                    <Dropside.TitleContainer>
-                        <Dropside.Title>
-                            <ArrowBackIcon onClick={_ => setNewRoom(false)} />
+
+            <Dropside newRoom={newRoom}>
+                <Dropside.TitleContainer>
+                    <Dropside.Title>
+                        <ArrowBackIcon onClick={_ => setNewRoom(false)} />
                             New chat
                         </Dropside.Title>
-                    </Dropside.TitleContainer>
+                </Dropside.TitleContainer>
 
-                    <Dropside.Form onSubmit={createRoom}>
-                        <Dropside.Label>Chat name</Dropside.Label>
-                        <Dropside.Input value={roomName} onChange={e => setRoomName(e.target.value)} />
+                <Dropside.Form onSubmit={createRoom}>
+                    <Dropside.Label>Chat name</Dropside.Label>
+                    <Dropside.Input value={roomName} onChange={e => setRoomName(e.target.value)} />
 
-                        <Dropside.Label>Image Url</Dropside.Label>
-                        <Dropside.Input value={roomImage} onChange={e => setRoomImage(e.target.value)} />
+                    <Dropside.Label>Image Url</Dropside.Label>
+                    <Dropside.Input value={roomImage} onChange={e => setRoomImage(e.target.value)} />
 
-                        <Dropside.Submit>Create</Dropside.Submit>
-                    </Dropside.Form>
-                </Dropside>
-                :
-                <Container onClick={_ => resetState()}>
-                    <Header padding="0">
-                        <IconButton onClick={_ => setProfile(true)}>
-                            <Header.Picture src={user?.imageUrl} />
+                    <Dropside.Submit>Create</Dropside.Submit>
+                </Dropside.Form>
+            </Dropside>
+                
+            <Container onClick={_ => resetState()}>
+                <Header padding="0">
+                    <IconButton onClick={_ => setProfile(true)}>
+                        <Header.Picture src={user?.imageUrl} />
+                    </IconButton>
+                    <Header.Right>
+                        <IconButton>
+                            <DonutLargeIcon />
                         </IconButton>
-                        <Header.Right>
-                            <IconButton>
-                                <DonutLargeIcon />
-                            </IconButton>
-                            <IconButton onClick={_ => setNewRoom(true)}>
-                                <ChatIcon />
-                            </IconButton>
-                            <IconButton onClick={_ => setShowDropdown(!showDropdown)}>
-                                <MoreVertIcon />
-                            </IconButton>
-                        </Header.Right>
-                        <Dropdown showDropdown={showDropdown}>
-                            <Dropdown.Item onClick={_ => setProfile(true)}>
-                                Profile
+                        <IconButton onClick={_ => setNewRoom(true)}>
+                            <ChatIcon />
+                        </IconButton>
+                        <IconButton onClick={_ => setShowDropdown(!showDropdown)}>
+                            <MoreVertIcon />
+                        </IconButton>
+                    </Header.Right>
+                    <Dropdown showDropdown={showDropdown}>
+                        <Dropdown.Item onClick={_ => setProfile(true)}>
+                            Profile
                         </Dropdown.Item>
-                            <Dropdown.Item onClick={e => signOut(e)}>
-                                Log out
+                        <Dropdown.Item onClick={e => signOut(e)}>
+                            Log out
                     </Dropdown.Item>
-                        </Dropdown>
-                    </Header>
-                    <Search>
-                        <SearchContainer>
-                            <SearchOutlined />
-                            <SearchInput placeholder="Search or start new chat" type="text" />
-                        </SearchContainer>
-                    </Search>
-                    <Chats>
-                        {rooms.map(room => (
-                            <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
-                        ))}
-                    </Chats>
-                </Container>
+                    </Dropdown>
+                </Header>
+                <Search>
+                    <SearchContainer>
+                        <SearchOutlined />
+                        <SearchInput placeholder="Search or start new chat" type="text" />
+                    </SearchContainer>
+                </Search>
+                <Chats>
+                    {rooms.map(room => (
+                        <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
+                    ))}
+                </Chats>
+            </Container>
+        </>
     );
 }
 

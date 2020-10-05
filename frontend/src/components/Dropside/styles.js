@@ -2,9 +2,17 @@ import styled from 'styled-components/macro';
 import { Avatar } from '@material-ui/core';
 
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
+    position: absolute;
+    left: -30%;
     flex: .3;
+    width: 30%;
+    z-index: 100;
+    height: 100%;
+    background-color: #ededed;
+
+    transition: transform .5s ease;
+    ${({ profile, newRoom }) => profile || newRoom ? 'transform: translateX(100%)' : null}
+    
 `
 
 export const Form = styled.form`
@@ -62,7 +70,7 @@ export const Title = styled.h1`
 
 export const PictureContainer = styled.div`
     height: 200px;
-    margin: 20px 0;
+    padding: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
