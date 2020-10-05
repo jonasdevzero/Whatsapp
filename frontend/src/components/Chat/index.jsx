@@ -36,10 +36,12 @@ function Chat({
     resetState
 }) {
     const [inputMessage, setInputMessage] = useState('');
-    const [warning, setWarning] = useState(false);
     const [search, setSearch] = useState('');
     const [searchContainer, setSearchContainer] = useState(false);
-    const [searchResults, setSearchResults] = useState([])
+    const [searchResults, setSearchResults] = useState([]);
+
+    const [warning, setWarning] = useState(false);
+    const [messageError, setMessageError] = useState('')
 
     useEffect(_ => {
         const fuse = new Fuse(messages, { keys: ['message'], })
@@ -52,7 +54,7 @@ function Chat({
             setSearchResults([])
         }
 
-    }, [search]);
+    }, [search, messages]);
 
     async function sendMessage(e) {
         e.preventDefault();
@@ -67,21 +69,25 @@ function Chat({
     };
 
     async function deleteRoom() {
-        if (room.name === 'global' || room.name === 'React Community') {
-            setShowDropdown2(false)
-            setWarning(true)
-            setTimeout(_ => {
-                setWarning(false)
-            }, 2500)
-            return
-        }
+        await axios.post('/api/rooms/delete', { room, username: user.username, _id: room._id })
+            .then(async resp => {
+                const error = resp.data.error
+                if (error) {
+                    setWarning(true)
+                    setMessageError(error)
+                    setTimeout(_ => { setWarning(false) }, 2000)
 
-        await axios.post('/api/rooms/delete', room)
-        await axios.get('/api/rooms/get')
-            .then(resp => {
-                setRoom(resp.data[0])
-                setRooms(resp.data)
+                    return
+                }
+
+                await axios.get('/api/rooms/get')
+                    .then(resp => {
+                        const rooms = resp.data
+                        setRoom(rooms[0])
+                        setRooms(rooms)
+                    })
             })
+
         setShowDropdown2(false)
     }
 
@@ -116,7 +122,7 @@ function Chat({
                 </Header>
 
                 <Content>
-                    {warning ? <Warning>Is not possible to delete this room</Warning> : null}
+                    {warning ? <Warning>{messageError}</Warning> : null}
 
                     {messages.map(message => {
                         return (

@@ -14,6 +14,7 @@ export const Inner = styled.div`
     flex-direction: column;
     width: 500px;
     max-width: 100%;
+    background-color: #f7f7f7;
 
     @media (max-width: 500px) {
         width: 100%;
@@ -27,6 +28,7 @@ export const Title = styled.h1`
     font-size: 30px;
     font-weight: 600;
     margin: 80px 0px 40px 0px;
+    color: #555;
 
 
     @media (max-width: 550px) {
@@ -39,16 +41,17 @@ export const FormGroup = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: ${({ bg }) => bg ? bg : '#f6f6f6'};
+    background-color: '#f7f7f7';
 `;
 
 export const Input = styled.input`
-    padding: ${({ padding }) => padding ? padding : '20px 0px'};
+    padding: ${({ padding }) => padding ? padding : '20px 10px'};
     margin: ${({ margin }) => margin ? margin : '8px 2px'};
     border: none;
     outline: none;
-    width: 100%;
+    width: calc(100% - 20px);
     background-color: ${({ bg }) => bg ? bg : '#ededed'};
+    max-width:  ${({ maxWidth }) => maxWidth ? maxWidth : '300px'};
 
     @media (max-width: 600px) {
         width: 90%
@@ -64,6 +67,8 @@ export const Submit = styled.button`
     width: ${({ width }) => width ? width : '100%'};
     font-weight: bold;
     background-color: #25d366;
+    max-width: 319px;
+    color: #555;
 
     @media (max-width: 600px) {
         width: 90%;
@@ -74,6 +79,7 @@ export const Text = styled.p`
     color: #000;
     margin: 0;
     margin: 30px 0 70px 0;
+    text-align: center;
 
     @media (max-width: 500px) {
         margin-left: 16%;

@@ -53,7 +53,7 @@ function Sidebar({
             setSearchResults([])
         }
 
-    }, [search]);
+    }, [search, rooms]);
 
     function signOut(e) {
         e.preventDefault();
@@ -77,7 +77,7 @@ function Sidebar({
     async function createRoom(e) {
         e.preventDefault();
 
-        await axios.post('/api/rooms/create', { name: roomName, image: roomImage })
+        await axios.post('/api/rooms/create', { name: roomName, image: roomImage, createdBy: user.username })
         await axios.get('/api/rooms/get')
             .then(resp => {
                 setRooms(resp.data)

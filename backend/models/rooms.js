@@ -8,6 +8,10 @@ const RoomsSchema = new mongoose.Schema({
     image: {
         type: String,
         required: false,
+    },
+    createdBy: {
+        type: String,
+        required: true,
     }
 });
 

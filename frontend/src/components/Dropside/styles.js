@@ -40,12 +40,14 @@ export const Input = styled.input`
 export const Submit = styled.button`
     border: none;
     outline: none;
-    background-color: green;
+    background-color: #25d366;
     border-radius: 5px;
     width: 125px;
     height: 48px;
     margin: 15px auto;
     cursor: pointer;
+    font-weight: bold;
+    color: #555;
 `
 
 export const TitleContainer = styled.div`

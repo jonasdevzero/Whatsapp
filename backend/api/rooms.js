@@ -14,7 +14,7 @@ async function createRoom(req, res) {
     const { name } = req.body;
 
     if (!name)
-        return res.send({ error:  'Choose a name for the Room' });
+        return res.send({ error: 'Choose a name for the Room' });
 
     try {
         const newRoom = await Rooms.create(req.body);
@@ -26,7 +26,14 @@ async function createRoom(req, res) {
 };
 
 async function deleteRoom(req, res) {
-    const { _id } = req.body;
+    const { room, _id, username } = req.body;
+
+    if (username !== room.createdBy)
+        return res.send({ error: 'Only the creator that room can delete it' })
+
+    if (room.name === 'global' || room.name === 'React Community') 
+        return res.send({ error: 'It is not possible to delete this room'})
+    
 
     try {
         const roomDeleted = await Rooms.findByIdAndDelete({ _id });
@@ -38,7 +45,7 @@ async function deleteRoom(req, res) {
 };
 
 async function updateRoom(req, res) {
-    const { _id } = req.body; 
+    const { _id } = req.body;
     delete req.body._id
 
     try {

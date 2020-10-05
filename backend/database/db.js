@@ -44,7 +44,6 @@ db.once('open', () => {
     });
 
     roomsStream.on('change', change => {
-        console.log(change)
         if (change.operationType === 'insert') {
             const messageDetails = change.fullDocument;
             pusher.trigger('rooms', 'inserted', {

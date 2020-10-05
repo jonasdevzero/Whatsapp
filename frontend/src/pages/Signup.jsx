@@ -52,7 +52,7 @@ function Signup() {
                     
                     <Form.Title>Sign Up </Form.Title>
                     {error ? <Form.Error>{error}</Form.Error> : null}
-                    <Form bg="#fff" onSubmit={handleSubmit} method="POST">
+                    <Form onSubmit={handleSubmit} method="POST">
                         <Form.Group>
                             <Form.Input
                                 type="text"
@@ -91,6 +91,7 @@ function Signup() {
                                 value={imageUrl}
                                 onChange={e => setImageUrl(e.target.value)}
                                 placeholder="Image URL (optional)"
+                                maxWidth="100%"
                             />
                         </Form.Group>
 
