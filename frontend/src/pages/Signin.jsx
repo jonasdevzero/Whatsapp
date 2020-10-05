@@ -42,7 +42,7 @@ function Signin() {
                 <Form.Inner>
                     <Form.Title>Sign In</Form.Title>
                     {error ? <Form.Error>{error}</Form.Error> : null}
-                    <Form onSubmit={handleSubmit} method="POST">
+                    <Form bg="#fff" onSubmit={handleSubmit} method="POST">
                         <Form.Input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" required />
                         <Form.Input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" required />
                         <Form.Submit type="submit">Sign in</Form.Submit>

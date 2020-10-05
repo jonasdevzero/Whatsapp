@@ -1,10 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from '../../contants/axios';
 
-import Header from '../Header';
-import SidebarChat from '../SidebarChat';
-import Form from '../Form';
+import { Header, SidebarChat, Dropdown } from '../';
 
 import {
     Container,
@@ -12,22 +9,28 @@ import {
     SearchContainer,
     SearchInput,
     Chats,
-    NewChat
 } from './styles';
+
 import { IconButton } from '@material-ui/core';
 import { SearchOutlined } from '@material-ui/icons';
+
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
+function Sidebar({ 
+    user, 
+    setUser, 
+    setRoom, 
+    rooms, 
+    setRooms, 
+    showDropdown,
+    setShowDropdown,
+    resetState 
+}) {
     const history = useHistory();
-    const [showForm, setShowForm] = useState(false);
 
-    const [name, setName] = useState('');
-    const [image, setImage] = useState('');
-
-    function Signout(e) {
+    function signOut(e) {
         e.preventDefault();
 
         localStorage.removeItem('authUser');
@@ -35,28 +38,21 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
         history.push('/');
     };
 
-    async function createRoom(e) {
-        e.preventDefault();
+    // async function createRoom(e) {
+    //     e.preventDefault();
 
-        await axios.post('/api/rooms/create', { name, image })
-        await axios.get('/api/rooms/get')
-            .then(resp => {
-                setRooms(resp.data)
-                setRoom(resp.data[resp.data.length - 1])
-            });
-
-        setShowForm(false);
-    }
+    //     await axios.post('/api/rooms/create', { name, image })
+    //     await axios.get('/api/rooms/get')
+    //         .then(resp => {
+    //             setRooms(resp.data)
+    //             setRoom(resp.data[resp.data.length - 1])
+    //         });
+    // }
 
     return (
-        <Container>
+        <Container onClick={_ => resetState()}>
             <Header>
-                <Header.Profile>
-                    <Header.Picture src={user?.imageUrl} />
-                    <Header.Dropdown>
-                        <Header.Signout onClick={Signout}>Sign out</Header.Signout>
-                    </Header.Dropdown>
-                </Header.Profile>
+                <Header.Picture src={user?.imageUrl} />
                 <Header.Right>
                     <IconButton>
                         <DonutLargeIcon />
@@ -64,48 +60,22 @@ function Sidebar({ user, setUser, setRoom, rooms, setRooms }) {
                     <IconButton>
                         <ChatIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={_ => setShowDropdown(!showDropdown)}>
                         <MoreVertIcon />
                     </IconButton>
                 </Header.Right>
+                <Dropdown showDropdown={showDropdown}>
+                    <Dropdown.Item onClick={e => signOut(e)}>
+                        Log out
+                    </Dropdown.Item>
+                </Dropdown>
             </Header>
             <Search>
                 <SearchContainer>
                     <SearchOutlined />
                     <SearchInput placeholder="Search or start new chat" type="text" />
-                    <NewChat onClick={_ => setShowForm(!showForm)}>{showForm ? 'x' : '+'}</NewChat>
                 </SearchContainer>
             </Search>
-            {showForm ?
-                <Form onSubmit={createRoom}>
-                    <Form.Input
-                        padding="15px 5px"
-                        margin="3px 0"
-                        bg="#fff"
-                        placeholder="name room"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                    />
-                    <Form.Input
-                        padding="15px 5px"
-                        margin="3px 0"
-                        bg="#fff"
-                        placeholder="image Url (optional)"
-                        value={image}
-                        onChange={e =>
-                            setImage(e.target.value)}
-                    />
-                    <Form.Submit
-                        margin='8px 0 15px 0'
-                        width='93%'
-                        type="submit"
-                    >
-                        Create Room
-                    </Form.Submit>
-                </Form>
-                :
-                null
-            }
             <Chats>
                 {rooms.map(room => (
                     <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />

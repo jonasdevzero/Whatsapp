@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    flex: .35;
+    flex: .30;
 `;
 
 export const Search = styled.div`
@@ -51,15 +51,4 @@ export const Chats = styled.div`
     ::-webkit-scrollbar {
         width: 0px;
     }
-`;
-
-export const NewChat = styled.button`
-    padding: 0 10px;
-    font-weight: bold;
-    font-size: 22px;
-    color: lightgray;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
 `;

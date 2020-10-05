@@ -52,7 +52,7 @@ function Signup() {
                     
                     <Form.Title>Sign Up </Form.Title>
                     {error ? <Form.Error>{error}</Form.Error> : null}
-                    <Form onSubmit={handleSubmit} method="POST">
+                    <Form bg="#fff" onSubmit={handleSubmit} method="POST">
                         <Form.Group>
                             <Form.Input
                                 type="text"

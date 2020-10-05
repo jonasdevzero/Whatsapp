@@ -5,9 +5,6 @@ import {
     Right,
     Info,
     Picture,
-    Dropdown,
-    Profile,
-    Signout
 } from './styles';
 
 function Header({ children, ...props }) {
@@ -25,18 +22,6 @@ Header.Right = function HeaderRight({ children, ...props }) {
 
 Header.Info = function HeaderInfo({ children, ...props }) {
     return <Info {...props}>{children}</Info>;
-};
-
-Header.Profile = function HeaderProfile({ children, ...props }) {
-    return <Profile {...props}>{children}</Profile>;
-};
-
-Header.Dropdown = function HeaderDropdow({ children, ...props }) {
-    return <Dropdown {...props}>{children}</Dropdown>;
-};
-
-Header.Signout = function HeaderSignout({ children, ...props }) {
-    return <Signout {...props}>{children}</Signout>;
 };
 
 export default Header;

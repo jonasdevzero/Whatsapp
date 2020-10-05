@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../../contants/axios';
 
-import Header from '../Header';
-import Dropdown from '../Dropdown';
+import { Header, Dropdown } from '../'
 
 import {
     Container,
@@ -17,17 +16,28 @@ import {
     Form,
     Input,
     Button,
+    Warning
 } from './styles';
 import { IconButton } from '@material-ui/core';
-import { AttachFile, MoreVert, SearchOutlined } from '@material-ui/icons';
+import { MoreVert, SearchOutlined } from '@material-ui/icons';
 import InsertEmotionIcon from '@material-ui/icons/InsertEmoticon';
 import MicIcon from '@material-ui/icons/Mic';
 
-function Chat({ messages, user, room }) {
+function Chat({
+    messages,
+    user,
+    room,
+    setRoom,
+    setRooms,
+    showDropdown2,
+    setShowDropdown2,
+    resetState
+}) {
     const [inputMessage, setInputMessage] = useState('');
-    const [showDropdown, setShowDropdown] = useState(false)
+    // const [showDropdown, setShowDropdown] = useState(false)
+    const [warning, setWarning] = useState(false)
 
-    const sendMessage = async e => {
+    async function sendMessage(e) {
         e.preventDefault();
 
         await axios.post('/api/messages/send', {
@@ -39,8 +49,27 @@ function Chat({ messages, user, room }) {
         setInputMessage('');
     };
 
+    async function deleteRoom() {
+        if (room.name === 'global' || room.name === 'React Community') {
+            setShowDropdown2(false)
+            setWarning(true)
+            setTimeout(_ => {
+                setWarning(false)
+            }, 2500)
+            return
+        }
+
+        await axios.post('/api/rooms/delete', room)
+        await axios.get('/api/rooms/get')
+            .then(resp => {
+                setRoom(resp.data[0])
+                setRooms(resp.data)
+            })
+        setShowDropdown2(false)
+    }
+
     return (
-        <Container>
+        <Container onClick={_ => resetState()}>
             <Header borderBottom>
                 <Header.Picture src={room?.image} />
                 <Header.Info>
@@ -51,41 +80,42 @@ function Chat({ messages, user, room }) {
                     <IconButton>
                         <SearchOutlined />
                     </IconButton>
-                    <IconButton>
-                        <AttachFile />
-                    </IconButton>
-                    <IconButton onClick={_ => setShowDropdown(!showDropdown)}>
+                    <IconButton onClick={_ => setShowDropdown2(!showDropdown2)}>
                         <MoreVert />
                     </IconButton>
                 </Header.Right>
-                <Dropdown showDropdown={showDropdown}>
-                    Dropdown
+
+                <Dropdown showDropdown={showDropdown2}>
+                    <Dropdown.Item onClick={_ => deleteRoom()}>Delete room</Dropdown.Item>
                 </Dropdown>
+
             </Header>
-            <Content  onClick={_ => setShowDropdown(false)}>
+
+            <Content>
+                {warning ? <Warning>Is not possible to delete this room</Warning> : null}
+
                 {messages.map(message => {
                     return (
-                        message.room_id === room._id ?
-                            message.username === user.username ?
-                                <MessageReciver key={`${message.username}-${message.timestamp}`}>
-                                    {message.message}
-                                    <TimeStamp>{message.timestamp}</TimeStamp>
-                                </MessageReciver>
-                                :
-                                <Message key={`${message.username}-${message.timestamp}`}>
-                                    <User>{message.username}</User>
-                                    {message.message}
-                                    <TimeStamp>{message.timestamp}</TimeStamp>
-                                </Message>
+                        message.username === user.username ?
+                            <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                {message.message}
+                                <TimeStamp>{message.timestamp}</TimeStamp>
+                            </MessageReciver>
                             :
-                            null
+                            <Message key={`${message.username}-${message.timestamp}`}>
+                                <User>{message.username}</User>
+                                {message.message}
+                                <TimeStamp>{message.timestamp}</TimeStamp>
+                            </Message>
                     )
                 })}
+
             </Content>
+
             <FormContainer>
                 <InsertEmotionIcon />
                 <Form>
-                    <Input value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
+                    <Input placeholder="Type a message" value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
                     <Button onClick={sendMessage} type="submit">Send a message</Button>
                 </Form>
                 <MicIcon />

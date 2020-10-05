@@ -3,7 +3,8 @@ import styled from 'styled-components/macro';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    flex: .65;
+    flex: .70;
+    position: relative;
 `;
 
 export const RoomName = styled.h3`
@@ -89,4 +90,13 @@ export const Input = styled.input`
 
 export const Button = styled.button`
     display: none;
+`
+
+export const Warning = styled.div`
+    position: absolute;
+    padding: 20px;
+    font-weight: bold;
+    top: 100px;
+    left: 37%;
+    background-color: #fff;
 `

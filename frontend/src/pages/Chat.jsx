@@ -11,6 +11,8 @@ function Chat() {
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState({});
   const [rooms, setRooms] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown2, setShowDropdown2] = useState(false);
 
   useEffect(_ => {
     axios.get('/api/rooms/get')
@@ -45,10 +47,35 @@ function Chat() {
     }
   }, [messages]);
 
+  function resetState() {
+    if (showDropdown || showDropdown2) {
+      setShowDropdown(false)
+      setShowDropdown2(false)
+    }
+  }
+
   return (
     <>
-      <Sidebar user={user} setUser={setUser} setRoom={setRoom} rooms={rooms} setRooms={setRooms} />
-      <ChatComponent user={user} messages={messages} room={room} rooms={rooms} />
+      <Sidebar
+        user={user}
+        setUser={setUser}
+        setRoom={setRoom}
+        rooms={rooms}
+        setRooms={setRooms}
+        showDropdown={showDropdown}
+        setShowDropdown={setShowDropdown}
+        resetState={resetState}
+      />
+      <ChatComponent
+        user={user}
+        messages={messages}
+        room={room}
+        setRoom={setRoom}
+        setRooms={setRooms}
+        showDropdown2={showDropdown2}
+        setShowDropdown2={setShowDropdown2}
+        resetState={resetState}
+      />
     </>
   )
 }

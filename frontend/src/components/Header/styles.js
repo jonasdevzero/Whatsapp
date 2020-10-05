@@ -4,7 +4,7 @@ import { Avatar } from '@material-ui/core';
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px 20px;
     border-right: ${({ borderBottom }) => borderBottom ? 'none' : '1px solid lightgray'};
     border-bottom: ${({ borderBottom }) => borderBottom && '1px solid lightgray'};
     position: relative;
@@ -13,15 +13,13 @@ export const Container = styled.div`
 export const Right = styled.div`
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    min-width: 10vw;
 
     .MuiSvgIcon-root {
         font-size: 24px !important;
     };
 
     .MuiIconButton-root {
-        margin-right: 2vw;
+        margin-right: 10px;
     };
 `;
 
@@ -34,42 +32,8 @@ export const Info = styled.div`
     overflow: hidden;
 `;
 
-export const Dropdown = styled.div`
-    display: none;
-    position: absolute;
-    background-color: #fff;
-    padding: 15px 10px;
-    top: 38px;
-    left: 10px;
-    width: 100px;
-
-    &:hover {
-        display: flex;
-        flex-direction: column;
-    }
-`
-
 export const Picture = styled(Avatar)`
     cursor: pointer;
-`
-
-export const Profile = styled.div`
-    position: relative;
-
-    button {
-        cursor: pointer;
-    }
-
-    &:hover > ${Dropdown} {
-        display: flex;
-        flex-direction: column;
-    }
-`
-
-export const Signout = styled.a`
-    cursor: pointer;
-
-    &:hover {
-        font-weight: bold; 
-    }
+    width: 45px !important;
+    height: 45px !important;
 `

@@ -14,7 +14,7 @@ async function createRoom(req, res) {
     const { name } = req.body;
 
     if (!name)
-        return res.status(400).send({ error:  'Choose a name' });
+        return res.send({ error:  'Choose a name for the Room' });
 
     try {
         const newRoom = await Rooms.create(req.body);

@@ -39,7 +39,7 @@ export const FormGroup = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f6f6f6;
+    background-color: ${({ bg }) => bg ? bg : '#f6f6f6'};
 `;
 
 export const Input = styled.input`
@@ -47,8 +47,12 @@ export const Input = styled.input`
     margin: ${({ margin }) => margin ? margin : '8px 2px'};
     border: none;
     outline: none;
-    width: 90%;
+    width: 100%;
     background-color: ${({ bg }) => bg ? bg : '#ededed'};
+
+    @media (max-width: 600px) {
+        width: 90%
+    };
 `;
 
 export const Submit = styled.button`
@@ -60,6 +64,10 @@ export const Submit = styled.button`
     width: ${({ width }) => width ? width : '100%'};
     font-weight: bold;
     background-color: #25d366;
+
+    @media (max-width: 600px) {
+        width: 90%;
+    };
 `;
 
 export const Text = styled.p`
@@ -95,7 +103,7 @@ export const Group = styled.div`
     display: flex;
     width: 100%;
 
-    @media (max-width: 550px) {
+    @media (max-width: 600px) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
