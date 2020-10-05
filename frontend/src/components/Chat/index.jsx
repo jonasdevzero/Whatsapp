@@ -34,7 +34,6 @@ function Chat({
     resetState
 }) {
     const [inputMessage, setInputMessage] = useState('');
-    // const [showDropdown, setShowDropdown] = useState(false)
     const [warning, setWarning] = useState(false)
 
     async function sendMessage(e) {
