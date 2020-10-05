@@ -4,7 +4,7 @@ import { Avatar } from '@material-ui/core';
 export const Container = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: ${({ padding }) => padding ? padding : '10px 20px'};
     border-right: ${({ borderBottom }) => borderBottom ? 'none' : '1px solid lightgray'};
     border-bottom: ${({ borderBottom }) => borderBottom && '1px solid lightgray'};
     position: relative;

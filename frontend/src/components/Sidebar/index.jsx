@@ -121,7 +121,7 @@ function Sidebar({
                 </Dropside>
                 :
                 <Container onClick={_ => resetState()}>
-                    <Header>
+                    <Header padding="0">
                         <IconButton onClick={_ => setProfile(true)}>
                             <Header.Picture src={user?.imageUrl} />
                         </IconButton>
