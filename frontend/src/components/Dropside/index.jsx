@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { 
+import {
     Container,
     Form,
     Label,
@@ -8,8 +8,12 @@ import {
     Submit,
     TitleContainer,
     Title,
+    TitleContainer2,
+    Title2,
     PictureContainer,
-    Picture 
+    Picture,
+    Search,
+    SearchInput,
 } from './styles';
 
 function Dropside({ children, ...props }) {
@@ -21,7 +25,7 @@ Dropside.Form = function DropsideForm({ children, ...props }) {
 };
 
 Dropside.Label = function DropsideLabel({ children, ...props }) {
-return <Label {...props}>{children}</Label>
+    return <Label {...props}>{children}</Label>
 }
 
 Dropside.Input = function DropsideInput({ children, ...props }) {
@@ -40,6 +44,14 @@ Dropside.Title = function DropsideTitle({ children, ...props }) {
     return <Title {...props}>{children}</Title>
 };
 
+Dropside.TitleContainer2 = function DropsideTitleContainer2({ children, ...props }) {
+    return <TitleContainer2 {...props}>{children}</TitleContainer2>
+};
+
+Dropside.Title2 = function DropsideTitle2({ children, ...props }) {
+    return <Title2 {...props}>{children}</Title2>
+};
+
 Dropside.PictureContainer = function DropsidePictureContainer({ children, ...props }) {
     return <PictureContainer {...props}>{children}</PictureContainer>
 };
@@ -47,6 +59,14 @@ Dropside.PictureContainer = function DropsidePictureContainer({ children, ...pro
 Dropside.Picture = function DropsidePicture({ children, ...props }) {
     return <Picture {...props}>{children}</Picture>
 };
+
+Dropside.Search = function DropsideSearch({ children, ...props }) {
+    return <Search {...props}>{children}</Search>
+}
+
+Dropside.SearchInput = function DropsideSearchInput({ children, ...props }) {
+    return <SearchInput {...props}>{children}</SearchInput>
+}
 
 
 export default Dropside;

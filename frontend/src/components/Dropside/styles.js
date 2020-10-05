@@ -2,9 +2,8 @@ import styled from 'styled-components/macro';
 import { Avatar } from '@material-ui/core';
 
 export const Container = styled.div`
-    position: absolute;
+    position: ${({ position }) => position ? position : 'absolute'};
     left: -30%;
-    flex: .3;
     width: 30%;
     z-index: 100;
     height: 100%;
@@ -19,6 +18,7 @@ export const Form = styled.form`
     display: flex;
     flex-direction: column;
     flex: 1;
+    border-bottom: ${({ bb }) => bb ? 'solid 1px #fff': 'none'}; 
 `
 
 export const Label = styled.label`
@@ -61,6 +61,25 @@ export const Title = styled.h1`
     font-weight: 700;
     display: flex;
     align-items: center;
+    color: #777;
+
+    .MuiSvgIcon-root {
+        margin-right: 35px;
+        cursor: pointer;
+    }
+`
+
+export const TitleContainer2 = styled.div`
+    padding: 21.5px;
+    background-color: #fff;
+`
+
+export const Title2 = styled.h1`
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    color: #777;
 
     .MuiSvgIcon-root {
         margin-right: 35px;
@@ -79,4 +98,27 @@ export const PictureContainer = styled.div`
 export const Picture = styled(Avatar)`
     width: 200px !important;
     height: 200px !important;
+`
+
+export const Search = styled.div`
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+
+    .MuiSvgIcon-root {
+        margin: 0 25px 0 20px;
+        color: #777;
+        font-size: 20px;
+    }
+`
+
+export const SearchInput = styled.input`
+    border: none;
+    outline: none;
+    background: none;
+    flex: 1;
 `
