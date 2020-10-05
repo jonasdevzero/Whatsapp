@@ -76,7 +76,13 @@ function Chat({
                     <Header.Picture src={room?.image} />
                     <Header.Info>
                         <RoomName>{room?.name}</RoomName>
-                        <LastMessage>{messages[messages.length - 1]?.message}</LastMessage>
+                        <LastMessage>
+                            {messages[messages.length - 1]?.room_id === room._id ?
+                                messages[messages.length - 1]?.message
+                                : 
+                                null
+                            }
+                        </LastMessage>
                     </Header.Info>
                     <Header.Right>
                         <IconButton onClick={_ => setSearchContainer(true)}>
@@ -98,17 +104,20 @@ function Chat({
 
                     {messages.map(message => {
                         return (
-                            message.username === user.username ?
-                                <MessageReciver key={`${message.username}-${message.timestamp}`}>
-                                    {message.message}
-                                    <TimeStamp>{message.timestamp}</TimeStamp>
-                                </MessageReciver>
+                            message.room_id === room._id ?
+                                message.username === user.username ?
+                                    <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                        {message.message}
+                                        <TimeStamp>{message.timestamp}</TimeStamp>
+                                    </MessageReciver>
+                                    :
+                                    <Message key={`${message.username}-${message.timestamp}`}>
+                                        <User>{message.username}</User>
+                                        {message.message}
+                                        <TimeStamp>{message.timestamp}</TimeStamp>
+                                    </Message>
                                 :
-                                <Message key={`${message.username}-${message.timestamp}`}>
-                                    <User>{message.username}</User>
-                                    {message.message}
-                                    <TimeStamp>{message.timestamp}</TimeStamp>
-                                </Message>
+                                null
                         )
                     })}
                 </Content>
