@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from '../../constants/axios';
 import Fuse from 'fuse.js';
 
+import { UserContext } from '../../context/userContext';
 import { Header, Dropdown, Dropside } from '../'
 
 import {
@@ -27,21 +28,22 @@ import CloseIcon from '@material-ui/icons/Close';
 
 function Chat({
     messages,
-    user,
-    room,
-    setRoom,
+    currentRoom,
+    setCurrentRoom,
     setRooms,
-    showDropdown2,
-    setShowDropdown2,
-    resetState
+    chatDropdown,
+    setChatDropdown,
+    hideDropdown
 }) {
-    const [inputMessage, setInputMessage] = useState('');
+    const { user } = useContext(UserContext);
+
+    const [newMessage, setNewMessage] = useState('');
+
     const [search, setSearch] = useState('');
     const [searchContainer, setSearchContainer] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
-    const [warning, setWarning] = useState(false);
-    const [messageError, setMessageError] = useState('')
+    const [warning, setWarning] = useState('');
 
     useEffect(_ => {
         const fuse = new Fuse(messages, { keys: ['message'], })
@@ -62,20 +64,21 @@ function Chat({
         await axios.post('/api/messages/send', {
             message: inputMessage,
             username: user.username,
-            room_id: room._id,
+            room_id: currentRoom._id,
         })
 
         setInputMessage('');
     };
 
     async function deleteRoom() {
-        await axios.post('/api/rooms/delete', { room, username: user.username, _id: room._id })
+        await axios.post('/api/rooms/delete', { room: currentRoom, username: user.username })
             .then(async resp => {
                 const error = resp.data.error
                 if (error) {
-                    setWarning(true)
-                    setMessageError(error)
-                    setTimeout(_ => { setWarning(false) }, 2000)
+                    setWarning(error)
+                    setTimeout(_ => { 
+                        setWarning('') 
+                    }, 2000)
 
                     return
                 }
@@ -83,26 +86,24 @@ function Chat({
                 await axios.get('/api/rooms/get')
                     .then(resp => {
                         const rooms = resp.data
-                        setRoom(rooms[0])
+                        setCurrentRoom(rooms[0])
                         setRooms(rooms)
                     })
             })
 
-        setShowDropdown2(false)
+        hideDropdown()
     }
 
     return (
         <>
-            <Container onClick={_ => resetState()}>
+            <Container onClick={_ => hideDropdown()}>
                 <Header borderBottom>
-                    <Header.Picture src={room?.image} />
+                    <Header.Picture src={currentRoom?.image} />
                     <Header.Info>
-                        <RoomName>{room?.name}</RoomName>
+                        <RoomName>{currentRoom?.name}</RoomName>
                         <LastMessage>
-                            {messages[messages.length - 1]?.room_id === room._id ?
-                                messages[messages.length - 1]?.message
-                                :
-                                null
+                            {messages[messages.length - 1]?.room_id === currentRoom._id ?
+                                messages[messages.length - 1]?.message : null
                             }
                         </LastMessage>
                     </Header.Info>
@@ -110,36 +111,33 @@ function Chat({
                         <IconButton onClick={_ => setSearchContainer(true)}>
                             <SearchOutlined />
                         </IconButton>
-                        <IconButton onClick={_ => setShowDropdown2(!showDropdown2)}>
+                        <IconButton onClick={_ => setChatDropdown(!chatDropdown)}>
                             <MoreVert />
                         </IconButton>
                     </Header.Right>
 
-                    <Dropdown showDropdown={showDropdown2}>
+                    <Dropdown showDropdown={chatDropdown}>
                         <Dropdown.Item onClick={_ => deleteRoom()}>Delete room</Dropdown.Item>
                     </Dropdown>
 
                 </Header>
 
                 <Content>
-                    {warning ? <Warning>{messageError}</Warning> : null}
+                    {warning ? <Warning>{warning}</Warning> : null}
 
                     {messages.map(message => {
                         return (
-                            message.room_id === room._id ?
-                                message.username === user.username ?
-                                    <MessageReciver key={`${message.username}-${message.timestamp}`}>
-                                        {message.message}
-                                        <TimeStamp>{message.timestamp}</TimeStamp>
-                                    </MessageReciver>
-                                    :
-                                    <Message key={`${message.username}-${message.timestamp}`}>
-                                        <User>{message.username}</User>
-                                        {message.message}
-                                        <TimeStamp>{message.timestamp}</TimeStamp>
-                                    </Message>
+                            message.username === user.username ?
+                                <MessageReciver key={`${message.username}-${message.timestamp}`}>
+                                    {message.message}
+                                    <TimeStamp>{message.timestamp}</TimeStamp>
+                                </MessageReciver>
                                 :
-                                null
+                                <Message key={`${message.username}-${message.timestamp}`}>
+                                    <User>{message.username}</User>
+                                    {message.message}
+                                    <TimeStamp>{message.timestamp}</TimeStamp>
+                                </Message>
                         )
                     })}
                 </Content>
@@ -147,20 +145,26 @@ function Chat({
                 <FormContainer>
                     <InsertEmotionIcon />
                     <Form>
-                        <Input placeholder="Type a message" value={inputMessage} onChange={e => setInputMessage(e.target.value)} />
+                        <Input placeholder="Type a message" value={newMessage} onChange={e => setNewMessage(e.target.value)} />
                         <Button onClick={sendMessage} type="submit">Send a message</Button>
                     </Form>
                     <MicIcon />
                 </FormContainer>
+
             </Container>
+
             {searchContainer ?
-                <Dropside position="none">
+                <Dropside position="none" onClick={_ => hideDropdown()}>
+
                     <Dropside.TitleContainer2>
+
                         <Dropside.Title2>
                             <CloseIcon onClick={_ => setSearchContainer(false)} />
                         Search messages
                         </Dropside.Title2>
+
                     </Dropside.TitleContainer2>
+
                     <Dropside.Form bb>
                         <Dropside.Search>
                             <SearchOutlined />

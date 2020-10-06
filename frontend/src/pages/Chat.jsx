@@ -2,31 +2,31 @@ import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
 import axios from '../constants/axios';
 
-import * as ROUTES from '../constants/routes'
+import * as ROUTES from '../constants/routes';
 
 import { Sidebar, Chat as ChatComponent } from '../components';
 
 function Chat() {
-  const [messages, setMessages] = useState([]);
   const [currentRoom, setCurrentRoom] = useState({});
   const [rooms, setRooms] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   const [chatDropdown, setChatDropdown] = useState(false);
   const [profileDropdown, setProfileDropdown] = useState(false);
 
   function hideDropdown() {
     if (chatDropdown || profileDropdown) {
-      setChatDropdown(false)
-      setProfileDropdown(false)
-    }
-  }
+      setChatDropdown(false);
+      setProfileDropdown(false);
+    };
+  };
 
   useEffect(_ => {
     axios.get(ROUTES.GET_ROOMS)
       .then(resp => {
-        setCurrentRoom(resp.data[0])
-        setRooms(resp.data)
-      })
+        setCurrentRoom(resp.data[0]);
+        setRooms(resp.data);
+      });
   }, []);
 
   useEffect(_ => {
@@ -48,7 +48,9 @@ function Chat() {
     const roomChannel = pusher.subscribe('rooms');
 
     messageChannel.bind('inserted', newMessage => {
-      setMessages([...messages, newMessage]);
+      if (newMessage.room_id === currentRoom._id) {
+        setMessages([...messages, newMessage]);
+      };
     });
 
     roomChannel.bind('inserted', newRoom => {
@@ -67,6 +69,7 @@ function Chat() {
     return () => {
       messageChannel.unbind_all();
       messageChannel.unsubscribe();
+
       roomChannel.unbind_all();
       roomChannel.unsubscribe();
     }

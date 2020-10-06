@@ -26,15 +26,15 @@ async function createRoom(req, res) {
 };
 
 async function deleteRoom(req, res) {
-    const { room, _id, username } = req.body;
+    const { room, username } = req.body;
+    const _id = room._id
 
     if (username !== room.createdBy)
         return res.send({ error: 'Only the creator that room can delete it' })
 
-    if (room.name === 'global' || room.name === 'React Community') 
+    if (_id === '5f78e066e4720631e41f40c7' || _id === '5f790dcfc6eb7b2688688112') 
         return res.send({ error: 'It is not possible to delete this room'})
     
-
     try {
         const roomDeleted = await Rooms.findByIdAndDelete({ _id });
 
