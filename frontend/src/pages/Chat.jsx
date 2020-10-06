@@ -1,108 +1,98 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
-import axios from '../contants/axios';
+import axios from '../constants/axios';
 
-import { UserContext } from '../context/userContext';
+import * as ROUTES from '../constants/routes'
 
 import { Sidebar, Chat as ChatComponent } from '../components';
 
 function Chat() {
-  const { user, setUser } = useContext(UserContext);
   const [messages, setMessages] = useState([]);
-  const [room, setRoom] = useState({});
+  const [currentRoom, setCurrentRoom] = useState({});
   const [rooms, setRooms] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showDropdown2, setShowDropdown2] = useState(false);
+
+  const [chatDropdown, setChatDropdown] = useState(false);
+  const [profileDropdown, setProfileDropdown] = useState(false);
+
+  function hideDropdown() {
+    if (chatDropdown || profileDropdown) {
+      setChatDropdown(false)
+      setProfileDropdown(false)
+    }
+  }
 
   useEffect(_ => {
-    axios.get('/api/rooms/get')
+    axios.get(ROUTES.GET_ROOMS)
       .then(resp => {
-        setRoom(resp.data[0])
+        setCurrentRoom(resp.data[0])
         setRooms(resp.data)
       })
   }, []);
 
   useEffect(_ => {
-    if (room._id) {
-      axios.post('/api/messages/get', { room_id: room._id })
+    if (currentRoom._id) {
+      axios.post(ROUTES.GET_MESSAGES, {
+        room_id: currentRoom._id
+      })
         .then(resp => {
           setMessages(resp.data.messages);
         });
     }
-  }, [room]);
+  }, [currentRoom]);
 
   useEffect(_ => {
     const pusher = new Pusher('405beddf008e5ab04f57', {
       cluster: 'eu'
     });
-
-    const channel = pusher.subscribe('messages');
-    channel.bind('inserted', data => {
-      setMessages([...messages, data]);
-    });
-
-    return () => {
-      channel.unbind_all();
-      channel.unsubscribe();
-    }
-  }, [messages]);
-
-  useEffect(_ => {
-    const pusher = new Pusher('405beddf008e5ab04f57', {
-      cluster: 'eu'
-    });
-
+    const messageChannel = pusher.subscribe('messages');
     const roomChannel = pusher.subscribe('rooms');
-    roomChannel.bind('inserted', data => {
-      setRooms([...rooms, data]);
-    });
-    roomChannel.bind('deleted', data => {
-      const currentRooms = rooms.filter(room => {
-        if (room._id !== data._id) {
-          return room
-        } 
 
-        return null
-      })
-      setRooms(currentRooms)
-      if (data._id === room._id) 
-        return setRoom(rooms[0])
-    })
+    messageChannel.bind('inserted', newMessage => {
+      setMessages([...messages, newMessage]);
+    });
+
+    roomChannel.bind('inserted', newRoom => {
+      setRooms([...rooms, newRoom]);
+    });
+
+    roomChannel.bind('deleted', deletedRoom => {
+      const currentRooms = rooms.filter(room => room._id !== deletedRoom._id ? room : null);
+      setRooms(currentRooms);
+
+      if (deletedRoom._id === currentRoom._id) {
+        setCurrentRoom(rooms[0]);
+      };
+    });
 
     return () => {
+      messageChannel.unbind_all();
+      messageChannel.unsubscribe();
       roomChannel.unbind_all();
       roomChannel.unsubscribe();
     }
-  }, [rooms, room._id]);
 
-  function resetState() {
-    if (showDropdown || showDropdown2) {
-      setShowDropdown(false)
-      setShowDropdown2(false)
-    }
-  }
+  }, [messages, rooms, currentRoom._id]);
 
   return (
     <>
       <Sidebar
-        user={user}
-        setUser={setUser}
-        setRoom={setRoom}
         rooms={rooms}
         setRooms={setRooms}
-        showDropdown={showDropdown}
-        setShowDropdown={setShowDropdown}
-        resetState={resetState}
+        setCurrentRoom={setCurrentRoom}
+
+        profileDropdown={profileDropdown}
+        setProfileDropdown={setProfileDropdown}
+        hideDropdown={hideDropdown}
       />
       <ChatComponent
-        user={user}
-        messages={messages}
-        room={room}
-        setRoom={setRoom}
+        currentRoom={currentRoom}
+        setCurrentRoom={setCurrentRoom}
         setRooms={setRooms}
-        showDropdown2={showDropdown2}
-        setShowDropdown2={setShowDropdown2}
-        resetState={resetState}
+        messages={messages}
+
+        chatDropdown={chatDropdown}
+        setChatDropdown={setChatDropdown}
+        hideDropdown={hideDropdown}
       />
     </>
   )
