@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from '../../constants/axios';
 import Fuse from 'fuse.js'
 
+import { UserContext } from '../../context/userContext';
 import { Header, SidebarChat, Dropdown, Dropside } from '../';
 
 import {
@@ -21,22 +22,24 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function Sidebar({
-    user,
-    setUser,
-    setRoom,
+    setCurrentRoom,
     rooms,
     setRooms,
-    showDropdown,
-    setShowDropdown,
-    resetState
+    profileDropdown,
+    setProfileDropdown,
+    hideDropdown
 }) {
-    const [profile, setProfile] = useState(false);
-    const [newRoom, setNewRoom] = useState(false);
+    const { user, setUser } = useContext(UserContext);
+
+    const [profileContainer, setProfileContainer] = useState(false);
+    const [newRoomContainer, setNewRoomContainer] = useState(false);
 
     const [name, setName] = useState(user.name);
     const [imageUrl, setImageUrl] = useState(user.imageUrl);
-    const [roomName, setRoomName] = useState('');
-    const [roomImage, setRoomImage] = useState('');
+
+    const [newRoomName, setNewRoomName] = useState('');
+    const [newRoomImage, setNewRoomImage] = useState('');
+
     const [search, setSearch] = useState('');
     const [searchResults, setSearchResults] = useState([])
 
@@ -44,10 +47,9 @@ function Sidebar({
 
     useEffect(_ => {
         const fuse = new Fuse(rooms, { keys: ['name'] })
-
         const results = fuse.search(search).map(({ item }) => item)
 
-        if (rooms.length > 0 && search.length > 0 && results.length > 0) {
+        if (results.length > 0) {
             setSearchResults(results);
         } else {
             setSearchResults([])
@@ -71,32 +73,37 @@ function Sidebar({
                 localStorage.setItem('authUser', JSON.stringify(resp.data.userUpdated))
                 setUser(resp.data.userUpdated)
             })
-        setProfile(false);
+        setProfileContainer(false);
     };
 
     async function createRoom(e) {
         e.preventDefault();
 
-        await axios.post('/api/rooms/create', { name: roomName, image: roomImage, createdBy: user.username })
+        await axios.post('/api/rooms/create', { 
+            name: newRoomName, 
+            image: newRoomImage, 
+            createdBy: user.username 
+        });
         await axios.get('/api/rooms/get')
             .then(resp => {
                 setRooms(resp.data)
-                setRoom(resp.data[resp.data.length - 1])
+                setCurrentRoom(resp.data[resp.data.length - 1])
             });
 
-        setProfile(false);
-        setNewRoom(false);
-        setRoomName('');
-        setRoomImage('');
-    }
+        setProfileContainer(false);
+        setNewRoomContainer(false);
+
+        setNewRoomName('');
+        setNewRoomImage('');
+    };
 
     return (
         <>
-            <Dropside profile={profile ? ' ' : ''}>
+            <Dropside showContainer={profileContainer} onClick={_ => hideDropdown()}> 
 
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBackIcon onClick={_ => setProfile(false)} />
+                        <ArrowBackIcon onClick={_ => setProfileContainer(false)} />
                         Profile
                     </Dropside.Title>
                 </Dropside.TitleContainer>
@@ -117,65 +124,76 @@ function Sidebar({
 
             </Dropside>
 
-            <Dropside newRoom={newRoom}>
+            <Dropside showContainer={newRoomContainer} onClick={_ => hideDropdown()}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBackIcon onClick={_ => setNewRoom(false)} />
+                        <ArrowBackIcon onClick={_ => setNewRoomContainer(false)} />
                             New chat
                         </Dropside.Title>
                 </Dropside.TitleContainer>
 
                 <Dropside.Form onSubmit={createRoom}>
                     <Dropside.Label>Chat name</Dropside.Label>
-                    <Dropside.Input value={roomName} onChange={e => setRoomName(e.target.value)} />
+                    <Dropside.Input value={newRoomName} onChange={e => setNewRoomName(e.target.value)} />
 
                     <Dropside.Label>Image Url</Dropside.Label>
-                    <Dropside.Input value={roomImage} onChange={e => setRoomImage(e.target.value)} />
+                    <Dropside.Input value={newRoomImage} onChange={e => setNewRoomImage(e.target.value)} />
 
                     <Dropside.Submit>Create</Dropside.Submit>
                 </Dropside.Form>
             </Dropside>
 
-            <Container onClick={_ => resetState()}>
+            <Container onClick={_ => hideDropdown()}>
                 <Header padding="0">
-                    <IconButton onClick={_ => setProfile(true)}>
+
+                    <IconButton onClick={_ => setProfileContainer(true)}>
                         <Header.Picture src={user?.imageUrl} />
                     </IconButton>
+
                     <Header.Right>
                         <IconButton>
                             <DonutLargeIcon />
                         </IconButton>
-                        <IconButton onClick={_ => setNewRoom(true)}>
+                        <IconButton onClick={_ => setNewRoomContainer(true)}>
                             <ChatIcon />
                         </IconButton>
-                        <IconButton onClick={_ => setShowDropdown(!showDropdown)}>
+                        <IconButton onClick={_ => setProfileDropdown(!profileDropdown)}>
                             <MoreVertIcon />
                         </IconButton>
                     </Header.Right>
-                    <Dropdown showDropdown={showDropdown}>
-                        <Dropdown.Item onClick={_ => setProfile(true)}>
+
+                    <Dropdown showDropdown={profileDropdown}>
+                        <Dropdown.Item onClick={_ => setProfileContainer(true)}>
                             Profile
                         </Dropdown.Item>
                         <Dropdown.Item onClick={e => signOut(e)}>
                             Log out
-                    </Dropdown.Item>
+                        </Dropdown.Item>
                     </Dropdown>
+
                 </Header>
+
                 <Search>
                     <SearchContainer>
                         <SearchOutlined />
-                        <SearchInput value={search} onChange={e => setSearch(e.target.value)} placeholder="Search or start new chat" type="text" />
+                        <SearchInput 
+                            value={search} 
+                            onChange={e => setSearch(e.target.value)} 
+                            placeholder="Search or start new chat" 
+                            type="text" 
+                        />
                     </SearchContainer>
                 </Search>
+
                 <Chats>
                     {
                         searchResults.length > 0 ?
-                            searchResults.map(room => (
-                                <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
+                            searchResults.map(room => ( // filtered rooms
+                                <SidebarChat room={room} key={room._id} onClick={_ => setCurrentRoom(room)} />
                             ))
                             :
-                            rooms.map(room => (
-                                <SidebarChat room={room} key={room._id} onClick={_ => setRoom(room)} />
+                            rooms.map(room => ( // All rooms
+                                <SidebarChat room={room} key={room._id} onClick={_ => setCurrentRoom(room)} />
                             ))
                     }
                 </Chats>

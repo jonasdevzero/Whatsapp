@@ -39,7 +39,7 @@ function Chat({
 
     const [newMessage, setNewMessage] = useState('');
 
-    const [search, setSearch] = useState('');
+    const [searchMessage, setSearchMessage] = useState('');
     const [searchContainer, setSearchContainer] = useState(false);
     const [searchResults, setSearchResults] = useState([]);
 
@@ -47,27 +47,26 @@ function Chat({
 
     useEffect(_ => {
         const fuse = new Fuse(messages, { keys: ['message'], })
+        const results = fuse.search(searchMessage).map(({ item }) => item)
 
-        const results = fuse.search(search).map(({ item }) => item)
-
-        if (messages.length > 0 && search.length > 0 && results.length > 0) {
+        if (results.length > 0) {
             setSearchResults(results);
         } else {
             setSearchResults([])
         }
 
-    }, [search, messages]);
+    }, [searchMessage, messages]);
 
     async function sendMessage(e) {
         e.preventDefault();
 
         await axios.post('/api/messages/send', {
-            message: inputMessage,
+            message: newMessage,
             username: user.username,
             room_id: currentRoom._id,
         })
 
-        setInputMessage('');
+        setNewMessage('');
     };
 
     async function deleteRoom() {
@@ -160,7 +159,7 @@ function Chat({
 
                         <Dropside.Title2>
                             <CloseIcon onClick={_ => setSearchContainer(false)} />
-                        Search messages
+                            Search messages
                         </Dropside.Title2>
 
                     </Dropside.TitleContainer2>
@@ -168,9 +167,14 @@ function Chat({
                     <Dropside.Form bb>
                         <Dropside.Search>
                             <SearchOutlined />
-                            <Dropside.SearchInput value={search} onChange={e => setSearch(e.target.value)} placeholder="Search..." />
+                            <Dropside.SearchInput 
+                                value={searchMessage} 
+                                onChange={e => setSearchMessage(e.target.value)} 
+                                placeholder="Search..." 
+                            />
                         </Dropside.Search>
                     </Dropside.Form>
+
                     <Dropside.MessagesContainer>
                         {searchResults?.map(message => {
                             return (
@@ -188,6 +192,7 @@ function Chat({
                             )
                         })}
                     </Dropside.MessagesContainer>
+
                 </Dropside>
                 :
                 null
