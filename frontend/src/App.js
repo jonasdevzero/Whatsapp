@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { Signin, Signup, Chat } from './pages';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
-import * as ROUTES from './contants/routes';
+import * as ROUTES from './constants/routes';
 import { UserContext } from './context/userContext';
 
 function App() {

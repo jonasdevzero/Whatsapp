@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom'
-import axios from '../contants/axios';
+import axios from '../constants/axios';
 
 import { UserContext } from '../context/userContext';
 

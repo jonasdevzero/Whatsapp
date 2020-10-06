@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from '../../contants/axios';
+import axios from '../../constants/axios';
 import Fuse from 'fuse.js'
 
 import { Header, SidebarChat, Dropdown, Dropside } from '../';
