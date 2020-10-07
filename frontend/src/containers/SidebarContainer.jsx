@@ -135,11 +135,9 @@ function SidebarContainer({
             </Dropside>
 
             <Header padding="0">
-
                 <IconButton onClick={_ => setProfileContainer(true)}>
                     <Header.Picture src={user?.imageUrl} />
                 </IconButton>
-
                 <Header.Right>
                     <IconButton>
                         <DonutLargeIcon />
@@ -149,18 +147,16 @@ function SidebarContainer({
                     </IconButton>
                     <IconButton onClick={_ => setProfileDropdown(!profileDropdown)}>
                         <MoreVertIcon />
+                        <Dropdown showDropdown={profileDropdown}>
+                            <Dropdown.Item onClick={_ => setProfileContainer(true)}>
+                                Profile
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={e => signOut(e)}>
+                                Log out
+                            </Dropdown.Item>
+                        </Dropdown>
                     </IconButton>
                 </Header.Right>
-
-                <Dropdown showDropdown={profileDropdown}>
-                    <Dropdown.Item onClick={_ => setProfileContainer(true)}>
-                        Profile
-                        </Dropdown.Item>
-                    <Dropdown.Item onClick={e => signOut(e)}>
-                        Log out
-                        </Dropdown.Item>
-                </Dropdown>
-
             </Header>
 
             <Form>

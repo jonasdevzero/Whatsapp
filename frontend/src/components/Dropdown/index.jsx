@@ -7,7 +7,7 @@ function Dropdown({ children, ...props }) {
 };
 
 Dropdown.Item = function DropdownItem({ children, ...props }) {
-    return <Item {...props}>{children}</Item>
+    return <Item {...props}>{children}</Item>;
 }
 
 export default Dropdown;

@@ -7,7 +7,6 @@ export const Container = styled.div`
     padding: ${({ padding }) => padding ? padding : '10px 20px'};
     border-right: ${({ borderBottom }) => borderBottom ? 'none' : '1px solid lightgray'};
     border-bottom: ${({ borderBottom }) => borderBottom && '1px solid lightgray'};
-    position: relative;
 `;
 
 export const Right = styled.div`
@@ -20,6 +19,10 @@ export const Right = styled.div`
 
     .MuiIconButton-root {
         margin-right: 10px;
+    };
+
+    .MuiButtonBase-root {
+        position: relative;
     };
 `;
 

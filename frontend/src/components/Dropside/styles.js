@@ -9,7 +9,7 @@ export const Container = styled.div`
     z-index: 100;
     background-color: #ededed;
 
-    transition: left .8s ease;
+    transition: left .7s ease;
     ${({ showContainer }) => showContainer ? 'left: 0px' : null}
     
 `

@@ -60,8 +60,8 @@ function ChatContainer({
                 const error = resp.data.error
                 if (error) {
                     setWarning(error)
-                    setTimeout(_ => { 
-                        setWarning('') 
+                    setTimeout(_ => {
+                        setWarning('')
                     }, 2000)
 
                     return
@@ -97,15 +97,12 @@ function ChatContainer({
                         </IconButton>
                         <IconButton onClick={_ => setChatDropdown(!chatDropdown)}>
                             <MoreVert />
+                            <Dropdown showDropdown={chatDropdown}>
+                                <Dropdown.Item onClick={_ => deleteRoom()}>Delete room</Dropdown.Item>
+                            </Dropdown>
                         </IconButton>
                     </Header.Right>
-
-                    <Dropdown showDropdown={chatDropdown}>
-                        <Dropdown.Item onClick={_ => deleteRoom()}>Delete room</Dropdown.Item>
-                    </Dropdown>
-
                 </Header>
-
                 <Chat>
                     {warning ? <Chat.Warning>{warning}</Chat.Warning> : null}
 
@@ -125,7 +122,6 @@ function ChatContainer({
                         )
                     })}
                 </Chat>
-
                 <Form.MessageContainer>
                     <InsertEmotionIcon />
                     <Form.Message>
@@ -136,7 +132,6 @@ function ChatContainer({
                     </Form.Message>
                     <MicIcon />
                 </Form.MessageContainer>
-
             </Chat.Container>
 
             {searchContainer ?
@@ -150,10 +145,10 @@ function ChatContainer({
                     <Form borderBottom>
                         <Form.Search>
                             <SearchOutlined />
-                            <Form.SearchInput 
-                                value={searchMessage} 
-                                onChange={e => setSearchMessage(e.target.value)} 
-                                placeholder="Search..." 
+                            <Form.SearchInput
+                                value={searchMessage}
+                                onChange={e => setSearchMessage(e.target.value)}
+                                placeholder="Search..."
                             />
                         </Form.Search>
                     </Form>
