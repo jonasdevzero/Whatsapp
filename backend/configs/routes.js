@@ -15,9 +15,10 @@ router.post(USER_API.AUTH, authUser);
 router.post(USER_API.UPDATE, updateUser);
 
 // Messages api routes
-const { sendMessage, getMessages } = require('../api/messages');
+const { sendMessage, getMessages, deleteMessage } = require('../api/messages');
 router.post(MESSAGES_API.GET, getMessages);
 router.post(MESSAGES_API.SEND, sendMessage);
+router.post(MESSAGES_API.DELETE, deleteMessage);
 
 // Rooms Api routes
 const { getRooms, createRoom, deleteRoom, updateRoom } = require('../api/rooms');

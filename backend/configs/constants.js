@@ -11,6 +11,7 @@ const USER_API = {
 const MESSAGES_API = {
     SEND: '/api/messages/send',
     GET: '/api/messages/get',
+    DELETE: '/api/messages/delete',
 };
 
 const ROOMS_API = {

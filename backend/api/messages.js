@@ -28,7 +28,27 @@ async function getMessages(req, res) {
     };
 };
 
+async function deleteMessage(req, res) {
+    const { _id, room_id } = req.body 
+
+    if (_id) {
+        try {
+            await Messages.findByIdAndDelete({ _id: _id })
+        } catch (err) {
+            return res.status(500).send({ error: 'Error on server' })
+        }
+    } else {
+       try {
+           await Messages.remove({ room_id: room_id })
+       } catch (err) {
+           return res.status(500).send({ error: 'Error on server' })
+       }
+    }
+    return
+}
+
 module.exports = {
     getMessages,
-    sendMessage
+    sendMessage,
+    deleteMessage
 };
