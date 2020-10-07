@@ -8,14 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.div`
-    background: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') repeat center;
     flex: 1;
-    padding: 30px;
-    overflow-y: scroll;
-
-    ::-webkit-scrollbar {
-        width: 0px;
-    };
 `;
 
 export const Message = styled.p`
@@ -25,12 +18,12 @@ export const Message = styled.p`
     width: fit-content;
     border-radius: 10px;
     background-color: #fff;
-    margin: 10px 0px 25px 5px; 
+    margin: 20px 0px 25px 35px; 
 `;
 
 export const MessageSender = styled(Message)`
     background-color: #dcf8c6;
-    margin: 10px 5px 25px 0px; 
+    margin: 23px 35px 25px 0px; 
     margin-left: auto;
     padding: 10px;
 `

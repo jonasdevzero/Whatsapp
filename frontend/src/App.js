@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
+import 'normalize.css';
+
 import { Signin, Signup, Chat } from './pages';
 import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
 import * as ROUTES from './constants/routes';

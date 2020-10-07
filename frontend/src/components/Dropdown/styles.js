@@ -8,14 +8,15 @@ export const Container = styled.div`
     right: 20px;
     top: 40px;
     background-color: #fff;
+    z-index: 101;
 `;
 
-export const Item = styled.button`
+export const Item = styled.div`
+    display: flex;
+    align-items: center;
     text-align: start;
     width: 180px;
     height: 40px;
-    border: none;
-    outline: none;
     padding: 0 15px;
     background: none;
     font-size: 16px;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from '../constants/axios';
 import Fuse from 'fuse.js';
+import ScrollToBottom from 'react-scroll-to-bottom'
 
 import { UserContext } from '../context/userContext';
 import { Header, Dropdown, Dropside, Chat, Form } from '../components';
@@ -56,9 +57,9 @@ function ChatContainer({
     };
 
     async function deleteRoom() {
-        await axios.post(ROUTES.DELETE_ROOM, { 
-            room: currentRoom, 
-            username: user.username 
+        await axios.post(ROUTES.DELETE_ROOM, {
+            room: currentRoom,
+            username: user.username
         })
             .then(async resp => {
                 const error = resp.data.error
@@ -107,25 +108,27 @@ function ChatContainer({
                         </IconButton>
                     </Header.Right>
                 </Header>
-                <Chat>
-                    {warning ? <Chat.Warning>{warning}</Chat.Warning> : null}
+                <ScrollToBottom className="scroll-to-bottom">
+                    <Chat>
+                        {warning ? <Chat.Warning>{warning}</Chat.Warning> : null}
 
-                    {messages.map(message => {
-                        return (
-                            message.username === user.username ?
-                                <Chat.MessageSender key={`${message.username}-${message.timestamp}`}>
-                                    {message.message}
-                                    <Chat.TimeStamp>{message.timestamp}</Chat.TimeStamp>
-                                </Chat.MessageSender>
-                                :
-                                <Chat.Message key={`${message.username}-${message.timestamp}`}>
-                                    <Chat.Username>{message.username}</Chat.Username>
-                                    {message.message}
-                                    <Chat.TimeStamp>{message.timestamp}</Chat.TimeStamp>
-                                </Chat.Message>
-                        )
-                    })}
-                </Chat>
+                        {messages.map(message => {
+                            return (
+                                message.username === user.username ?
+                                    <Chat.MessageSender key={`${message.username}-${message.timestamp}`}>
+                                        {message.message}
+                                        <Chat.TimeStamp>{message.timestamp}</Chat.TimeStamp>
+                                    </Chat.MessageSender>
+                                    :
+                                    <Chat.Message key={`${message.username}-${message.timestamp}`}>
+                                        <Chat.Username>{message.username}</Chat.Username>
+                                        {message.message}
+                                        <Chat.TimeStamp>{message.timestamp}</Chat.TimeStamp>
+                                    </Chat.Message>
+                            )
+                        })}
+                    </Chat>
+                </ScrollToBottom>
                 <Form.MessageContainer>
                     <InsertEmotionIcon />
                     <Form.Message>
