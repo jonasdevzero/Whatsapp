@@ -29,7 +29,7 @@ async function getMessages(req, res) {
 };
 
 async function deleteMessage(req, res) {
-    const { _id, room_id } = req.body 
+    const { _id } = req.body 
 
     if (_id) {
         try {
@@ -37,18 +37,20 @@ async function deleteMessage(req, res) {
         } catch (err) {
             return res.status(500).send({ error: 'Error on server' })
         }
-    } else {
-       try {
-           await Messages.remove({ room_id: room_id })
-       } catch (err) {
-           return res.status(500).send({ error: 'Error on server' })
-       }
     }
-    return
+}
+
+async function deleteMessages(room_id) {
+    try {
+        await Messages.deleteMany({ room_id })
+    } catch (err) {
+        console.log('error')
+    }
 }
 
 module.exports = {
     getMessages,
     sendMessage,
-    deleteMessage
+    deleteMessage,
+    deleteMessages
 };

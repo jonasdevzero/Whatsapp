@@ -10,6 +10,7 @@ export const UPDATE_USER = '/api/user/update'
 
 export const SEND_MESSAGE = '/api/messages/send'
 export const GET_MESSAGES = '/api/messages/get'
+export const DELETE_MESSAGE = '/api/messages/delete'
 
 export const GET_ROOMS = '/api/rooms/get'
 export const CREATE_ROOM = '/api/rooms/create'

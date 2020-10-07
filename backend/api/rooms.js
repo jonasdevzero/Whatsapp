@@ -1,4 +1,5 @@
 const Rooms = require('../models/rooms');
+const { deleteMessages } = require('./messages');
 
 async function getRooms(req, res) {
     try {
@@ -36,6 +37,7 @@ async function deleteRoom(req, res) {
         return res.send({ error: 'It is not possible to delete this room'})
     
     try {
+        deleteMessages(_id )
         const roomDeleted = await Rooms.findByIdAndDelete({ _id });
 
         return res.status(200).send({ roomDeleted });
