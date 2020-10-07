@@ -3,7 +3,8 @@ import axios from '../constants/axios';
 import Fuse from 'fuse.js';
 
 import { UserContext } from '../context/userContext';
-import { Header, Dropdown, Dropside, Chat, Form } from '../components'
+import { Header, Dropdown, Dropside, Chat, Form } from '../components';
+import * as ROUTES from '../constants/routes';
 
 import { IconButton } from '@material-ui/core';
 import { MoreVert, SearchOutlined } from '@material-ui/icons';
@@ -45,7 +46,7 @@ function ChatContainer({
     async function sendMessage(e) {
         e.preventDefault();
 
-        await axios.post('/api/messages/send', {
+        await axios.post(ROUTES.SEND_MESSAGE, {
             message: newMessage,
             username: user.username,
             room_id: currentRoom._id,
@@ -55,7 +56,10 @@ function ChatContainer({
     };
 
     async function deleteRoom() {
-        await axios.post('/api/rooms/delete', { room: currentRoom, username: user.username })
+        await axios.post(ROUTES.DELETE_ROOM, { 
+            room: currentRoom, 
+            username: user.username 
+        })
             .then(async resp => {
                 const error = resp.data.error
                 if (error) {
@@ -67,7 +71,7 @@ function ChatContainer({
                     return
                 }
 
-                await axios.get('/api/rooms/get')
+                await axios.get(ROUTES.GET_ROOMS)
                     .then(resp => {
                         const rooms = resp.data
                         setCurrentRoom(rooms[0])
@@ -133,7 +137,6 @@ function ChatContainer({
                     <MicIcon />
                 </Form.MessageContainer>
             </Chat.Container>
-
             {searchContainer ?
                 <Dropside position="none" width="30vw" onClick={_ => hideDropdown()}>
                     <Header>

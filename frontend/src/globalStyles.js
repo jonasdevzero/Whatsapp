@@ -10,6 +10,5 @@ export const GlobalStyles = createGlobalStyle`
         display: flex;
         background-color: #ededed;
         height: 100vh;
-        width: 100vw;
     }
 `

@@ -15,9 +15,12 @@ export const Inner = styled.div`
     width: 500px;
     max-width: 100%;
     background-color: #f7f7f7;
+    padding: 0 70px;
 
-    @media (max-width: 500px) {
+    @media (max-width: 600px) {
         width: 100%;
+        padding: 0;
+        height: 100%;
     }
 `;
 
@@ -55,7 +58,7 @@ export const Input = styled.input`
     max-width:  ${({ maxWidth }) => maxWidth ? maxWidth : '300px'};
 
     @media (max-width: 600px) {
-        width: 90%
+        width: ${({ maxWidth }) => maxWidth ? '54%' : '90%'}; 
     };
 `;
 
