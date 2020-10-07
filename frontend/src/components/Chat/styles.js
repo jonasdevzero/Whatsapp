@@ -3,17 +3,8 @@ import styled from 'styled-components/macro';
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    flex: .70;
+    flex: .7;
     position: relative;
-`;
-
-export const RoomName = styled.h3`
-    margin-bottom: 4px;
-    font-weight: 500;
-`;
-
-export const LastMessage = styled.p`
-    color: gray;
 `;
 
 export const Content = styled.div`
@@ -24,7 +15,7 @@ export const Content = styled.div`
 
     ::-webkit-scrollbar {
         width: 0px;
-    }
+    };
 `;
 
 export const Message = styled.p`
@@ -35,11 +26,16 @@ export const Message = styled.p`
     border-radius: 10px;
     background-color: #fff;
     margin: 10px 0px 25px 5px; 
-
-
 `;
 
-export const User = styled.span`
+export const MessageSender = styled(Message)`
+    background-color: #dcf8c6;
+    margin: 10px 5px 25px 0px; 
+    margin-left: auto;
+    padding: 10px;
+`
+
+export const Username = styled.span`
     position: absolute;
     top: 6px;
     left: 10px;
@@ -50,47 +46,6 @@ export const User = styled.span`
 export const TimeStamp = styled.span`
     font-size: 12px;
     margin-left: 20px;
-`
-
-export const MessageReciver = styled(Message)`
-    background-color: #dcf8c6;
-    margin: 10px 5px 25px 0px; 
-    margin-left: auto;
-    padding: 10px;
-
-    ${User} {
-        display: none;
-    }
-`
-
-export const FormContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 62px;
-    border-top: 1px solid lightgray;
-
-    .MuiSvgIcon-root {
-        padding: 10px;
-        color: gray;
-    }
-`
-
-export const Form = styled.form`
-    display: flex;
-    flex: 1;
-`
-
-export const Input = styled.input`
-    flex: 1;
-    border-radius: 30px;
-    padding: 10px;
-    border: none;
-    outline: none;
-`
-
-export const Button = styled.button`
-    display: none;
 `
 
 export const Warning = styled.div`

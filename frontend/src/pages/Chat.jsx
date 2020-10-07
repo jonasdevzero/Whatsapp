@@ -4,7 +4,7 @@ import axios from '../constants/axios';
 
 import * as ROUTES from '../constants/routes';
 
-import { Sidebar, Chat as ChatComponent } from '../components';
+import { SidebarContainer, ChatContainer } from '../containers';
 
 function Chat() {
   const [currentRoom, setCurrentRoom] = useState({});
@@ -78,7 +78,7 @@ function Chat() {
 
   return (
     <>
-      <Sidebar
+      <SidebarContainer
         rooms={rooms}
         setRooms={setRooms}
         setCurrentRoom={setCurrentRoom}
@@ -87,7 +87,7 @@ function Chat() {
         setProfileDropdown={setProfileDropdown}
         hideDropdown={hideDropdown}
       />
-      <ChatComponent
+      <ChatContainer
         currentRoom={currentRoom}
         setCurrentRoom={setCurrentRoom}
         setRooms={setRooms}
