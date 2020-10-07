@@ -37,3 +37,12 @@ export const Picture = styled(Avatar)`
     width: 45px !important;
     height: 45px !important;
 `
+
+export const RoomName = styled.h3`
+    margin-bottom: 4px;
+    font-weight: 500;
+`;
+
+export const LastMessage = styled.p`
+    color: gray;
+`;

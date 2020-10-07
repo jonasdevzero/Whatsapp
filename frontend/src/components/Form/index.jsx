@@ -11,7 +11,16 @@ import {
     Text,
     Link,
     Error,
-    Icon
+    Icon,
+    MessageContainer,
+    Message,
+    MessageInput,
+    MessageButton,
+    SearchContainer,
+    Search,
+    SearchInput,
+    Label,
+    DropsideInput
 } from './styles';
 
 function Form({ children, ...props }) {
@@ -59,5 +68,42 @@ Form.Link = function FormLink({ children, ...props }) {
 Form.Error = function FormError({ children, ...props }) {
     return <Error {...props}>{children}</Error>
 };
+
+// Componnents for chat container
+Form.MessageContainer = function FormMessageContainer({ children, ...props }) {
+    return <MessageContainer {...props}>{children}</MessageContainer>
+};
+
+Form.Message = function FormMessage({ children, ...props }) {
+    return <Message {...props}>{children}</Message>
+};
+
+Form.MessageInput = function FormMessageInput({ children, ...props }) {
+    return <MessageInput {...props}>{children}</MessageInput>
+};
+
+Form.MessageButton = function FormMessageButton({ children, ...props }) {
+    return <MessageButton {...props}>{children}</MessageButton>
+};
+
+
+Form.SearchContainer = function FormSearchContainer({ children, ...props }) {
+    return <SearchContainer {...props}>{children}</SearchContainer>
+};
+Form.Search = function FormSearch({ children, ...props }) {
+    return <Search {...props}>{children}</Search>
+};
+Form.SearchInput = function FormSearchInput({ children, ...props }) {
+    return <SearchInput {...props}>{children}</SearchInput>
+};
+
+
+Form.Label = function FormLabel({ children, ...props }) {
+    return <Label {...props}>{children}</Label>
+}
+
+Form.DropsideInput = function FormDropsideInput({ children, ...props }) {
+    return <DropsideInput {...props}>{children}</DropsideInput>
+}
 
 export default Form;

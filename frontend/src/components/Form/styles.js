@@ -41,7 +41,8 @@ export const FormGroup = styled.form`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: '#f7f7f7';
+    background-color: ${({ backgroundColor }) => backgroundColor ? backgroundColor : '#f7f7f7'};
+    border-bottom:${({borderBottom }) => borderBottom && 'solid 2px #f7f7f7'}
 `;
 
 export const Input = styled.input`
@@ -120,4 +121,95 @@ export const Icon = styled.img`
     width: 50px;
     height: 50px;
     margin-left: 15px;
+` 
+
+
+export const MessageContainer = styled.div` /* Chat container */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 62px;
+    border-top: 1px solid lightgray;
+
+    .MuiSvgIcon-root {
+        padding: 10px;
+        color: gray;
+    }
+`;
+export const Message = styled.form` /* Chat container */
+    display: flex;
+    flex: 1;
+`;
+export const MessageInput = styled.input` /* Chat container */
+    flex: 1;
+    border-radius: 30px;
+    padding: 10px;
+    border: none;
+    outline: none;
+`;
+export const MessageButton = styled.button` /* Chat container */
+    display: none;
+`;
+
+
+export const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+
+    .MuiSvgIcon-root {
+        color: gray;
+        padding: 10px;
+    };
+
+    @media (max-width: 500px) {
+        .MuiSvgIcon-root {
+            display: none !important;
+        };
+    };
+`;
+
+export const Search = styled.div`
+    display: flex;
+    align-items: center;
+    width: 90%;
+    margin: 10px auto;
+    height: 40px;
+    background-color: #fff;
+    border-radius: 20px;
+
+    .MuiSvgIcon-root {
+        margin: 0 15px 0 10px;
+        color: #777;
+        font-size: 20px;
+    };
+`;
+
+export const SearchInput = styled.input`
+    border: none;
+    outline: none;
+    background: none;
+    flex: 1;
+` ;
+
+
+export const Label = styled.label` /* Sidebar conatiner  */
+    width: calc(100% - 25px);
+    margin-left: 25px;
+    margin-top: 15px;;
+    font-size: 15px;
+    color: green;
+`
+export const DropsideInput = styled.input` /* Sidebar conatiner  */
+    border: none;
+    outline: none;
+    padding: 15px 25px;
+    background-color: #ededed;
+    font-size: 20px;
+    border-bottom: 2px solid #fff;
+    width: calc(100% - 50px);
+    margin-bottom: 20px;
 ` 

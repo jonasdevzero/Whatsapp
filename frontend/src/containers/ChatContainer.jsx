@@ -141,16 +141,12 @@ function ChatContainer({
 
             {searchContainer ?
                 <Dropside position="none" width="30vw" onClick={_ => hideDropdown()}>
-
-                    <Dropside.TitleContainer2>
-
-                        <Dropside.Title2>
+                    <Header>
+                        <Dropside.SearchTitle>
                             <CloseIcon onClick={_ => setSearchContainer(false)} />
                             Search messages
-                        </Dropside.Title2>
-
-                    </Dropside.TitleContainer2>
-
+                        </Dropside.SearchTitle>
+                    </Header>
                     <Form borderBottom>
                         <Form.Search>
                             <SearchOutlined />
@@ -161,7 +157,6 @@ function ChatContainer({
                             />
                         </Form.Search>
                     </Form>
-
                     <Dropside.MessagesContainer>
                         {searchResults?.map(message => {
                             return (
@@ -179,7 +174,6 @@ function ChatContainer({
                             )
                         })}
                     </Dropside.MessagesContainer>
-
                 </Dropside>
                 :
                 null
