@@ -38,8 +38,8 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 
 <p align="center">Realtime chat</p>
 <img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/realtime-chat.gif" alt="gif 1" align="center" />
-
-<p>Functionalities</p>
+<br />
+<p align="center">Functionalities</p>
 <img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/whatsapp-clone-functionalities.gif" alt="gif2" align="center" />
 
 <!-- PRESENTATION -->
@@ -60,7 +60,7 @@ To get a local copy up and running follow these simple example steps.
 ```sh
 git clone https://github.com/jonasdevzero/Whatsapp.git
 ```
-2. Install NPM packages
+2. Install NPM packages in the frontend and backend folders
 ```sh
 npm install
 ```
