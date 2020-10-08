@@ -47,11 +47,16 @@ async function deleteRoom(req, res) {
 };
 
 async function updateRoom(req, res) {
-    const { _id } = req.body;
-    delete req.body._id
+    const { username, room, data } = req.body;
+
+    if (username !== room.createdBy) 
+        return res.send({ error: 'It is not possible change the data of this room' });
+
+    const _id = room._id
+    
 
     try {
-        const roomUpdated = await Rooms.findOneAndUpdate({ _id: _id }, req.body, { new: true })
+        const roomUpdated = await Rooms.findOneAndUpdate({ _id: _id }, data, { new: true })
         return res.status(200).send({ roomUpdated })
     } catch (err) {
         return res.status(500).send({ error: 'Error on server' })

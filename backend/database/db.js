@@ -44,16 +44,23 @@ db.once('open', () => {
     });
 
     roomsStream.on('change', change => {
+        console.log(change)
         if (change.operationType === 'insert') {
-            const messageDetails = change.fullDocument;
+            const roomDetails = change.fullDocument;
             pusher.trigger('rooms', 'inserted', {
-                _id: messageDetails._id,
-                name: messageDetails.name,
-                image: messageDetails.image
+                _id: roomDetails._id,
+                name: roomDetails.name,
+                image: roomDetails.image
             });
-        } else if (change.operationType = 'delete') {
+        } else if (change.operationType === 'delete') {
             pusher.trigger('rooms', 'deleted', {
                 _id: change.documentKey._id
+            })
+        } else if (change.operationType === 'update') {
+            pusher.trigger('rooms', 'updated', {
+                _id: change.documentKey._id,
+                name: change.updateDescription.updatedFields.name,
+                image: change.updateDescription.updatedFields.image
             })
         } else {
             console.log('Error triggered Pusher');
