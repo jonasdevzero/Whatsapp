@@ -20,7 +20,7 @@ function SidebarContainer({
     setRooms,
     profileDropdown,
     setProfileDropdown,
-    hideDropdown
+    hiddenDropdown
 }) {
     const { user, setUser } = useContext(UserContext);
 
@@ -91,8 +91,8 @@ function SidebarContainer({
     };
 
     return (
-        <Sidebar onClick={_ => hideDropdown()}>
-            <Dropside showContainer={profileContainer} onClick={_ => hideDropdown()}>
+        <Sidebar onClick={_ => hiddenDropdown()}>
+            <Dropside showContainer={profileContainer} onClick={_ => hiddenDropdown()}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
                         <ArrowBackIcon onClick={_ => setProfileContainer(false)} />
@@ -112,7 +112,7 @@ function SidebarContainer({
                     <Form.DropsideSubmit>Change</Form.DropsideSubmit>
                 </Form>
             </Dropside>
-            <Dropside showContainer={newRoomContainer} onClick={_ => hideDropdown()}>
+            <Dropside showContainer={newRoomContainer} onClick={_ => hiddenDropdown()}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
                         <ArrowBackIcon onClick={_ => setNewRoomContainer(false)} />

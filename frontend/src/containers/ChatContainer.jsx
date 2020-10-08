@@ -20,7 +20,7 @@ function ChatContainer({
     setRooms,
     chatDropdown,
     setChatDropdown,
-    hideDropdown
+    hiddenDropdown
 }) {
     const { user } = useContext(UserContext);
 
@@ -90,7 +90,7 @@ function ChatContainer({
                     })
             })
 
-        hideDropdown()
+        hiddenDropdown()
     }
 
     function toggleContainer(container) {
@@ -126,7 +126,7 @@ function ChatContainer({
 
     return (
         <>
-            <Chat.Container onClick={_ => hideDropdown()}>
+            <Chat.Container onClick={_ => hiddenDropdown()}>
                 <Header borderBottom padding="none">
                     <IconButton onClick={_ => toggleContainer('group')}>
                         <Header.Picture src={currentRoom?.image} />
@@ -190,7 +190,7 @@ function ChatContainer({
                 </Form.MessageContainer>
             </Chat.Container>
             {searchContainer ?
-                <Dropside position="none" width="30vw" onClick={_ => hideDropdown()}>
+                <Dropside position="none" width="30vw" onClick={_ => hiddenDropdown()}>
                     <Header padding="none" backgroundColor="#fff">
                         <Dropside.SearchTitle>
                             <CloseIcon onClick={_ => setSearchContainer(false)} />

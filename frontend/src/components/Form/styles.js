@@ -55,7 +55,6 @@ export const Input = styled.input`
     outline: none;
     width: calc(100% - 20px);
     background-color: #ededed;
-    max-width:  300px;
 
     @media (max-width: 600px) {
         width: 90%; 
