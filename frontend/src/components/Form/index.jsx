@@ -20,7 +20,8 @@ import {
     Search,
     SearchInput,
     Label,
-    DropsideInput
+    DropsideInput,
+    DropsideSubmit
 } from './styles';
 
 function Form({ children, ...props }) {
@@ -104,6 +105,10 @@ Form.Label = function FormLabel({ children, ...props }) {
 
 Form.DropsideInput = function FormDropsideInput({ children, ...props }) {
     return <DropsideInput {...props}>{children}</DropsideInput>
+}
+
+Form.DropsideSubmit = function FormDropsideSubmit({ children, ...props }) {
+    return <DropsideSubmit {...props}>{children}</DropsideSubmit>
 }
 
 export default Form;

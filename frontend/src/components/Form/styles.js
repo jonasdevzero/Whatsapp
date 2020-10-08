@@ -12,15 +12,15 @@ export const Container = styled.div`
 export const Inner = styled.div`
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 350px;
     max-width: 100%;
     background-color: #f7f7f7;
-    padding: 0 70px;
+    padding: 0 40px;
+    border-radius: 10px; 
+    margin: 30px 0;
 
-    @media (max-width: 600px) {
-        width: 100%;
-        padding: 0;
-        height: 100%;
+    @media (max-width: 650px) {
+        width: 75%;
     }
 `;
 
@@ -49,34 +49,30 @@ export const FormGroup = styled.form`
 `;
 
 export const Input = styled.input`
-    padding: ${({ padding }) => padding ? padding : '20px 10px'};
-    margin: ${({ margin }) => margin ? margin : '8px 2px'};
+    padding: 20px 10px;
+    margin: 8px 2px;
     border: none;
     outline: none;
     width: calc(100% - 20px);
-    background-color: ${({ bg }) => bg ? bg : '#ededed'};
-    max-width:  ${({ maxWidth }) => maxWidth ? maxWidth : '300px'};
+    background-color: #ededed;
+    max-width:  300px;
 
     @media (max-width: 600px) {
-        width: ${({ maxWidth }) => maxWidth ? '54%' : '90%'}; 
+        width: 90%; 
     };
 `;
 
 export const Submit = styled.button`
     padding: 20px;
-    margin: ${({ margin }) => margin ? margin : '15px 0'};
+    margin: 30px 0 15px 0;
     border: none;
     outline: none;
     cursor: pointer;
-    width: ${({ width }) => width ? width : '100%'};
+    width: 200px;
     font-weight: bold;
     background-color: #25d366;
-    max-width: 319px;
     color: #555;
-
-    @media (max-width: 600px) {
-        width: 90%;
-    };
+    border-radius: 8px;
 `;
 
 export const Text = styled.p`
@@ -214,5 +210,9 @@ export const DropsideInput = styled.input` /* Sidebar conatiner  */
     font-size: 20px;
     border-bottom: 2px solid #fff;
     width: calc(100% - 50px);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 ` 
+
+export const DropsideSubmit = styled(Submit)`
+    margin-top: 10px;
+`

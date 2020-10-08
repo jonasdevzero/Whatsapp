@@ -11,7 +11,6 @@ export const Container = styled.div`
 
     transition: left .7s ease;
     ${({ showContainer }) => showContainer ? 'left: 0px' : null};
-    
 `;
 
 export const TitleContainer = styled.div`
@@ -19,7 +18,7 @@ export const TitleContainer = styled.div`
     display: flex;
     align-items: flex-end;
     padding: 28px;
-    background-color: #f9f9f9;
+    background-color: #fff;
 `;
 
 export const Title = styled.h1`
@@ -41,7 +40,7 @@ export const SearchTitle = styled.h1`
     display: flex;
     align-items: center;
     color: #777;
-    padding: 12px;
+    padding: 9.1px;
 
     .MuiSvgIcon-root {
         margin-right: 35px;
@@ -55,6 +54,7 @@ export const PictureContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #ededed;
 `;
 
 export const Picture = styled(Avatar)`

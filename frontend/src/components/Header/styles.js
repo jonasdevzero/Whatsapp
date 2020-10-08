@@ -7,6 +7,7 @@ export const Container = styled.div`
     padding: ${({ padding }) => padding ? padding : '10px 20px'};
     border-right: ${({ borderBottom }) => borderBottom ? 'none' : '1px solid lightgray'};
     border-bottom: ${({ borderBottom }) => borderBottom && '1px solid lightgray'};
+    background-color: ${({ backgroundColor }) => backgroundColor ? backgroundColor : ''}
 `;
 
 export const Right = styled.div`
@@ -29,9 +30,10 @@ export const Right = styled.div`
 export const Info = styled.div`
     display: flex;
     align-items: start;
+    justify-content: center;
     flex-direction: column;
     flex: 1;
-    padding-left: 20px;
+    padding-left: 10px;
     overflow: hidden;
 `;
 

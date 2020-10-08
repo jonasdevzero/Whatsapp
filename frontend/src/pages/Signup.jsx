@@ -91,7 +91,6 @@ function Signup() {
                                 value={imageUrl}
                                 onChange={e => setImageUrl(e.target.value)}
                                 placeholder="Image URL (optional)"
-                                maxWidth="100%"
                             />
                         </Form.Group>
 
