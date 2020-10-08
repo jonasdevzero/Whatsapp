@@ -66,6 +66,16 @@ function Chat() {
       };
     });
 
+    roomChannel.bind('updated', async updatedRoom => {
+        await axios.get(ROUTES.GET_ROOMS)
+          .then(resp => {
+            setRooms(resp.data)
+            if (currentRoom._id === updatedRoom._id) {
+              setCurrentRoom(currentRoom)
+            }
+          })
+    })
+
     return () => {
       messageChannel.unbind_all();
       messageChannel.unsubscribe();
@@ -74,7 +84,7 @@ function Chat() {
       roomChannel.unsubscribe();
     }
 
-  }, [messages, rooms, currentRoom._id]);
+  }, [messages, rooms, currentRoom]);
 
   return (
     <>
