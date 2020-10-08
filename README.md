@@ -6,6 +6,7 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
+* [Gifs](#gifs) 
 * [Demo](#demo)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -17,7 +18,8 @@
 ## About The Project
 
 This is a project made with MERN stack (Mongo, Express, React, Node), contains three pages: sigin, signup and chat. 
-Functionalities: User api, realtime chat, create and delete rooms, search for messages and rooms.
+Functionalities: User api, realtime chat, create and delete rooms, search for messages and rooms. If you do this project
+access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video contains only part of this project, the rest was done for me.
 
 ### Built With  
 
@@ -31,6 +33,14 @@ Functionalities: User api, realtime chat, create and delete rooms, search for me
 |      [axios](https://github.com/axios/axios)       |               [cors](https://www.npmjs.com/package/co)      |
 | [react-scroll-to-bottom](https://www.npmjs.com/package/react-scroll-to-bottom) |                  [nodemon](https://nodemon.io/)             |
 |[normalize](https://necolas.github.io/normalize.css/)|
+
+## Gifs 
+
+<p align="center">Realtime chat</p>
+<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/realtime-chat.gif" alt="gif 1" align="center" />
+
+<p>Functionalities</p>
+<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/whatsapp-clone-functionalities.gif" alt="gif2" align="center" />
 
 <!-- PRESENTATION -->
 ## Demo  
