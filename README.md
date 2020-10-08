@@ -1,4 +1,5 @@
 <h1 align="center">Whatsapp clone with MERN stack</h1>
+<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/chatPage.png" alt="chat page" />
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -28,7 +29,8 @@ Functionalities: User api, realtime chat, create and delete rooms, search for me
 |       [fuse.js](https://fusejs.io/)                |                   [pusher](https://pusher.com/)             |
 |      [pusher-js](https://pusher.com/)              |           [bcryptjs](https://www.npmjs.com/package/bcryptjs)|
 |      [axios](https://github.com/axios/axios)       |               [cors](https://www.npmjs.com/package/co)      |
-|                                                    |                  [nodemon](https://nodemon.io/)             |
+| [react-scroll-to-bottom](https://www.npmjs.com/package/react-scroll-to-bottom) |                  [nodemon](https://nodemon.io/)             |
+|[normalize](https://necolas.github.io/normalize.css/)|
 
 <!-- PRESENTATION -->
 ## Demo  
@@ -92,3 +94,4 @@ LinkdeIn  [![Linkedin Badge](https://img.shields.io/badge/-Jonas%20%20de%20Olive
 - Mongo atlas
 - Material-ui
 - axios
+- react-scroll-to-bottom
