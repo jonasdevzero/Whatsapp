@@ -102,14 +102,14 @@ function SidebarContainer({
                 <Dropside.PictureContainer>
                     <Dropside.Picture src={user?.imageUrl} />
                 </Dropside.PictureContainer>
-                <Form onSubmit={updateUser} backgroundColor="none">
+                <Form onSubmit={updateUser} backgroundColor="#ededed">
                     <Form.Label>Your name</Form.Label>
                     <Form.DropsideInput value={name} onChange={e => setName(e.target.value)} />
 
                     <Form.Label>You image URL</Form.Label>
                     <Form.DropsideInput value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
 
-                    <Form.Submit>Change</Form.Submit>
+                    <Form.DropsideSubmit>Change</Form.DropsideSubmit>
                 </Form>
             </Dropside>
             <Dropside showContainer={newRoomContainer} onClick={_ => hideDropdown()}>
@@ -119,14 +119,14 @@ function SidebarContainer({
                             New chat
                     </Dropside.Title>
                 </Dropside.TitleContainer>
-                <Form onSubmit={createRoom} backgroundColor="none">
+                <Form onSubmit={createRoom} backgroundColor="#ededed">
                     <Form.Label>Chat name</Form.Label>
-                    <Form.DropsideInput value={newRoomName} onChange={e => setNewRoomName(e.target.value)} />
+                    <Form.DropsideInput value={newRoomName} onChange={e => setNewRoomName(e.target.value)} required />
 
                     <Form.Label>Image Url</Form.Label>
                     <Form.DropsideInput value={newRoomImage} onChange={e => setNewRoomImage(e.target.value)} />
 
-                    <Form.Submit>Create</Form.Submit>
+                    <Form.DropsideSubmit>Create</Form.DropsideSubmit>
                 </Form>
             </Dropside>
             <Header padding="0">
@@ -145,6 +145,9 @@ function SidebarContainer({
                         <Dropdown showDropdown={profileDropdown}>
                             <Dropdown.Item onClick={_ => setProfileContainer(true)}>
                                 Profile
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={_ => setNewRoomContainer(true)}>
+                                New chat
                             </Dropdown.Item>
                             <Dropdown.Item onClick={e => signOut(e)}>
                                 Log out
