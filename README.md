@@ -44,6 +44,7 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 
 <!-- PRESENTATION -->
 ## Demo  
+It might take a while for the site to load:
 <a target="_blank" href="https://whatsapp-devzero.herokuapp.com">https://whatsapp-devzero.herokuapp.com</a>
 
 <!-- GETTING STARTED -->
