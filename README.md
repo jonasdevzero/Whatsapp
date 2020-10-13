@@ -6,8 +6,8 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Gifs](#gifs) 
 * [Demo](#demo)
+* [Gifs](#gifs) 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -34,6 +34,10 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 | [react-scroll-to-bottom](https://www.npmjs.com/package/react-scroll-to-bottom) |                  [nodemon](https://nodemon.io/)             |
 |[normalize](https://necolas.github.io/normalize.css/)|
 
+<!-- PRESENTATION -->
+## Demo  
+https://whatsapp-devzero.vercel.app/
+
 ## Gifs 
 
 <p align="center">Realtime chat</p>
@@ -41,10 +45,6 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 <br />
 <p align="center">Functionalities</p>
 <img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/whatsapp-clone-functionalities.gif" alt="gif2" align="center" />
-
-<!-- PRESENTATION -->
-## Demo  
-https://whatsapp-devzero.vercel.app/
 
 <!-- GETTING STARTED -->
 ## Getting Started
