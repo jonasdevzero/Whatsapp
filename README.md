@@ -94,9 +94,12 @@ Contributions are welcome :smile:
 <!-- CONTACT -->
 ## Contact
 
-Email  [![Gmail Badge](https://img.shields.io/badge/-jonasdevzero@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:jonasdevzero@gmail.com)](mailto:jonasdevzero@gmail.com)
-
-LinkdeIn  [![Linkedin Badge](https://img.shields.io/badge/-Jonas%20%20de%20Oliveira-blue?style=flatsquare&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/)](https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/)  
+<a target="_blank" href="https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/">
+ <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />
+</a>
+<a target="_blank" href="mailto:jonasdevzero@gmail.com">
+ <img src="https://img.shields.io/badge/gmail-D14836?&style=for-the-badge&logo=gmail&logoColor=white" />
+</a> 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## knowledge acquired.
