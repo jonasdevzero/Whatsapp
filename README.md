@@ -108,3 +108,5 @@ Contributions are welcome :smile:
 - Material-ui
 - axios
 - react-scroll-to-bottom
+
+<h1 align="center">Improvements soon</h1>
