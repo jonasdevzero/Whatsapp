@@ -1,6 +1,102 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
+export const FormContainer = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+`;
+
+export const Title = styled.h1`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 600;
+    color: #555;
+`;
+
+export const InputWrapper = styled.div`
+    display: flex;
+    width: 100%;
+
+    input + input {
+        margin-left: 10px;
+    };
+
+    @media (max-width: 600px) {
+        flex-direction: column;
+
+        input + input {
+            margin-left: 0;
+        };
+    }
+`;
+
+export const Input = styled.input`
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px 10px;
+
+    background-color: #EEE;
+
+    border: none;
+    border-radius: 5px;
+    outline: none;
+
+    @media (max-width: 600px) {
+        padding: 15px 8px;
+    };
+`;
+
+export const Submit = styled.button`
+    width: 100%;
+    margin: 15px 0;
+    padding: 20px;
+
+    background-color: #25d366;
+    color: #555;
+    font-weight: bold;
+    
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+`;
+
+export const Description = styled.p`
+    margin: 0;
+    color: #000;
+    text-align: center;
+
+    a {
+        margin-left: 10px;
+    };
+`;
+
+export const Link = styled(ReactRouterLink)`
+    color: lightgray;
+    text-decoration: none;
+    transition: all .3s ease;
+
+    &:hover {
+        color: #555;
+        font-weight: bold;
+    };
+`;
+
+export const Error = styled.div`
+    background-color: red;
+    padding: 22px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    color: #fff;
+`;
+
 export const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -14,7 +110,7 @@ export const Inner = styled.div`
     flex-direction: column;
     width: 350px;
     max-width: 100%;
-    background-color: #f7f7f7;
+    /* background-color: #f7f7f7; */
     padding: 0 40px;
     border-radius: 10px; 
     margin: 30px 0;
@@ -23,97 +119,6 @@ export const Inner = styled.div`
         width: 75%;
     }
 `;
-
-export const Title = styled.h1`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-    font-weight: 600;
-    margin: 80px 0px 40px 0px;
-    color: #555;
-
-
-    @media (max-width: 550px) {
-        margin-top: 70px;
-    }
-`
-
-export const FormGroup = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: ${({ backgroundColor }) => backgroundColor ? backgroundColor : '#f7f7f7'};
-    border-bottom:${({borderBottom }) => borderBottom && 'solid 2px #f7f7f7'}
-`;
-
-export const Input = styled.input`
-    padding: 20px 10px;
-    margin: 8px 2px;
-    border: none;
-    outline: none;
-    width: calc(100% - 20px);
-    background-color: #ededed;
-
-    @media (max-width: 600px) {
-        width: 90%; 
-    };
-`;
-
-export const Submit = styled.button`
-    padding: 20px;
-    margin: 30px 0 15px 0;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 200px;
-    font-weight: bold;
-    background-color: #25d366;
-    color: #555;
-    border-radius: 8px;
-`;
-
-export const Text = styled.p`
-    color: #000;
-    margin: 0;
-    margin: 30px 0 70px 0;
-    text-align: center;
-
-    @media (max-width: 500px) {
-        margin-left: 16%;
-    }
-`
-
-export const Link = styled(ReactRouterLink)`
-    text-decoration: none;
-    color: lightgray;
-    transition: all .5s ease;
-
-    &:hover {
-        color: chartreuse;
-        font-weight: bold;
-    }
-`
-
-export const Error = styled.div`
-    background-color: red;
-    padding: 22px;
-    margin-bottom: 20px;
-    border-radius: 2px;
-    color: #fff;
-`
-
-export const Group = styled.div`
-    display: flex;
-    width: 100%;
-
-    @media (max-width: 600px) {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-`
 
 export const Icon = styled.img`
     width: 50px;

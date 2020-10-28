@@ -1,17 +1,17 @@
 import React from 'react';
 
 import {
+    FormContainer,
     Container,
     Inner,
     Title,
-    FormGroup,
-    Group,
+    InputWrapper,
     Input,
     Submit,
-    Text,
+    Description,
     Link,
     Error,
-    Icon,
+
     MessageContainer,
     Message,
     MessageInput,
@@ -25,7 +25,7 @@ import {
 } from './styles';
 
 function Form({ children, ...props }) {
-    return <FormGroup {...props}>{children}</FormGroup>
+    return <FormContainer {...props}>{children}</FormContainer>
 };
 
 Form.Inner = function FormInner({ children, ...props }) {
@@ -35,10 +35,6 @@ Form.Inner = function FormInner({ children, ...props }) {
 Form.Title = function FormTitle({ children, ...props }) {
     return <Title {...props}>
         {children}
-        <Icon
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            alt="Whatsapp"
-        />
     </Title>
 };
 
@@ -46,8 +42,8 @@ Form.Container = function FormContainer({ children, ...props }) {
     return <Container {...props}>{children}</Container>
 };
 
-Form.Group = function FormGroup({ children, ...props }) {
-    return <Group {...props}>{children}</Group>
+Form.InputWrapper = function FormInputWrapper({ children, ...props }) {
+    return <InputWrapper {...props}>{children}</InputWrapper>
 }
 
 Form.Input = function FormInput({ ...props }) {
@@ -58,8 +54,8 @@ Form.Submit = function FormSubmit({ children, ...props }) {
     return <Submit {...props}>{children}</Submit>
 };
 
-Form.Text = function FormText({ children, ...porps }) {
-    return <Text {...porps}>{children}</Text>
+Form.Description = function FormDescription({ children, ...porps }) {
+    return <Description {...porps}>{children}</Description>
 };
 
 Form.Link = function FormLink({ children, ...props }) {
