@@ -7,6 +7,7 @@
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
 * [Demo](#demo)
+* [Gifs](#gifs) 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -17,7 +18,8 @@
 ## About The Project
 
 This is a project made with MERN stack (Mongo, Express, React, Node), contains three pages: sigin, signup and chat. 
-Functionalities: User api, realtime chat, create and delete rooms, search for messages and rooms.
+Functionalities: User api, realtime chat, create and delete rooms, search for messages and rooms. If you do this project
+access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video contains only part of this project, the rest was done for me.
 
 ### Built With  
 
@@ -34,7 +36,15 @@ Functionalities: User api, realtime chat, create and delete rooms, search for me
 
 <!-- PRESENTATION -->
 ## Demo  
-<a target="_blank" href="https://whatsapp-devzero.herokuapp.com">https://whatsapp-devzero.herokuapp.com</a>
+https://whatsapp-devzero.vercel.app/
+
+## Gifs 
+
+<p align="center">Realtime chat</p>
+<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/realtime-chat.gif" alt="gif 1" align="center" />
+<br />
+<p align="center">Functionalities</p>
+<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/whatsapp-clone-functionalities.gif" alt="gif2" align="center" />
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -50,7 +60,7 @@ To get a local copy up and running follow these simple example steps.
 ```sh
 git clone https://github.com/jonasdevzero/Whatsapp.git
 ```
-2. Install NPM packages
+2. Install NPM packages in the frontend and backend folders
 ```sh
 npm install
 ```
@@ -84,9 +94,12 @@ Contributions are welcome :smile:
 <!-- CONTACT -->
 ## Contact
 
-Email  [![Gmail Badge](https://img.shields.io/badge/-jonasdevzero@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:jonasdevzero@gmail.com)](mailto:jonasdevzero@gmail.com)
-
-LinkdeIn  [![Linkedin Badge](https://img.shields.io/badge/-Jonas%20%20de%20Oliveira-blue?style=flatsquare&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/)](https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/)  
+<a target="_blank" href="https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/">
+ <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />
+</a>
+<a target="_blank" href="mailto:jonasdevzero@gmail.com">
+ <img src="https://img.shields.io/badge/gmail-D14836?&style=for-the-badge&logo=gmail&logoColor=white" />
+</a> 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## knowledge acquired.
@@ -95,3 +108,5 @@ LinkdeIn  [![Linkedin Badge](https://img.shields.io/badge/-Jonas%20%20de%20Olive
 - Material-ui
 - axios
 - react-scroll-to-bottom
+
+<h1 align="center">Improvements soon</h1>
