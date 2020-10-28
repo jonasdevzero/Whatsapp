@@ -1,12 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import axios from '../constants/axios';
-import * as API_ROUTES from '../constants/apiRoutes';
+import { createUser } from '../../services/user';
 
-import { UserContext } from '../context/userContext';
+import { UserContext } from '../../context/userContext';
 
-import { Form } from '../components';
+import { Form } from '../../components';
+import {
+    Container,
+    Content
+} from './styles';
 
 function Signup() {
     const [name, setName] = useState('');
@@ -19,43 +22,48 @@ function Signup() {
     const { setUser } = useContext(UserContext);
     const history = useHistory();
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
 
-        await axios.post(API_ROUTES.REGISTER_USER, {
+        const data = {
             name,
             username,
             password,
             confirmPassword,
             imageUrl
-        }).then(resp => {
-            const { user, error } = resp.data;
+        };
 
-            if (error) {
-                setName('');
-                setUsername('');
-                setPassword('');
-                setConfirmPassword('');
-                setImageUrl('');
-                setError(error);
-                return
+        createUser(data).then(response => {
+            const { user, error } = response;
+
+            if (!error) {
+                setUser(user);
+                history.push('/chat');
             };
 
-            localStorage.setItem('authUser', JSON.stringify(user))
-            setUser(user)
-            history.push('/chat')
+            setName('');
+            setUsername('');
+            setPassword('');
+            setConfirmPassword('');
+            setImageUrl('');
+            setError(error);
         });
     };
 
     return (
-        <>
-            <Form.Container>
-                <Form.Inner>
-                    
+        <Container>
+            <Content>
+
+                <Form
+                    onSubmit={handleSubmit}
+                    method="POST"
+                >
+
                     <Form.Title>Sign Up </Form.Title>
                     {error ? <Form.Error>{error}</Form.Error> : null}
-                    <Form onSubmit={handleSubmit} method="POST">
-                        <Form.Group>
+
+
+                    <div>
                             <Form.Input
                                 type="text"
                                 value={name}
@@ -63,6 +71,7 @@ function Signup() {
                                 placeholder="Name"
                                 required
                             />
+
                             <Form.Input
                                 type="text"
                                 value={username}
@@ -70,8 +79,8 @@ function Signup() {
                                 placeholder="Username"
                                 required
                             />
-                        </Form.Group>
-                        <Form.Group>
+
+                        <Form.InputWrapper>
                             <Form.Input
                                 type="password"
                                 value={password}
@@ -79,6 +88,7 @@ function Signup() {
                                 placeholder="Password"
                                 required
                             />
+
                             <Form.Input
                                 type="password"
                                 value={confirmPassword}
@@ -86,23 +96,30 @@ function Signup() {
                                 placeholder="Confirm password"
                                 required
                             />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Input
-                                type="url"
-                                value={imageUrl}
-                                onChange={e => setImageUrl(e.target.value)}
-                                placeholder="Image URL (optional)"
-                            />
-                        </Form.Group>
+                        </Form.InputWrapper>
 
-                        <Form.Submit type="submit">Sign up</Form.Submit>
-                    </Form>
-                    <Form.Text>Already user? <Form.Link to="/signin">Sign In</Form.Link></Form.Text>
-                </Form.Inner>
-            </Form.Container>
-        </>
+                        <Form.Input
+                            type="url"
+                            value={imageUrl}
+                            onChange={e => setImageUrl(e.target.value)}
+                            placeholder="Image URL (optional)"
+                        />
+                    </div>
+
+                    <Form.Submit type="submit">Sign up</Form.Submit>
+
+                    <Form.Description>
+                        Already user?
+                        <Form.Link to="/">
+                            Sign In
+                        </Form.Link>
+                    </Form.Description>
+
+                </Form>
+
+            </Content>
+        </Container>
     );
 };
 
-export default Signup
+export default Signup;
