@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+
 import axios from '../constants/axios';
+import * as API_ROUTES from '../constants/apiRoutes';
 
 import { UserContext } from '../context/userContext';
 
@@ -20,7 +22,7 @@ function Signup() {
     async function handleSubmit(e) {
         e.preventDefault();
 
-        await axios.post('/api/user/register', {
+        await axios.post(API_ROUTES.REGISTER_USER, {
             name,
             username,
             password,

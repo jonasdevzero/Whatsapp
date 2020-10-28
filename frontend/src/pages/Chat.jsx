@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
 import axios from '../constants/axios';
 
-import * as ROUTES from '../constants/routes';
+import * as API_ROUTES from '../constants/apiRoutes';
 
 import { SidebarContainer, ChatContainer } from '../containers';
 
@@ -15,7 +15,7 @@ function Chat() {
   const [profileDropdown, setProfileDropdown] = useState(false);
 
   useEffect(_ => {
-    axios.get(ROUTES.GET_ROOMS)
+    axios.get(API_ROUTES.GET_ROOMS)
       .then(resp => {
         setCurrentRoom(resp.data[0]);
         setRooms(resp.data);
@@ -24,7 +24,7 @@ function Chat() {
 
   useEffect(_ => {
     if (currentRoom._id) {
-      axios.post(ROUTES.GET_MESSAGES, {
+      axios.post(API_ROUTES.GET_MESSAGES, {
         room_id: currentRoom._id
       })
         .then(resp => {
@@ -60,7 +60,7 @@ function Chat() {
     });
 
     roomChannel.bind('updated', async updatedRoom => {
-      await axios.get(ROUTES.GET_ROOMS)
+      await axios.get(API_ROUTES.GET_ROOMS)
         .then(resp => {
           setRooms(resp.data)
           if (currentRoom._id === updatedRoom._id) {
