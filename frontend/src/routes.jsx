@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Signin, Signup, Chat } from './pages';
-import { IsUserRedirect, ProtectedRoute } from './helpers/routes';
+import { Home, Signin, Signup, Chat } from './pages';
+import { IsUserRedirect, ProtectedRoute } from './helpers/protectedRoutes';
 
 import UserProvider from './context/userContext'
 
@@ -14,7 +14,9 @@ function Routes() {
             <Router>
                 <Switch>
 
-                    <IsUserRedirect exact user={user} loggedInPath={'/chat'} path={'/'}>
+                    <Route exact path='/' component={Home} />
+                    
+                    <IsUserRedirect exact user={user} loggedInPath={'/chat'} path={'/signin'}>
                         <Signin />
                     </IsUserRedirect>
 
