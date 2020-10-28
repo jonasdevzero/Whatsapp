@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
 const cors  =  require('cors');
-const { DOOR } = require('./configs/constants');
 const routes = require('./routes');
+const PORT = process.env.PORT
 
 app.use(cors());
 app.use(express.json());
 
 app.use(routes);
 
-app.listen(DOOR, _ => console.log(`Server running on door: ${DOOR}`));
+app.listen(PORT, _ => console.log(`Server running on door: ${PORT}`));

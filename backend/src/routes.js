@@ -7,8 +7,9 @@ const RoomsController = require('./controllers/rooms');
 router.get('/', (req, res) => res.send('Server Running'));
 
 router.post('/api/users/create', UsersController.create);
-router.post('/api/users/auth', UsersController.auth);
-router.put('/api/users/update', UsersController.update);
+router.post('/api/users/login', UsersController.login);
+router.post('/api/users/auth', UsersController.auth, UsersController.show);
+router.put('/api/users', UsersController.update);
 
 router.get('api/messages/:room_id', MessagesController.index);
 router.post('api/messages', MessagesController.create);
