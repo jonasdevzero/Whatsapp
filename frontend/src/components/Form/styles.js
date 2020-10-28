@@ -17,7 +17,7 @@ export const Title = styled.h1`
 
     font-size: 30px;
     font-weight: 600;
-    color: #555;
+    color: #455A64;
 `;
 
 export const InputWrapper = styled.div`
@@ -39,10 +39,10 @@ export const InputWrapper = styled.div`
 
 export const Input = styled.input`
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 20px 10px;
 
-    background-color: #EEE;
+    background-color: #FFF;
 
     border: none;
     border-radius: 5px;
@@ -58,8 +58,8 @@ export const Submit = styled.button`
     margin: 15px 0;
     padding: 20px;
 
-    background-color: #25d366;
-    color: #555;
+    background-color: #4AC959;
+    color: #FFF;
     font-weight: bold;
     
     border: none;
@@ -70,7 +70,7 @@ export const Submit = styled.button`
 
 export const Description = styled.p`
     margin: 0;
-    color: #000;
+    color: #455A64;
     text-align: center;
 
     a {
@@ -84,7 +84,7 @@ export const Link = styled(ReactRouterLink)`
     transition: all .3s ease;
 
     &:hover {
-        color: #555;
+        color: #455A64;
         font-weight: bold;
     };
 `;

@@ -15,10 +15,24 @@ export const Content = styled.div`
     height: 600px;
 
     padding: 50px;
-    background-color: #fff;
+    border-radius: 8px;
+    background-color: #F9F9F9;
 
     @media (max-width: 400px) {
         height: 100%;
         padding: 50px 30px;
+        border-radius: 0;
+    };
+`;
+
+export const Link = styled.div`
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    cursor: pointer;
+
+    .MuiSvgIcon-root {
+        font-size: 30px !important;
+        color: #455A64;
     };
 `;

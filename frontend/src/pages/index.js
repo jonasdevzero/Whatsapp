@@ -1,3 +1,4 @@
-export { default as Signin } from './Signin'
-export { default as Signup } from './Signup'
-export { default as Chat } from './Chat'
+export { default as Home } from './Home';
+export { default as Signin } from './Signin/index';
+export { default as Signup } from './Signup/index';
+export { default as Chat } from './Chat';

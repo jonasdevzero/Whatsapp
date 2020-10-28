@@ -8,8 +8,10 @@ import { UserContext } from '../../context/userContext';
 import { Form } from '../../components';
 import {
     Container,
-    Content
+    Content,
+    Link
 } from './styles';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function Signin() {
     const [username, setUsername] = useState('');
@@ -38,6 +40,11 @@ function Signin() {
 
     return (
         <Container>
+
+            <Link onClick={_ => history.goBack()}>
+                <ArrowBackIcon />
+            </Link>
+
             <Content>
 
                 <Form

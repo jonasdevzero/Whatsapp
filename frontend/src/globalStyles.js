@@ -9,7 +9,7 @@ export const GlobalStyles = createGlobalStyle`
     };
     #root {
         display: flex;
-        background-color: #ededed;
+        background-color: #FFF;
         height: 100vh;
     };
 

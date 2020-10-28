@@ -8,8 +8,10 @@ import { UserContext } from '../../context/userContext';
 import { Form } from '../../components';
 import {
     Container,
-    Content
+    Content,
+    Link
 } from './styles';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 function Signup() {
     const [name, setName] = useState('');
@@ -52,6 +54,11 @@ function Signup() {
 
     return (
         <Container>
+
+            <Link onClick={_ => history.goBack()}>
+                <ArrowBackIcon />
+            </Link>
+
             <Content>
 
                 <Form
@@ -64,21 +71,21 @@ function Signup() {
 
 
                     <div>
-                            <Form.Input
-                                type="text"
-                                value={name}
-                                onChange={e => setName(e.target.value)}
-                                placeholder="Name"
-                                required
-                            />
+                        <Form.Input
+                            type="text"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Name"
+                            required
+                        />
 
-                            <Form.Input
-                                type="text"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                                placeholder="Username"
-                                required
-                            />
+                        <Form.Input
+                            type="text"
+                            value={username}
+                            onChange={e => setUsername(e.target.value)}
+                            placeholder="Username"
+                            required
+                        />
 
                         <Form.InputWrapper>
                             <Form.Input
@@ -110,7 +117,7 @@ function Signup() {
 
                     <Form.Description>
                         Already user?
-                        <Form.Link to="/">
+                        <Form.Link to="/signin">
                             Sign In
                         </Form.Link>
                     </Form.Description>
