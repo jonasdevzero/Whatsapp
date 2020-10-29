@@ -15,14 +15,11 @@ function SidebarContainer({
     setCurrentRoom,
     rooms,
     setRooms,
-    profileDropdown,
-    setProfileDropdown,
-    hiddenDropdown
+    hiddenDrop,
+    showDrop,
+    setShowDrop,
 }) {
     const { user, setUser } = useContext(UserContext);
-
-    const [profileContainer, setProfileContainer] = useState(false);
-    const [newRoomContainer, setNewRoomContainer] = useState(false);
 
     const [name, setName] = useState(user.name);
     const [imageUrl, setImageUrl] = useState(user.imageUrl);
@@ -35,7 +32,6 @@ function SidebarContainer({
 
     const history = useHistory();
 
-    // search rooms
     useEffect(_ => {
         const fuse = new Fuse(rooms, { keys: ['name'] })
         const results = fuse.search(search).map(({ item }) => item)
@@ -70,7 +66,7 @@ function SidebarContainer({
             setUser(user);
         });
 
-        setProfileContainer(false);
+        setShowDrop('');
     };
 
     function handleCreateRoom(e) {
@@ -88,25 +84,26 @@ function SidebarContainer({
             setCurrentRoom(rooms[rooms.length - 1]);
         });
 
-        setProfileContainer(false);
-        setNewRoomContainer(false);
-
+        setShowDrop('');
         setNewRoomName('');
         setNewRoomImage('');
     };
 
     return (
-        <Sidebar onClick={_ => hiddenDropdown()}>
-            <Dropside showContainer={profileContainer} onClick={_ => hiddenDropdown()}>
+        <Sidebar>
+            <Dropside showContainer={showDrop === 'profile-container'}>
+
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBack onClick={_ => setProfileContainer(false)} />
+                        <ArrowBack onClick={_ => setShowDrop('')} />
                             Profile
                         </Dropside.Title>
                 </Dropside.TitleContainer>
+
                 <Dropside.PictureContainer>
                     <Dropside.Picture src={user?.imageUrl} />
                 </Dropside.PictureContainer>
+
                 <Form.Container onSubmit={handleUpdateUser} backgroundColor="#ededed">
                     <Form.Label>Your name</Form.Label>
                     <Form.DropsideInput value={name} onChange={e => setName(e.target.value)} />
@@ -116,14 +113,17 @@ function SidebarContainer({
 
                     <Form.DropsideSubmit>Change</Form.DropsideSubmit>
                 </Form.Container>
+
             </Dropside>
-            <Dropside showContainer={newRoomContainer} onClick={_ => hiddenDropdown()}>
+
+            <Dropside showContainer={showDrop === 'newchat-container'}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBack onClick={_ => setNewRoomContainer(false)} />
+                        <ArrowBack onClick={_ => setShowDrop('')} />
                             New chat
                     </Dropside.Title>
                 </Dropside.TitleContainer>
+
                 <Form.Container onSubmit={handleCreateRoom} backgroundColor="#ededed">
                     <Form.Label>Chat name</Form.Label>
                     <Form.DropsideInput value={newRoomName} onChange={e => setNewRoomName(e.target.value)} required />
@@ -133,34 +133,45 @@ function SidebarContainer({
 
                     <Form.DropsideSubmit>Create</Form.DropsideSubmit>
                 </Form.Container>
+
             </Dropside>
+
             <Header padding="0">
-                <IconButton onClick={_ => setProfileContainer(true)}>
+                <IconButton onClick={_ => setShowDrop('profile-container')}>
                     <Header.Picture src={user?.imageUrl} />
                 </IconButton>
+
                 <Header.Right>
                     <IconButton>
                         <DonutLarge />
                     </IconButton>
-                    <IconButton onClick={_ => setNewRoomContainer(true)}>
+
+                    <IconButton onClick={_ => setShowDrop('newchat-container')}>
                         <Chat />
                     </IconButton>
-                    <IconButton onClick={_ => setProfileDropdown(!profileDropdown)}>
-                        <MoreVert />
-                        <Dropdown showDropdown={profileDropdown}>
-                            <Dropdown.Item onClick={_ => setProfileContainer(true)}>
+
+                    <div style={{ position: 'relative' }}>
+                        <IconButton onClick={_ => showDrop === '' ? setShowDrop('profile-dropdown') : setShowDrop('')}>
+                            <MoreVert />
+                        </IconButton>
+
+                        <Dropdown showDropdown={showDrop === 'profile-dropdown'}>
+                            <Dropdown.Item onClick={_ => setShowDrop('profile-container')}>
                                 Profile
                             </Dropdown.Item>
-                            <Dropdown.Item onClick={_ => setNewRoomContainer(true)}>
+
+                            <Dropdown.Item onClick={_ => setShowDrop('newchat-container')}>
                                 New chat
                             </Dropdown.Item>
+
                             <Dropdown.Item onClick={e => signOut(e)}>
                                 Log out
                             </Dropdown.Item>
                         </Dropdown>
-                    </IconButton>
+                    </div>
                 </Header.Right>
             </Header>
+
             <div style={{ backgroundColor: 'rgb(247, 247, 247' }}>
                 <Form.Search>
                     <SearchOutlined />
