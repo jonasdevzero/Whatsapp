@@ -15,8 +15,8 @@ export const Content = styled.div`
     height: 600px;
 
     padding: 50px;
+    border: solid 2px #EEE;
     border-radius: 8px;
-    background-color: #F9F9F9;
 
     @media (max-width: 400px) {
         height: 100%;
