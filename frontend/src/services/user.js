@@ -1,8 +1,7 @@
 import api from './api';
-import * as API_ROUTES from './apiRoutes';
 
 export async function login(data) {
-    const response = await api.post(API_ROUTES.AUTH_USER, data);
+    const response = await api.post('/api/users/login', data);
     const { user, error } = response.data;
 
     if (error) return { error };
@@ -12,7 +11,7 @@ export async function login(data) {
 };
 
 export async function createUser(data) {
-    const response = await api.post(API_ROUTES.REGISTER_USER, data);
+    const response = await api.post('/api/users/auth', data);
     const { user, error } = response.data;
 
     if (error) return { error };
@@ -22,6 +21,11 @@ export async function createUser(data) {
 };
 
 export async function updateUser(data) {
-    const response = await api.put(API_ROUTES.UPDATE_USER, data);
-    return response.data;
+    const response = await api.put('/api/users', data);
+    const { user, error } = response.data;
+
+    if (error) return { error };
+
+    localStorage.setItem('authUser', JSON.stringify(user));
+    return { user };
 };

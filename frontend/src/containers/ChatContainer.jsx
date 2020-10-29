@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from '../constants/axios';
 import Fuse from 'fuse.js';
 import ScrollToBottom from 'react-scroll-to-bottom'
 
 import { UserContext } from '../context/userContext';
 import { Header, Dropdown, Dropside, Chat, Form } from '../components';
-import * as ROUTES from '../constants/routes';
+
+import { createMessage } from '../services/messages';
+import { deleteRoom, updateRoom } from '../services/rooms';
 
 import { IconButton } from '@material-ui/core';
 import { MoreVert, SearchOutlined } from '@material-ui/icons';
@@ -16,7 +17,6 @@ import CloseIcon from '@material-ui/icons/Close';
 function ChatContainer({
     messages,
     currentRoom,
-    setCurrentRoom,
     setRooms,
     chatDropdown,
     setChatDropdown,
@@ -54,44 +54,67 @@ function ChatContainer({
         setRoomImage(currentRoom?.image)
     }, [currentRoom]);
 
-    async function sendMessage(e) {
+    function showWarning(error) {
+        setWarning(error)
+        setTimeout(_ => {
+            setWarning('')
+        }, 2000)
+    };
+
+    function sendMessage(e) {
         e.preventDefault();
 
-        await axios.post(ROUTES.SEND_MESSAGE, {
+        const data = {
             message: newMessage,
             username: user.username,
             room_id: currentRoom._id,
-        })
+        };
 
+        createMessage(data);
         setNewMessage('');
     };
 
-    async function deleteRoom() {
-        await axios.post(ROUTES.DELETE_ROOM, {
+    function handleUpdateRoom(e) {
+        e.preventDefault();
+
+        const data = {
+            username: user.username,
+            room: currentRoom,
+            data: {
+                name: roomName,
+                image: roomImage
+            },
+        };
+
+        updateRoom(data).then(response => {
+            const { rooms, error } = response;
+
+            if (error) {
+                setWarning(error)
+            }
+
+            // setCurrentRoom ?
+            setRooms(rooms);
+        });
+    };
+
+    function handleDeleteRoom() {
+        const data = {
             room: currentRoom,
             username: user.username
-        })
-            .then(async resp => {
-                const error = resp.data.error
-                if (error) {
-                    setWarning(error)
-                    setTimeout(_ => {
-                        setWarning('')
-                    }, 2000)
+        };
 
-                    return
-                }
+        deleteRoom(data).then(response => {
+            const { error } = response;
 
-                await axios.get(ROUTES.GET_ROOMS)
-                    .then(resp => {
-                        const rooms = resp.data
-                        setCurrentRoom(rooms[0])
-                        setRooms(rooms)
-                    })
-            })
+            if (error) {
+                showWarning(error);
+                return;
+            };
 
-        hiddenDropdown()
-    }
+            hiddenDropdown()
+        });
+    };
 
     function toggleContainer(container) {
         if (container === 'group') {
@@ -103,26 +126,6 @@ function ChatContainer({
         };
     };
 
-    async function updateRoom(e) {
-        e.preventDefault();
-
-        await axios.post(ROUTES.UPDATE_ROOM, {
-            username: user.username,
-            room: currentRoom,
-            data: {
-                name: roomName,
-                image: roomImage
-            }
-        })
-            .then(async resp => {
-                const roomUpdated = resp.data.roomUpdated
-                await axios.get(ROUTES.GET_ROOMS)
-                    .then(resp => {
-                        setRooms(resp.data)
-                        setCurrentRoom(roomUpdated)
-                    })
-            })
-    }
 
     return (
         <>
@@ -135,7 +138,7 @@ function ChatContainer({
                     <Header.Info>
                         <Header.RoomName>{currentRoom?.name}</Header.RoomName>
                         <Header.LastMessage>
-                            {messages[messages.length - 1]?.room_id === currentRoom._id ?
+                            {messages[messages.length - 1]?.room_id === currentRoom?._id ?
                                 messages[messages.length - 1]?.message : null
                             }
                         </Header.LastMessage>
@@ -150,7 +153,7 @@ function ChatContainer({
                                 <Dropdown.Item onClick={_ => toggleContainer('group')}>
                                     Group Info
                                 </Dropdown.Item>
-                                <Dropdown.Item onClick={_ => deleteRoom()}>
+                                <Dropdown.Item onClick={_ => handleDeleteRoom()}>
                                     Delete room
                                 </Dropdown.Item>
                             </Dropdown>
@@ -161,7 +164,7 @@ function ChatContainer({
                     <Chat>
                         {warning ? <Chat.Warning>{warning}</Chat.Warning> : null}
 
-                        {messages.map(message => {
+                        {messages?.map(message => {
                             return (
                                 message.username === user.username ?
                                     <Chat.MessageSender key={`${message.username}-${message.timestamp}`}>
@@ -197,7 +200,7 @@ function ChatContainer({
                             Search messages
                         </Dropside.SearchTitle>
                     </Header>
-                    <Form borderBottom>
+                    <Form.Container borderBottom>
                         <Form.Search>
                             <SearchOutlined />
                             <Form.SearchInput
@@ -206,7 +209,7 @@ function ChatContainer({
                                 placeholder="Search..."
                             />
                         </Form.Search>
-                    </Form>
+                    </Form.Container>
                     <Dropside.MessagesContainer>
                         {searchResults?.map(message => {
                             return (
@@ -237,7 +240,7 @@ function ChatContainer({
                         <Dropside.PictureContainer>
                             <Dropside.Picture src={roomImage} />
                         </Dropside.PictureContainer>
-                        <Form onSubmit={updateRoom} backgroundColor="#ededed">
+                        <Form.Container onSubmit={handleUpdateRoom} backgroundColor="#ededed">
                             <Form.Label>Chat name</Form.Label>
                             <Form.DropsideInput value={roomName} onChange={e => setRoomName(e.target.value)} />
 
@@ -245,7 +248,7 @@ function ChatContainer({
                             <Form.DropsideInput value={roomImage} onChange={e => setRoomImage(e.target.value)} />
 
                             <Form.DropsideSubmit>Change</Form.DropsideSubmit>
-                        </Form>
+                        </Form.Container>
                     </Dropside>
                     :
                     null

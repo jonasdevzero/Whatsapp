@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Pusher from 'pusher-js';
-import axios from '../constants/axios';
 
-import * as API_ROUTES from '../constants/apiRoutes';
+import { getMessages } from '../services/messages';
+import { getRooms } from '../services/rooms';
 
 import { SidebarContainer, ChatContainer } from '../containers';
 
+// Define a unique state the values of dropside and dropdown with switch/case
 function Chat() {
   const [currentRoom, setCurrentRoom] = useState({});
   const [rooms, setRooms] = useState([]);
@@ -15,22 +16,15 @@ function Chat() {
   const [profileDropdown, setProfileDropdown] = useState(false);
 
   useEffect(_ => {
-    axios.get(API_ROUTES.GET_ROOMS)
-      .then(resp => {
-        setCurrentRoom(resp.data[0]);
-        setRooms(resp.data);
-      });
+    getRooms().then(rooms => {
+      setRooms(rooms);
+      setCurrentRoom(rooms[0]);
+    });
   }, []);
 
   useEffect(_ => {
-    if (currentRoom._id) {
-      axios.post(API_ROUTES.GET_MESSAGES, {
-        room_id: currentRoom._id
-      })
-        .then(resp => {
-          setMessages(resp.data.messages);
-        });
-    }
+    if (!currentRoom._id) return;
+    getMessages(currentRoom._id).then(messages => setMessages(messages));
   }, [currentRoom]);
 
   useEffect(_ => {
@@ -60,14 +54,14 @@ function Chat() {
     });
 
     roomChannel.bind('updated', async updatedRoom => {
-      await axios.get(API_ROUTES.GET_ROOMS)
-        .then(resp => {
-          setRooms(resp.data)
-          if (currentRoom._id === updatedRoom._id) {
-            setCurrentRoom(currentRoom)
-          }
-        })
-    })
+      getRooms().then(rooms => {
+        setRooms(rooms);
+
+        if (currentRoom._id === updatedRoom._id) { // ?
+          setCurrentRoom(currentRoom)
+        };
+      });
+    });
 
     return () => {
       messageChannel.unbind_all();

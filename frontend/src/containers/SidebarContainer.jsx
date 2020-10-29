@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import axios from '../constants/axios';
 import Fuse from 'fuse.js';
+
+import { updateUser } from '../services/user';
+import { createRoom } from '../services/rooms';
 
 import { UserContext } from '../context/userContext';
 import { Header, Sidebar, Form, Dropdown, Dropside } from '../components';
-import * as ROUTES from '../constants/routes';
 
 import { IconButton } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import ChatIcon from '@material-ui/icons/Chat';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { SearchOutlined, DonutLarge, Chat, MoreVert, ArrowBack } from '@material-ui/icons';
 
 function SidebarContainer({
     setCurrentRoom,
@@ -38,6 +35,7 @@ function SidebarContainer({
 
     const history = useHistory();
 
+    // search rooms
     useEffect(_ => {
         const fuse = new Fuse(rooms, { keys: ['name'] })
         const results = fuse.search(search).map(({ item }) => item)
@@ -58,30 +56,37 @@ function SidebarContainer({
         history.push('/');
     };
 
-    async function updateUser(e) {
+    function handleUpdateUser(e) {
         e.preventDefault();
 
-        await axios.post(ROUTES.UPDATE_USER, { username: user.username, name, imageUrl })
-            .then(resp => {
-                localStorage.setItem('authUser', JSON.stringify(resp.data.userUpdated))
-                setUser(resp.data.userUpdated)
-            })
+        const data = {
+            username: user.username,
+            name,
+            imageUrl
+        };
+
+        updateUser(data).then(response => {
+            const { user } = response;
+            setUser(user);
+        });
+
         setProfileContainer(false);
     };
 
-    async function createRoom(e) {
+    function handleCreateRoom(e) {
         e.preventDefault();
 
-        await axios.post(ROUTES.CREATE_ROOM, {
+        const data = {
             name: newRoomName,
             image: newRoomImage,
             createdBy: user.username
+        };
+
+        createRoom(data).then(response => {
+            const { rooms } = response;
+            setRooms(rooms);
+            setCurrentRoom(rooms[rooms.length - 1]);
         });
-        await axios.get(ROUTES.GET_ROOMS)
-            .then(resp => {
-                setRooms(resp.data)
-                setCurrentRoom(resp.data[resp.data.length - 1])
-            });
 
         setProfileContainer(false);
         setNewRoomContainer(false);
@@ -95,14 +100,14 @@ function SidebarContainer({
             <Dropside showContainer={profileContainer} onClick={_ => hiddenDropdown()}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBackIcon onClick={_ => setProfileContainer(false)} />
+                        <ArrowBack onClick={_ => setProfileContainer(false)} />
                             Profile
                         </Dropside.Title>
                 </Dropside.TitleContainer>
                 <Dropside.PictureContainer>
                     <Dropside.Picture src={user?.imageUrl} />
                 </Dropside.PictureContainer>
-                <Form onSubmit={updateUser} backgroundColor="#ededed">
+                <Form.Container onSubmit={handleUpdateUser} backgroundColor="#ededed">
                     <Form.Label>Your name</Form.Label>
                     <Form.DropsideInput value={name} onChange={e => setName(e.target.value)} />
 
@@ -110,16 +115,16 @@ function SidebarContainer({
                     <Form.DropsideInput value={imageUrl} onChange={e => setImageUrl(e.target.value)} />
 
                     <Form.DropsideSubmit>Change</Form.DropsideSubmit>
-                </Form>
+                </Form.Container>
             </Dropside>
             <Dropside showContainer={newRoomContainer} onClick={_ => hiddenDropdown()}>
                 <Dropside.TitleContainer>
                     <Dropside.Title>
-                        <ArrowBackIcon onClick={_ => setNewRoomContainer(false)} />
+                        <ArrowBack onClick={_ => setNewRoomContainer(false)} />
                             New chat
                     </Dropside.Title>
                 </Dropside.TitleContainer>
-                <Form onSubmit={createRoom} backgroundColor="#ededed">
+                <Form.Container onSubmit={handleCreateRoom} backgroundColor="#ededed">
                     <Form.Label>Chat name</Form.Label>
                     <Form.DropsideInput value={newRoomName} onChange={e => setNewRoomName(e.target.value)} required />
 
@@ -127,7 +132,7 @@ function SidebarContainer({
                     <Form.DropsideInput value={newRoomImage} onChange={e => setNewRoomImage(e.target.value)} />
 
                     <Form.DropsideSubmit>Create</Form.DropsideSubmit>
-                </Form>
+                </Form.Container>
             </Dropside>
             <Header padding="0">
                 <IconButton onClick={_ => setProfileContainer(true)}>
@@ -135,13 +140,13 @@ function SidebarContainer({
                 </IconButton>
                 <Header.Right>
                     <IconButton>
-                        <DonutLargeIcon />
+                        <DonutLarge />
                     </IconButton>
                     <IconButton onClick={_ => setNewRoomContainer(true)}>
-                        <ChatIcon />
+                        <Chat />
                     </IconButton>
                     <IconButton onClick={_ => setProfileDropdown(!profileDropdown)}>
-                        <MoreVertIcon />
+                        <MoreVert />
                         <Dropdown showDropdown={profileDropdown}>
                             <Dropdown.Item onClick={_ => setProfileContainer(true)}>
                                 Profile
@@ -156,7 +161,7 @@ function SidebarContainer({
                     </IconButton>
                 </Header.Right>
             </Header>
-            <Form>
+            <div style={{ backgroundColor: 'rgb(247, 247, 247' }}>
                 <Form.Search>
                     <SearchOutlined />
                     <Form.SearchInput
@@ -166,18 +171,18 @@ function SidebarContainer({
                         type="text"
                     />
                 </Form.Search>
-            </Form>
+            </div>
             <Sidebar.Chats>
                 {
                     searchResults.length > 0 ?
-                        searchResults.map(room => ( // filtered rooms
+                        searchResults?.map(room => ( // filtered rooms
                             <Sidebar.Chat key={room._id} onClick={_ => setCurrentRoom(room)}>
                                 <Sidebar.RoomImage src={room?.image} />
                                 <Sidebar.RoomName>{room?.name}</Sidebar.RoomName>
                             </Sidebar.Chat>
                         ))
                         :
-                        rooms.map(room => ( // All rooms
+                        rooms?.map(room => ( // All rooms
                             <Sidebar.Chat key={room._id} onClick={_ => setCurrentRoom(room)}>
                                 <Sidebar.RoomImage src={room?.image} />
                                 <Sidebar.RoomName>{room?.name}</Sidebar.RoomName>
