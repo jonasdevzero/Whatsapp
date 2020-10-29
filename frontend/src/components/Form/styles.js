@@ -97,12 +97,14 @@ export const Error = styled.div`
     color: #fff;
 `;
 
-export const Container = styled.div`
+export const Container = styled.form`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex: 1;
-    background-color: #fff;
+    background-color: rgb(237, 237, 237);
+    padding: 0 30px;
 `;
 
 export const Inner = styled.div`
@@ -132,11 +134,13 @@ export const MessageContainer = styled.div` /* Chat container */
     justify-content: space-between;
     align-items: center;
     height: 62px;
+    background-color: rgb(237, 237, 237);
     border-top: 1px solid lightgray;
 
     .MuiSvgIcon-root {
-        padding: 10px;
+        margin: 10px;
         color: gray;
+        cursor: pointer;
     }
 `;
 export const Message = styled.form` /* Chat container */
@@ -213,7 +217,7 @@ export const DropsideInput = styled.input` /* Sidebar conatiner  */
     background-color: #ededed;
     font-size: 20px;
     border-bottom: 2px solid #fff;
-    width: calc(100% - 50px);
+    width: 100%;
     margin-bottom: 10px;
 ` 
 

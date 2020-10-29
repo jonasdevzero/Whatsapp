@@ -14,7 +14,7 @@ export const Container = styled.div`
 `;
 
 export const TitleContainer = styled.div`
-    height: 80px;
+    height: 140px;
     display: flex;
     align-items: flex-end;
     padding: 28px;
@@ -49,7 +49,7 @@ export const SearchTitle = styled.h1`
 `;
 
 export const PictureContainer = styled.div`
-    height: 200px;
+    height: 240px;
     padding: 20px 0;
     display: flex;
     align-items: center;
