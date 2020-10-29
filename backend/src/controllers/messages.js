@@ -2,10 +2,11 @@ const Messages = require('../models/messages');
 
 module.exports = {
     async index(req, res) {
-        const { room_id } = req.params;
+        const { room_id } = req.query;
     
-        if (!room_id) 
+        if (!room_id) {
             return res.status(400).json({ error: 'Undefined room' });
+        }
     
         try {
             const messages = await Messages.find({ room_id });
@@ -29,9 +30,7 @@ module.exports = {
         };
     },
 
-    async delete(req, res) {
-        const { _id, room_id } = req.query;
-        
+    async delete(room_id, _id) {
         try {
             if (room_id) { // Delete all messages of a room
                 await Messages.deleteMany({ room_id });
