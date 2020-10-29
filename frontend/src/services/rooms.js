@@ -5,8 +5,8 @@ export async function getRooms() {
     return response.data.rooms;
 }
 
-export async function createRoom() {
-    const response = await api.post('/api/rooms');
+export async function createRoom(data) {
+    const response = await api.post('/api/rooms', data);
     return response.data;
 };
 
