@@ -17,6 +17,6 @@ router.post('/api/messages', MessagesController.create);
 router.get('/api/rooms', RoomsController.index);
 router.post('/api/rooms', RoomsController.create);
 router.delete('/api/rooms', RoomsController.delete);
-router.put('/api/rooms/:id', RoomsController.update);
+router.put('/api/rooms', RoomsController.update);
 
 module.exports = router;
