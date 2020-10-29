@@ -17,10 +17,10 @@ import CloseIcon from '@material-ui/icons/Close';
 function ChatContainer({
     messages,
     currentRoom,
+    setCurrentRoom,
     setRooms,
-    chatDropdown,
-    setChatDropdown,
-    hiddenDropdown
+    showDrop,
+    setShowDrop
 }) {
     const { user } = useContext(UserContext);
 
@@ -50,7 +50,7 @@ function ChatContainer({
     }, [searchMessage, messages]);
 
     useEffect(_ => {
-        setRoomName(currentRoom.name)
+        setRoomName(currentRoom?.name)
         setRoomImage(currentRoom?.image)
     }, [currentRoom]);
 
@@ -79,7 +79,7 @@ function ChatContainer({
 
         const data = {
             username: user.username,
-            room: currentRoom,
+            _id: currentRoom._id,
             data: {
                 name: roomName,
                 image: roomImage
@@ -91,10 +91,12 @@ function ChatContainer({
 
             if (error) {
                 setWarning(error)
-            }
+            };
 
-            // setCurrentRoom ?
+            const roomUpdated = rooms.filter(room => room._id === currentRoom._id ? room : null)[0]
+
             setRooms(rooms);
+            setCurrentRoom(roomUpdated);
         });
     };
 
@@ -112,7 +114,7 @@ function ChatContainer({
                 return;
             };
 
-            hiddenDropdown()
+            hiddenDrop()
         });
     };
 
@@ -126,10 +128,14 @@ function ChatContainer({
         };
     };
 
+    function hiddenDrop() {
+        if (showDrop === '' || showDrop === 'profile-container' || showDrop === 'newchat-container') return;
+        setShowDrop('');
+      };
 
     return (
         <>
-            <Chat.Container onClick={_ => hiddenDropdown()}>
+            <Chat.Container onClick={_ => hiddenDrop()}>
                 <Header borderBottom padding="none">
                     <IconButton onClick={_ => toggleContainer('group')}>
                         <Header.Picture src={currentRoom?.image} />
@@ -143,22 +149,29 @@ function ChatContainer({
                             }
                         </Header.LastMessage>
                     </Header.Info>
+
                     <Header.Right>
                         <IconButton onClick={_ => toggleContainer('search')}>
                             <SearchOutlined />
                         </IconButton>
-                        <IconButton onClick={_ => setChatDropdown(!chatDropdown)}>
-                            <MoreVert />
-                            <Dropdown showDropdown={chatDropdown}>
+
+                        <div style={{ position: 'relative' }}>
+                            <IconButton onClick={_ => setShowDrop('group-dropdown')}>
+                                <MoreVert />
+                            </IconButton>
+
+                            <Dropdown showDropdown={showDrop === 'group-dropdown'}>
                                 <Dropdown.Item onClick={_ => toggleContainer('group')}>
                                     Group Info
                                 </Dropdown.Item>
+
                                 <Dropdown.Item onClick={_ => handleDeleteRoom()}>
                                     Delete room
                                 </Dropdown.Item>
                             </Dropdown>
-                        </IconButton>
+                        </div>
                     </Header.Right>
+
                 </Header>
                 <ScrollToBottom className="scroll-to-bottom">
                     <Chat>
@@ -193,13 +206,14 @@ function ChatContainer({
                 </Form.MessageContainer>
             </Chat.Container>
             {searchContainer ?
-                <Dropside position="none" width="30vw" onClick={_ => hiddenDropdown()}>
+                <Dropside position="none" width="30vw" onClick={_ => hiddenDrop()}>
                     <Header padding="none" backgroundColor="#fff">
                         <Dropside.SearchTitle>
                             <CloseIcon onClick={_ => setSearchContainer(false)} />
                             Search messages
                         </Dropside.SearchTitle>
                     </Header>
+
                     <Form.Container borderBottom>
                         <Form.Search>
                             <SearchOutlined />
@@ -210,6 +224,7 @@ function ChatContainer({
                             />
                         </Form.Search>
                     </Form.Container>
+
                     <Dropside.MessagesContainer>
                         {searchResults?.map(message => {
                             return (
@@ -235,11 +250,13 @@ function ChatContainer({
                             <Dropside.SearchTitle>
                                 <CloseIcon onClick={_ => setGroupContainer(false)} />
                                 Group Info
-                        </Dropside.SearchTitle>
+                            </Dropside.SearchTitle>
                         </Header>
+
                         <Dropside.PictureContainer>
                             <Dropside.Picture src={roomImage} />
                         </Dropside.PictureContainer>
+
                         <Form.Container onSubmit={handleUpdateRoom} backgroundColor="#ededed">
                             <Form.Label>Chat name</Form.Label>
                             <Form.DropsideInput value={roomName} onChange={e => setRoomName(e.target.value)} />
