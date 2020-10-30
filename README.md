@@ -6,7 +6,7 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Demo](#demo)
+* [Deploy](#deploy)
 * [Gifs](#gifs) 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -35,7 +35,7 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 |[normalize](https://necolas.github.io/normalize.css/)|
 
 <!-- PRESENTATION -->
-## Demo 
+## Deploy 
 
 ### WhatsApp 2.0 avaliable: https://whatsapp-devzero.vercel.app/
 Improvements:
