@@ -138,7 +138,7 @@ export const MessageContainer = styled.div` /* Chat container */
     border-top: 1px solid lightgray;
 
     .MuiSvgIcon-root {
-        margin: 10px;
+        margin: 8px;
         color: gray;
         cursor: pointer;
     }

@@ -16,8 +16,6 @@ function Chat() {
 
   const [showDrop, setShowDrop] = useState('');
 
-  const [chatDropdown, setChatDropdown] = useState(false);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(_ => {
@@ -26,7 +24,7 @@ function Chat() {
       setCurrentRoom(rooms[0]);
     });
 
-    setTimeout(() => setLoading(false), 3000);
+    window.onload = () => setLoading(false)
   }, []);
 
   useEffect(_ => {

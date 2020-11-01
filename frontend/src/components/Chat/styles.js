@@ -9,6 +9,10 @@ export const Container = styled.div`
 
 export const Content = styled.div`
     flex: 1;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
 `;
 
 export const Message = styled.p`
