@@ -6,7 +6,7 @@ import { getRooms } from '../../services/rooms';
 
 import { SidebarContainer, ChatContainer } from '../../containers';
 
-import { LoadingContainer } from './styles';
+import { ChatWrapper, LoadingContainer } from './styles';
 import loadingSvg from '../../assets/loading.svg';
 
 function Chat() {
@@ -17,14 +17,12 @@ function Chat() {
   const [showDrop, setShowDrop] = useState('');
 
   const [loading, setLoading] = useState(true);
-
+  
   useEffect(_ => {
     getRooms().then(rooms => {
       setRooms(rooms);
       setCurrentRoom(rooms[0]);
     });
-
-    document.onload = setLoading(false);
   }, []);
 
   useEffect(_ => {
@@ -38,7 +36,6 @@ function Chat() {
       cluster: 'eu'
     });
     const messageChannel = pusher.subscribe('messages');
-    const roomChannel = pusher.subscribe('rooms');
 
     messageChannel.bind('inserted', newMessage => {
       if (newMessage.room_id === currentRoom._id) {
@@ -49,9 +46,6 @@ function Chat() {
     return () => {
       messageChannel.unbind_all();
       messageChannel.unsubscribe();
-
-      roomChannel.unbind_all();
-      roomChannel.unsubscribe();
     }
 
   }, [messages, currentRoom._id]);
@@ -92,15 +86,16 @@ function Chat() {
     }
   }, [rooms, currentRoom._id])
 
+
   return (
-    <>
+    <ChatWrapper onLoad={() => setLoading(false)}>
       {!loading ?
         <>
           <SidebarContainer
             rooms={rooms}
             setRooms={setRooms}
             setCurrentRoom={setCurrentRoom}
-            
+
             showDrop={showDrop}
             setShowDrop={setShowDrop}
           />
@@ -109,17 +104,17 @@ function Chat() {
             setCurrentRoom={setCurrentRoom}
             setRooms={setRooms}
             messages={messages}
-            
+
             showDrop={showDrop}
             setShowDrop={setShowDrop}
           />
         </>
         :
         <LoadingContainer>
-          <img src={loadingSvg} alt="loading"/>
+          <img src={loadingSvg} alt="loading" />
         </LoadingContainer>
       }
-    </>
+    </ChatWrapper>
   )
 }
 
