@@ -6,7 +6,7 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Demo](#demo)
+* [Deploy](#deploy)
 * [Gifs](#gifs) 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
@@ -35,8 +35,12 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 |[normalize](https://necolas.github.io/normalize.css/)|
 
 <!-- PRESENTATION -->
-## Demo  
-https://whatsapp-devzero.vercel.app/
+## Deploy 
+
+### WhatsApp 2.0 avaliable: https://whatsapp-devzero.vercel.app/
+Improvements:
+- Performance on Backend and Frontend
+- Styles adjustments
 
 ## Gifs 
 
@@ -108,5 +112,3 @@ Contributions are welcome :smile:
 - Material-ui
 - axios
 - react-scroll-to-bottom
-
-<h1 align="center">Improvements soon</h1>
