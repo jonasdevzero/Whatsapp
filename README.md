@@ -98,7 +98,7 @@ Contributions are welcome :smile:
 <!-- CONTACT -->
 ## Contact
 
-<a target="_blank" href="https://www.linkedin.com/in/jonas-de-oliveira-0561961ab/">
+<a target="_blank" href="https://www.linkedin.com/in/jonasdevzero">
  <img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />
 </a>
 <a target="_blank" href="mailto:jonasdevzero@gmail.com">
