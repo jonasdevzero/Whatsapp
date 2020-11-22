@@ -1,5 +1,5 @@
 <h1 align="center">Whatsapp clone with MERN stack</h1>
-<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/chatPage.png" alt="chat page" />
+<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/chat.png" alt="chat page" />
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -45,10 +45,10 @@ Improvements:
 ## Gifs 
 
 <p align="center">Realtime chat</p>
-<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/realtime-chat.gif" alt="gif 1" align="center" />
+<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/realtime-chat.gif" alt="gif 1" align="center" />
 <br />
 <p align="center">Functionalities</p>
-<img src="https://github.com/jonasdevzero/Whatsapp/blob/master/readmeAssets/whatsapp-clone-functionalities.gif" alt="gif2" align="center" />
+<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/functionalities.gif" alt="gif2" align="center" />
 
 <!-- GETTING STARTED -->
 ## Getting Started
