@@ -44,11 +44,8 @@ Improvements:
 
 ## Gifs 
 
-<p align="center">Realtime chat</p>
-<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/realtime-chat.gif" alt="gif 1" align="center" />
-<br />
 <p align="center">Functionalities</p>
-<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/functionalities.gif" alt="gif2" align="center" />
+<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/gif.gif" alt="gif" align="center" />
 
 <!-- GETTING STARTED -->
 ## Getting Started
