@@ -1,8 +1,9 @@
-const router = require('express').Router();
+import { router } from 'express';
+import UsersController from './controllers/users';
+import MessagesController from './controllers/messages';
+import RoomsController from './controllers/rooms';
 
-const UsersController = require('./controllers/users');
-const MessagesController = require('./controllers/messages');
-const RoomsController = require('./controllers/rooms');
+const router = Router();
 
 router.get('/', (req, res) => res.send('Server Running'));
 
@@ -19,4 +20,4 @@ router.post('/api/rooms', RoomsController.create);
 router.delete('/api/rooms', RoomsController.delete);
 router.put('/api/rooms', RoomsController.update);
 
-module.exports = router;
+export default router;
