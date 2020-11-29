@@ -28,7 +28,10 @@ function Chat() {
   useEffect(_ => {
     if (!currentRoom._id) return;
 
-    getMessages(currentRoom._id).then(messages => setMessages(messages));
+    getMessages(currentRoom._id).then(messages => {
+      setMessages(messages);
+      setLoading(false); 
+    });
   }, [currentRoom]);
 
   useEffect(_ => {
@@ -88,7 +91,7 @@ function Chat() {
 
 
   return (
-    <ChatWrapper onLoad={() => setLoading(false)}>
+    <ChatWrapper>
       {!loading ?
         <>
           <SidebarContainer
