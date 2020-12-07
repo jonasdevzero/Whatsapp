@@ -45,7 +45,9 @@ Improvements:
 ## Gifs 
 
 <p align="center">Functionalities</p>
+<p align="center">
 <img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/gif.gif" alt="gif" align="center" />
+</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
