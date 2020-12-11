@@ -6,8 +6,8 @@
 
 * [About the Project](#about-the-project)
   * [Built With](#built-with)
-* [Deploy](#deploy)
-* [Gifs](#gifs) 
+* [Preview](#preview)
+* [Deploy](#deploy) 
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -35,19 +35,19 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 |[normalize](https://necolas.github.io/normalize.css/)|
 
 <!-- PRESENTATION -->
+<h2 align="center">Preview</h2> 
+
+<p align="center">Functionalities</p>
+<p align="center">
+<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/gif.gif" alt="gif" align="center" />
+</p>
+
 ## Deploy 
 
 ### WhatsApp 2.0 avaliable: https://whatsapp-devzero.vercel.app/
 Improvements:
 - Performance on Backend and Frontend
 - Styles adjustments
-
-## Gifs 
-
-<p align="center">Functionalities</p>
-<p align="center">
-<img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/gif.gif" alt="gif" align="center" />
-</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
