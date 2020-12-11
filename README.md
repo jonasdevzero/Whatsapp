@@ -36,8 +36,6 @@ access this video: https://www.youtube.com/watch?v=gzdQDxzW2Tw. This video conta
 
 <!-- PRESENTATION -->
 <h2 align="center">Preview</h2> 
-
-<p align="center">Functionalities</p>
 <p align="center">
 <img src="https://github.com/jonasdevzero/Media-Hub/blob/master/projects/whatsapp/gif.gif" alt="gif" align="center" />
 </p>
